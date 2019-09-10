@@ -8,6 +8,6 @@ namespace Passenger.Core.Domain
         
         public bool Revoke { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserEmail { get; set; }
     }
 }

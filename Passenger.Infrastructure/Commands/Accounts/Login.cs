@@ -1,9 +1,8 @@
 namespace Passenger.Infrastructure.Commands.Accounts
 {
-    public class ResfreshAcessToken : ICommand
+    public class Login : ICommand
     {
-        public string Token { get; set; }
-        
         public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

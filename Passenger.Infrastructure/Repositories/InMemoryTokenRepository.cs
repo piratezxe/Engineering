@@ -7,18 +7,13 @@ using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure.Repositories
 {
-    public class TokenRepository : ITokenRepository
+    public class InMemoryTokenRepository : ITokenRepository
     {
-        private readonly IList<RefreshToken> _refreshTokens;
+        private readonly ISet<RefreshToken> _refreshTokens = new HashSet<RefreshToken>();
 
-        public TokenRepository(IList<RefreshToken> refreshTokens)
+        public async Task<RefreshToken> GetTokneAsync(string email)
         {
-            _refreshTokens = refreshTokens;
-        }
-
-        public async Task<RefreshToken> GetTokneAsync(Guid userId)
-        {
-            return await Task.FromResult(_refreshTokens.SingleOrDefault(x => x.UserId == userId));
+            return await Task.FromResult(_refreshTokens.SingleOrDefault(x => x.UserEmail.Equals(email)));
         }
 
         public async Task<IEnumerable<RefreshToken>> BrowseAllAsync()
