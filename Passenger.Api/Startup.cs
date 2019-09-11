@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,13 +42,28 @@ namespace Passenger.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
+            services.AddAuthorization();
             services.AddAuthentication();
             services.AddMemoryCache();
             services.AddMvc();
             services.AddSwaggerToService();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
+
+            var key = Configuration.GetSettings<JwtSettings>().Key;
+            var issuer = Configuration.GetSettings<JwtSettings>().Issuer;
+            services.AddAuthentication(options => {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(cfg => {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                        ValidIssuer = issuer,
+                        ValidateAudience = false
+                    };
+                });
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
@@ -60,20 +76,7 @@ namespace Passenger.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
             ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
-            {
-                AutomaticAuthenticate = true,
-                TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-                }
-            });
+            app.UseAuthentication();
             app.AddSwaggerToApp();
             app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
