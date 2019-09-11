@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Accounts;
 using Passenger.Infrastructure.Extensions;
@@ -13,13 +14,14 @@ namespace Passenger.Infrastructure.Handlers.Accounts
         private readonly IUserService _userService;
         private readonly IJwtHandler _jwtHandler;
         private readonly IMemoryCache _cache;
-        
+        private readonly ITokenRepository _tokenRepository;
         public LoginHandler(IUserService userService, IJwtHandler jwtHandler,
-            IMemoryCache cache)
-        {
+            IMemoryCache cache, ITokenRepository tokenRepository)
+        {    
             _userService = userService;
             _jwtHandler = jwtHandler;
             _cache = cache;
+            _tokenRepository = tokenRepository;
         }
 
         public async Task HandleAsync(Login command)
@@ -27,7 +29,9 @@ namespace Passenger.Infrastructure.Handlers.Accounts
             await _userService.LoginAsync(command.Email, command.Password);
             var user = await _userService.GetAsync(command.Email);
             var jwt = _jwtHandler.CreateToken(command.Email, user.Role);
-            jwt.RefreshToken = _jwtHandler.CreateRefreshToken(user.Role, user.Email);
+            var refreshToken = _jwtHandler.CreateRefreshToken(user.Role, user.Email);
+            jwt.RefreshToken = refreshToken;
+            await _tokenRepository.CreateAsync(refreshToken);
             _cache.SetJwt(command.Email, jwt);
         }        
     }

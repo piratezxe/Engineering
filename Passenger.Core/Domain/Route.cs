@@ -7,8 +7,7 @@ namespace Passenger.Core.Domain
     {
         public Guid Id { get; protected set; }
 
-        public String Name { get; private set; }
-        
+        public String Name { get; private set; } 
         public Node StartNode { get; protected set; }
         public Node EndNode { get; protected set; }
 
@@ -27,5 +26,12 @@ namespace Passenger.Core.Domain
 
         public static Route Create(Node startnode, Node endnode, string name)
             => new Route(startnode, endnode, name);
+
+
+        public static string getNameFromNode (Node startNode, Node endNode)
+        {
+            return
+                $"Position start: x: {startNode.Latitude} y: {startNode.Longitude} End position: x: {endNode} y: {endNode}";
+        }
     }
 }

@@ -9,11 +9,12 @@ namespace Passenger.Infrastructure.Repositories
 {
     public class InMemoryTokenRepository : ITokenRepository
     {
-        private readonly ISet<RefreshToken> _refreshTokens = new HashSet<RefreshToken>();
+        private static ISet<RefreshToken> _refreshTokens = new HashSet<RefreshToken>();
 
-        public async Task<RefreshToken> GetTokneAsync(string email)
+        public async Task<RefreshToken> GetTokneAsync(string token)
         {
-            return await Task.FromResult(_refreshTokens.SingleOrDefault(x => x.UserEmail.Equals(email)));
+            var _token = await Task.FromResult(_refreshTokens.SingleOrDefault(x => x.Token == token));
+            return _token;
         }
 
         public async Task<IEnumerable<RefreshToken>> BrowseAllAsync()

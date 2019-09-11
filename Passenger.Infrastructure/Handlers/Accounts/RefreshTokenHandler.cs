@@ -20,7 +20,7 @@ namespace Passenger.Infrastructure.Handlers.Accounts
 
         public async Task HandleAsync(ResfreshAcessToken command)
         {
-            var token = await _tokenManager.RefreshAcessTokenAsync(command.Token);
+            var token = await _tokenManager.RefreshAcessTokenAsync(command.token);
             _memoryCache.Set(command.Email, token);
         }
     }

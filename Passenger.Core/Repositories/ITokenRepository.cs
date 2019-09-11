@@ -5,7 +5,7 @@ using Passenger.Core.Domain;
 
 namespace Passenger.Core.Repositories
 {
-    public interface ITokenRepository
+    public interface ITokenRepository : IRepository
     {
         Task<RefreshToken> GetTokneAsync(string token);
 

@@ -7,7 +7,6 @@ using Passenger.Infrastructure.Commands.Accounts;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Extensions;
-using Passenger.Infrastructure.Services;
 
 namespace Passenger.Api.Controllers
 {
@@ -42,18 +41,16 @@ namespace Passenger.Api.Controllers
             return NoContent();
         }
 
-        [Authorize]
-        [HttpPost("/tokens/{token}/refresh")]
-        public async Task<IActionResult> RefreshAcessToken(ResfreshAcessToken command)
+        [HttpPost("/tokens/refresh")]
+        public async Task<IActionResult> RefreshAcessToken([FromQuery]ResfreshAcessToken command)
         {
             await CommandDispatcher.DispatchAsync(command);
             
             var jwt = _cache.Get<JwtDto>(command.Email);
             return Json(jwt);
         }
-        [Authorize]
-        [HttpPost("/tokens/{token}/revoke")]
-        public async Task<IActionResult> RevokeRefreshToken(RevokeAcessToken command)
+        [HttpPost("/tokens/revoke")]
+        public async Task<IActionResult> RevokeRefreshToken([FromQuery] RevokeAcessToken command)
         {
             await CommandDispatcher.DispatchAsync(command);
 

@@ -26,6 +26,7 @@ namespace Passenger.Infrastructure.Services.JwtTokenService
             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
+                new Claim(ClaimTypes.Email, email),
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

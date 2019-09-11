@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace Passenger.Infrastructure.Commands.Accounts
 {
     public class ResfreshAcessToken : ICommand
     {
-        public string Token { get; set; }
-        
+        public string token { get; set; }
         public string Email { get; set; }
     }
 }

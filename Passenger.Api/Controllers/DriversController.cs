@@ -18,6 +18,14 @@ namespace Passenger.Api.Controllers
             await CommandDispatcher.DispatchAsync(command);
 
             return NoContent();
-        }        
+        } 
+        
+        [HttpPost("/addRoute")]
+        public async Task<IActionResult> Post([FromBody]AddDriverRoute command)
+        {
+            await CommandDispatcher.DispatchAsync(command);
+
+            return NoContent();
+        } 
     }
 }

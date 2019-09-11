@@ -5,7 +5,7 @@ namespace Passenger.Infrastructure.Services.DriverService
 {
     public interface IDriverRouteService : IService
     {
-        Task AddRouteAsync(Guid userId, double startLatitude, double endLatitude, double startLongitude, double endLongitude, string startNodeAdress, string endNodeAdress, string routeAdress);
+        Task AddRouteAsync(string userEmail, double startLatitude, double endLatitude, double startLongitude, double endLongitude, string startNodeAdress, string endNodeAdress, string routeAdress);
 
         Task RemoveAsync(string name, Guid driverId);
 

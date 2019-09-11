@@ -1,5 +1,7 @@
 using System.Reflection;
 using Autofac;
+using Microsoft.AspNetCore.Http;
+using Passenger.Core.Domain;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.JwtTokenService;
 
@@ -25,6 +27,11 @@ namespace Passenger.Infrastructure.IoC.Modules
             builder.RegisterType<JwtHandler>()
                    .As<IJwtHandler>()
                    .SingleInstance();
+            
+            builder.RegisterType<NodeManager>()
+                .As<INodeManager>()
+                .SingleInstance();
+
         }
     }
 }
