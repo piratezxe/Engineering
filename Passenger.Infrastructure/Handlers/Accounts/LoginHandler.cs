@@ -28,8 +28,8 @@ namespace Passenger.Infrastructure.Handlers.Accounts
         {
             await _userService.LoginAsync(command.Email, command.Password);
             var user = await _userService.GetAsync(command.Email);
-            var jwt = _jwtHandler.CreateToken(command.Email, user.Role);
-            var refreshToken = _jwtHandler.CreateRefreshToken(user.Role, user.Email);
+            var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
+            var refreshToken = _jwtHandler.CreateRefreshToken(user.Role, user.Id);
             jwt.RefreshToken = refreshToken;
             await _tokenRepository.CreateAsync(refreshToken);
             _cache.SetJwt(command.Email, jwt);

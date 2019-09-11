@@ -4,11 +4,13 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Passenger.Core.Domain;
 using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.Settings;
+using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
 namespace Passenger.Infrastructure.Services.JwtTokenService
 {
@@ -21,13 +23,14 @@ namespace Passenger.Infrastructure.Services.JwtTokenService
             _settings = settings;
         }
 
-        public JwtDto CreateToken(string email, string role)
+        public JwtDto CreateToken(Guid userId, string role)
         {
             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
-                new Claim(ClaimTypes.Email, email),
-                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString(), ClaimValueTypes.Integer64)
@@ -52,7 +55,7 @@ namespace Passenger.Infrastructure.Services.JwtTokenService
             };
         }
 
-        public RefreshToken CreateRefreshToken(string role, string email)
+        public RefreshToken CreateRefreshToken(string role, Guid userId)
         {
             var randomNumber = new byte[32];
             string token;
@@ -64,7 +67,7 @@ namespace Passenger.Infrastructure.Services.JwtTokenService
             return new RefreshToken
             {
                 Token = token,
-                UserEmail = email,
+                UserId = userId,
                 Revoke = false
             };
         }

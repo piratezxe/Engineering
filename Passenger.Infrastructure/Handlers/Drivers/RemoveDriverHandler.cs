@@ -1,25 +1,22 @@
-using System;
 using System.Threading.Tasks;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Drivers;
-using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.DriverService;
 
 namespace Passenger.Infrastructure.Handlers.Drivers
 {
-    public class CreateDriverHandler : ICommandHandler<CreateDriver>
+    public class RemoveDriverHandler : ICommandHandler<RemoveDriver>
     {
         private readonly IDriverService _driverService;
 
-        public CreateDriverHandler(IDriverService driverService)
+        public RemoveDriverHandler(IDriverService driverService)
         {
             _driverService = driverService;
         }
 
-        public async Task HandleAsync(CreateDriver command)
+        public async Task HandleAsync(RemoveDriver command)
         {
-            await _driverService.CreateAsync(command.UserId);
-            var vehickle = command.Vehicle;
+            await _driverService.RemoveAsync(command.UserId);
         }
     }
 }

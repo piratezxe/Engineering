@@ -17,12 +17,12 @@ namespace Passenger.Infrastructure.Services.DriverService
             _userRepository = userRepository;
         }
 
-        public async Task AddRouteAsync(string email, double startLatitude, double endLatitude, double startLongitude, double endLongitude,
+        public async Task AddRouteAsync(Guid userId, double startLatitude, double endLatitude, double startLongitude, double endLongitude,
             string startNodeAddress, string endNodeAdress, string routeAdress)
         {
-            var user = await _userRepository.GetAsyncByEmail(email);
+            var user = await _userRepository.GetAsync(userId);
             if(user is null)
-                throw new ArgumentException($"User with {email} not exist");
+                throw new ArgumentException($"User with {userId} not exist");
             
             var driver = await _driverRepository.GetAsync(user.Id);
             if(driver is null)

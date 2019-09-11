@@ -41,12 +41,12 @@ namespace Passenger.Infrastructure.Services.JwtTokenService
             if(refreshToken.Revoke)
                 throw new ArithmeticException("Token is already revoked");
 
-            var email = refreshToken.UserEmail;
-            var user = await _userRepository.GetAsyncByEmail(email);
+            var userId = refreshToken.UserId;
+            var user = await _userRepository.GetAsync(userId);
             if(user is null)
-                throw new ArgumentException($"User with {email} not exist");
+                throw new ArgumentException($"User with {userId} not exist");
             
-            var acessToken = _jwtHandler.CreateToken(email, user.Role);
+            var acessToken = _jwtHandler.CreateToken(userId, user.Role);
             acessToken.RefreshToken = refreshToken;
             return acessToken;
         }

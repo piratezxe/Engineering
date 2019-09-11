@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -43,15 +44,27 @@ namespace Passenger.Infrastructure.Services.DriverService
             await _driverRepository.AddAsync(_driver);
         }
 
-        public async Task<IEnumerable<Driver>> BrowseAsync()
-            => await _driverRepository.GetAllAsync();
+        public async Task<IEnumerable<DriverDto>> BrowseAsync()
+        {
+            var drivers = await _driverRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDto>>(drivers);
+        }
+
+        public async Task SetVehickle(Guid userId, string brand, string name, int seats)
+        {
+            var driver = await _driverRepository.GetAsync(userId);
+            
+            if(driver is null)
+                throw new ArgumentException($"Driver with ${userId} not exist");
+            
+            //check detail from vehickle provider later
+
+            var vehickle = Vehicle.Create(brand, name, seats);
+            driver.SetVehickle(vehickle);
+        }
 
         public async Task RemoveAsync(Guid userId)
         {
-            var user = _userRepository.GetAsync(userId);
-            if (user is null)
-                throw new ArgumentException($"User with userId {userId} not exist");
-
             var driver = await _driverRepository.GetAsync(userId);
             if (driver == null)
                 throw new ArgumentException($"Driver with Id: {userId} not exist");

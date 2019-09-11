@@ -27,15 +27,14 @@ namespace Passenger.Infrastructure.Handlers.Drivers
 
         public async Task HandleAsync(AddDriverRoute command)
         {
-            var userEmail = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-            var role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var startNodeAdress = await _nodeManager.GetAdrressAsync(command.StartLatitude, command.StartLongitude);
             var endNodeAdress = await _nodeManager.GetAdrressAsync(command.StartLatitude, command.StartLongitude);            
             var routeAdress = await _nodeManager.GetRouteAdrressAsync(command.StartLatitude, command.StartLongitude,
                 command.EndLatitude, command.EndLongitude);
             
-            await _driverRouteService.AddRouteAsync(userEmail, command.StartLatitude, command.EndLatitude,
+            await _driverRouteService.AddRouteAsync(new Guid(userId), command.StartLatitude, command.EndLatitude,
                 command.StartLongitude, command.EndLongitude, startNodeAdress, endNodeAdress, routeAdress);
         }
     }

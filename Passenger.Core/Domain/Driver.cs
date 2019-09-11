@@ -56,5 +56,10 @@ namespace Passenger.Core.Domain
             _routes.Remove(route);
             UpdatedAt = DateTime.UtcNow;
         }
+
+        public void SetVehickle(Vehicle vehicle)
+        {
+            Vehicle = vehicle;
+        }
     }
 }

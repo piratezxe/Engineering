@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -8,17 +10,16 @@ namespace Passenger.Infrastructure.Extensions
     {
         public static void AddSwaggerToService(this IServiceCollection service)
         {
-            service.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-                
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
+            service.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info { Title = "You api title", Version = "v1" });
+                c.AddSecurityDefinition("Bearer",
+                    new ApiKeyScheme { In = "header",
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT", 
+                        Name = "Authorization", Type = "apiKey" });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                    { "Bearer", Enumerable.Empty<string>() },
                 });
+
             });
         }
 
