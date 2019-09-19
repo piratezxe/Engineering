@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>Passenger.Api</AssemblyName>
+    <AssemblyName>EngineeringWork.Api</AssemblyName>
     <OutputType>WinExe</OutputType>
     <PackageId>Passenger.Api</PackageId>
     <!-- <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion> -->
