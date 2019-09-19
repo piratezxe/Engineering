@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EngineeringWork.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
@@ -37,25 +38,17 @@ namespace Passenger.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateDriver command)
         {
-            await CommandDispatcher.DispatchAsync(command);
-
-            return NoContent();
-        } 
-        
-        [Authorize]
-        [HttpPost("/addRoute")]
-        public async Task<IActionResult> Post([FromBody]AddDriverRoute command)
-        {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return NoContent();
         }
+        
         //remove me
         [Authorize]
         [HttpDelete]
         public async Task<IActionResult> Delete()
         {
-            await CommandDispatcher.DispatchAsync(new RemoveDriver());
+            await DispatchAsync(new RemoveDriver());
 
             return NoContent();
         }

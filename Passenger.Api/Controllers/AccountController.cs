@@ -2,13 +2,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Passenger.Api.Controllers;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Accounts;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.DTO;
 using Passenger.Infrastructure.Extensions;
 
-namespace Passenger.Api.Controllers
+namespace EngineeringWork.Web.Controllers
 {
     public class AccountController : ApiControllerBase
     {
@@ -25,7 +26,7 @@ namespace Passenger.Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Post([FromBody]Login command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             var jwt = _cache.GetJwt(command.Email);
 
             return Json(jwt);
@@ -36,7 +37,7 @@ namespace Passenger.Api.Controllers
         [Route("password")]
         public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return NoContent();
         }
@@ -44,7 +45,7 @@ namespace Passenger.Api.Controllers
         [HttpPost("/tokens/refresh")]
         public async Task<IActionResult> RefreshAcessToken([FromQuery]ResfreshAcessToken command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             
             var jwt = _cache.Get<JwtDto>(command.Email);
             return Json(jwt);
@@ -52,7 +53,7 @@ namespace Passenger.Api.Controllers
         [HttpPost("/tokens/revoke")]
         public async Task<IActionResult> RevokeRefreshToken([FromQuery] RevokeAcessToken command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return NoContent();
         }

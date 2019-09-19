@@ -5,7 +5,7 @@ using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.Services;
 
-namespace Passenger.Api.Controllers
+namespace EngineeringWork.Web.Controllers
 {
     public class UsersController : ApiControllerBase
     {
@@ -45,7 +45,7 @@ namespace Passenger.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateUser command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
 
             return Created($"users/{command.Email}", new object());
         }
