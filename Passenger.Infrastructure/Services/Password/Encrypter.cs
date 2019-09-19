@@ -1,10 +1,8 @@
 using System;
-using System.IO;
 using System.Security.Cryptography;
-using System.Text;
 using Passenger.Infrastructure.Extensions;
 
-namespace Passenger.Infrastructure.Services
+namespace Passenger.Infrastructure.Services.Password
 {
     public class Encrypter : IEncrypter
     {

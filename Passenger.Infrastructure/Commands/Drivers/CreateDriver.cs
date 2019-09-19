@@ -1,10 +1,10 @@
 using System;
+using Passenger.Infrastructure.Commands.Auth;
 
 namespace Passenger.Infrastructure.Commands.Drivers
 {
-    public class CreateDriver : ICommand
+    public class CreateDriver : AuthCommandBase
     {
-        public Guid UserId { get; set; }
         public DriverVehicle Vehicle { get; set; }
         public class DriverVehicle 
         {

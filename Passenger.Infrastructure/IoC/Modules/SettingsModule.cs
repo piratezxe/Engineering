@@ -19,7 +19,9 @@ namespace Passenger.Infrastructure.IoC.Modules
             builder.RegisterInstance(_configuration.GetSettings<GeneralSettings>())
                    .SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
-                   .SingleInstance();                
+                   .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<DatabaseSettings>())
+                    .SingleInstance();
         }  
     }
 }

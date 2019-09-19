@@ -29,6 +29,13 @@ namespace Passenger.Infrastructure.Services
             return _mapper.Map<User,UserDto>(user);
         }
 
+        public async Task<UserDto> GetAsyncById(Guid userId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+
+            return _mapper.Map<User,UserDto>(user);
+        }
+
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
             var users = await _userRepository.GetAllAsync();
@@ -61,7 +68,7 @@ namespace Passenger.Infrastructure.Services
             user.SetPassword(hash);
         }
 
-        public async Task RegisterAsync(string email, string username, string password, string role)
+        public async Task RegisterAsync(Guid userId, string email, string username, string password, string role)
         {
             var user = await _userRepository.GetAsyncByEmail(email);
             if(user != null)
@@ -71,7 +78,7 @@ namespace Passenger.Infrastructure.Services
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
-            user = new User(email, username, role, hash, salt);
+            user = new User(userId, email, username, role, hash, salt);
             await _userRepository.AddAsync(user);
         }
     }

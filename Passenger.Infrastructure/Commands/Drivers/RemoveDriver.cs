@@ -1,10 +1,9 @@
 using System;
+using Passenger.Infrastructure.Commands.Auth;
 
 namespace Passenger.Infrastructure.Commands.Drivers
 {
-    public class RemoveDriver : ICommand
+    public class RemoveDriver : AuthCommandBase
     {
-        public Guid UserId { get; set; }
-
     }
 }

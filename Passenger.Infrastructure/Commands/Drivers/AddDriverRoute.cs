@@ -1,8 +1,9 @@
 using System;
+using Passenger.Infrastructure.Commands.Auth;
 
 namespace Passenger.Infrastructure.Commands.Drivers
 {
-    public class AddDriverRoute : ICommand
+    public class AddDriverRoute : AuthCommandBase
     {
         public double StartLatitude { get; set; }
         
@@ -12,7 +13,6 @@ namespace Passenger.Infrastructure.Commands.Drivers
         
         public double EndLongitude { get; set; }
         
-        public string Name { get; set; }
-        
+        public DateTime StartTime { get; set; }
     }
 }

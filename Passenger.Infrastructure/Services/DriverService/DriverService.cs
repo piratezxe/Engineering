@@ -13,13 +13,11 @@ namespace Passenger.Infrastructure.Services.DriverService
     {
         private readonly IDriverRepository _driverRepository;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
 
-        public DriverService(IDriverRepository driverRepository, IMapper mapper, IUserRepository userRepository)
+        public DriverService(IDriverRepository driverRepository, IMapper mapper)
         {
             _driverRepository = driverRepository;
             _mapper = mapper;
-            _userRepository = userRepository;
         }
 
         public async Task<DriverDto> GetAsync(Guid userId)
@@ -31,14 +29,9 @@ namespace Passenger.Infrastructure.Services.DriverService
 
         public async Task CreateAsync(Guid userId)
         {
-            var user = _userRepository.GetAsync(userId);
-
-            if (user is null)
-                throw new ArgumentException($"User with userId {userId} not exist");
-
-            var driver = _driverRepository.GetAsync(userId);
+            var driver = await _driverRepository.GetAsync(userId);
             if(driver !=  null)
-                throw new ArgumentException($"Driver with Id: {userId} not exist");
+                throw new ArgumentException($"Driver with Id: {userId} actual exist");
 
             var _driver = new Driver(userId);
             await _driverRepository.AddAsync(_driver);
@@ -61,12 +54,13 @@ namespace Passenger.Infrastructure.Services.DriverService
 
             var vehickle = Vehicle.Create(brand, name, seats);
             driver.SetVehickle(vehickle);
+            await _driverRepository.UpdateAsync(driver);
         }
 
         public async Task RemoveAsync(Guid userId)
         {
             var driver = await _driverRepository.GetAsync(userId);
-            if (driver == null)
+            if (driver is null)
                 throw new ArgumentException($"Driver with Id: {userId} not exist");
 
             await _driverRepository.RemoveAsync(driver);

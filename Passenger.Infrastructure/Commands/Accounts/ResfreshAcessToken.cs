@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 
 namespace Passenger.Infrastructure.Commands.Accounts
 {

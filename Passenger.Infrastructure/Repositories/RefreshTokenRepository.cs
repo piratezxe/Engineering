@@ -1,31 +1,32 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 
 namespace Passenger.Infrastructure.Repositories
 {
-    public class InMemoryTokenRepository : ITokenRepository
+    public class RefreshTokenRepository : ITokenRepository
     {
-        private static ISet<RefreshToken> _refreshTokens = new HashSet<RefreshToken>();
+        private readonly ITokenRepository _tokenRepository;
+
+        public RefreshTokenRepository(ITokenRepository tokenRepository)
+        {
+            _tokenRepository = tokenRepository;
+        }
 
         public async Task<RefreshToken> GetTokneAsync(string token)
         {
-            var _token = await Task.FromResult(_refreshTokens.SingleOrDefault(x => x.Token == token));
-            return _token;
+            return await _tokenRepository.GetTokneAsync(token);
         }
 
         public async Task<IEnumerable<RefreshToken>> BrowseAllAsync()
         {
-            return await Task.FromResult(_refreshTokens);
+            return await _tokenRepository.BrowseAllAsync();
         }
 
         public async Task CreateAsync(RefreshToken refreshToken)
         {
-            _refreshTokens.Add(refreshToken);
-            await Task.CompletedTask;
+            await _tokenRepository.CreateAsync(refreshToken);
         }
     }
 }

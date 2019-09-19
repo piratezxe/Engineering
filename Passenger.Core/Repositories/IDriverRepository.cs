@@ -10,7 +10,6 @@ namespace Passenger.Core.Repositories
         Task<Driver> GetAsync(Guid userId); 
         Task<IEnumerable<Driver>> GetAllAsync();
         Task RemoveAsync(Driver driver);
-
         Task AddAsync(Driver driver);
         Task UpdateAsync(Driver driver);
     }

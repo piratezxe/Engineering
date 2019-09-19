@@ -6,6 +6,7 @@ using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Drivers;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.DriverService;
+using Passenger.Infrastructure.Services.NodeService;
 
 namespace Passenger.Infrastructure.Handlers.Drivers
 {
@@ -13,29 +14,21 @@ namespace Passenger.Infrastructure.Handlers.Drivers
     {
         private readonly IDriverRouteService _driverRouteService;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         private readonly INodeManager _nodeManager;
 
         
-        public AddDriverRouteHandler(IDriverRouteService driverRouteService, IHttpContextAccessor httpContextAccessor, INodeManager nodeManager)
+        public AddDriverRouteHandler(IDriverRouteService driverRouteService, INodeManager nodeManager)
         {
             _driverRouteService = driverRouteService;
-            _httpContextAccessor = httpContextAccessor;
             _nodeManager = nodeManager;
         }
 
         public async Task HandleAsync(AddDriverRoute command)
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var startNodeAdress = await _nodeManager.GetAdrressAsync(command.StartLatitude, command.StartLongitude);
-            var endNodeAdress = await _nodeManager.GetAdrressAsync(command.StartLatitude, command.StartLongitude);            
-            var routeAdress = await _nodeManager.GetRouteAdrressAsync(command.StartLatitude, command.StartLongitude,
-                command.EndLatitude, command.EndLongitude);
-            
-            await _driverRouteService.AddRouteAsync(new Guid(userId), command.StartLatitude, command.EndLatitude,
-                command.StartLongitude, command.EndLongitude, startNodeAdress, endNodeAdress, routeAdress);
+            await _driverRouteService.AddRouteAsync(Guid.NewGuid(), command.UserId, command.StartLatitude, command.EndLatitude,
+                command.StartLongitude, command.EndLongitude, command.StartTime);
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Drivers;
-using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.DriverService;
 
 namespace Passenger.Infrastructure.Handlers.Drivers
@@ -20,6 +19,7 @@ namespace Passenger.Infrastructure.Handlers.Drivers
         {
             await _driverService.CreateAsync(command.UserId);
             var vehickle = command.Vehicle;
+            await _driverService.SetVehickle(command.UserId, vehickle.Brand, vehickle.Name, vehickle.Seats);
         }
     }
 }

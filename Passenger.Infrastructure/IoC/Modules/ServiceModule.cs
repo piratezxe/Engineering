@@ -2,8 +2,11 @@ using System.Reflection;
 using Autofac;
 using Microsoft.AspNetCore.Http;
 using Passenger.Core.Domain;
+using Passenger.Infrastructure.Seed;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.JwtTokenService;
+using Passenger.Infrastructure.Services.NodeService;
+using Passenger.Infrastructure.Services.Password;
 
 namespace Passenger.Infrastructure.IoC.Modules
 {
@@ -30,6 +33,10 @@ namespace Passenger.Infrastructure.IoC.Modules
             
             builder.RegisterType<NodeManager>()
                 .As<INodeManager>()
+                .SingleInstance();
+
+            builder.RegisterType<SeedData>()
+                .As<ISeedData>()
                 .SingleInstance();
 
         }

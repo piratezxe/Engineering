@@ -6,20 +6,19 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Passenger.Core.Repositories;
+using Passenger.Core.Database;
+using Passenger.Core.Domain;
 using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.IoC;
-using Passenger.Infrastructure.IoC.Modules;
-using Passenger.Infrastructure.Mappers;
-using Passenger.Infrastructure.Repositories;
-using Passenger.Infrastructure.Services;
+using Passenger.Infrastructure.Seed;
 using Passenger.Infrastructure.Settings;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace Passenger.Api
 {
@@ -27,6 +26,7 @@ namespace Passenger.Api
     {
         public IConfigurationRoot Configuration { get; }
         public IContainer ApplicationContainer { get; private set; }
+
 
         public Startup(IHostingEnvironment env)
         {
@@ -48,27 +48,22 @@ namespace Passenger.Api
             services.AddMvc();
             services.AddSwaggerToService();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            
             var key = Configuration.GetSettings<JwtSettings>().Key;
             var issuer = Configuration.GetSettings<JwtSettings>().Issuer;
-            services.AddAuthentication(options => {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(cfg => {
-                    cfg.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-                        ValidIssuer = issuer,
-                        ValidateAudience = false
-                    };
-                });
-
+            var database = Configuration.GetSettings<DatabaseSettings>().ConnectionString;
+            
+            services.AddJwtConfiguration(key, issuer);
+            services.AddDbContext<PassengerContext>(options =>
+                {
+                    options.UseSqlServer(database, x => x.MigrationsAssembly("EngineeringWork.Api"));
+                });    
+            
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
-
+            
             return new AutofacServiceProvider(ApplicationContainer);
         }
 
@@ -76,9 +71,11 @@ namespace Passenger.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
             ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
         {
+
             app.UseAuthentication();
             app.AddSwaggerToApp();
             app.UseMvc();
+            app.ApplicationServices.GetService<ISeedData>().Init();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
