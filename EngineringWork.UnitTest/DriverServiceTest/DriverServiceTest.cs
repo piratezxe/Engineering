@@ -9,7 +9,6 @@ namespace EngineringWork.UnitTest.DriverServiceTest
 {
     public class DriverServiceTest
     {
-
         public async Task when_add_driver_should_add_driver_to_repository_async()
         {
         }
