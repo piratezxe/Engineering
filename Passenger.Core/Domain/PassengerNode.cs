@@ -1,9 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Passenger.Core.Domain
 {
     public class PassengerNode
     {
+        [Key]
+        public Guid Id { get; set; }
         public Node Node { get; protected set; }
         public Passenger Passenger { get; protected set; }
 

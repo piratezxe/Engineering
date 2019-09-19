@@ -7,7 +7,7 @@ namespace Passenger.Core.Domain
     {
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
 
-        public Guid Id { get; protected set; }
+        public Guid Id { get; private set; }
         public string Email { get; protected set; }
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
@@ -21,10 +21,10 @@ namespace Passenger.Core.Domain
         {
         }
 
-        public User(string email, string username, string role, 
+        public User(Guid id, string email, string username, string role, 
             string password, string salt)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             Email = email.ToLowerInvariant();
             Username = username;
             Role = role;

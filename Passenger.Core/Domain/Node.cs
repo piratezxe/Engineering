@@ -1,10 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace Passenger.Core.Domain
 {
     public class Node
     {
+        [Key]
+        public Guid Id { get; set; }
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
         public string Address { get; protected set; }
         public double Longitude { get; protected set; }
@@ -15,6 +18,12 @@ namespace Passenger.Core.Domain
         {
         }
 
+        public static bool operator == (Node startNode, Node endNode)
+            => (startNode.Latitude, startNode.Longitude) == (endNode.Latitude, endNode.Longitude) ? true : false;
+
+        public static bool operator !=(Node startNode, Node endNode)
+            => !(startNode == endNode);
+
         protected Node(string address, double longitude, double latitude) 
         {
             SetAdress(address);
@@ -24,10 +33,10 @@ namespace Passenger.Core.Domain
 
         public void SetAdress(string address) 
         {
-            if(!NameRegex.IsMatch(address))
-            {
-                throw new Exception("Adress is invalid.");
-            }
+//            if(!NameRegex.IsMatch(address))
+//            {
+//                throw new Exception("Adress is invalid.");
+//            }
 
             Address = address;
             UpdatedAt = DateTime.UtcNow;

@@ -6,14 +6,26 @@ namespace Passenger.Core.Domain
 {
     public class DailyRoute
     {
+        public Guid DriverId { get; set; }
+        
+        public Guid Id { get; set; }
+        public DateTime DateTime { get; protected set; }
+        
         private ISet<PassengerNode> _passengerNodes = new HashSet<PassengerNode>();
-        public Guid Id { get; protected set; }
+        
         public Route Route { get; protected set; }
+        
         public IEnumerable<PassengerNode> PassengerNodes => _passengerNodes;
 
-        protected DailyRoute()
+        public DailyRoute()
         {
-            Id = Guid.NewGuid();
+        }
+        
+        protected DailyRoute(DateTime dateTime, Route route, Guid id)
+        {
+            Id = id;
+            Route = route;
+            DateTime = dateTime;
         }
 
         public void AddPassengerNode(Passenger passenger, Node node)
@@ -29,7 +41,7 @@ namespace Passenger.Core.Domain
         public void RemovePassengerNode(Passenger passenger)
         {
             var passengerNode = GetPassengerNode(passenger);
-            if(passengerNode == null)
+            if(passengerNode is null)
             {
                 return;
             }
@@ -38,5 +50,8 @@ namespace Passenger.Core.Domain
 
         private PassengerNode GetPassengerNode(Passenger passenger)
             => _passengerNodes.SingleOrDefault(x => x.Passenger.UserId == passenger.UserId);
+
+        public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id)
+            => new DailyRoute(dateTime, route,  Id);
     }
 }

@@ -1,37 +1,27 @@
 using System;
-using System.Collections.Generic;
 
 namespace Passenger.Core.Domain
 {
     public class Route
     {
-        public Guid Id { get; protected set; }
-
-        public String Name { get; private set; } 
+        public Guid Id { get; set; }
         public Node StartNode { get; protected set; }
         public Node EndNode { get; protected set; }
-
-        protected Route(string name)
+        
+        protected Route()
         {
-            Name = name;
-            Id = Guid.NewGuid();
+            
         }
 
-        protected Route(Node startnode, Node endnode, string name)
+        protected Route(Node startnode, Node endnode)
         {
             StartNode = startnode;
             EndNode = endnode;
-            Name = name;
+            
         }
 
-        public static Route Create(Node startnode, Node endnode, string name)
-            => new Route(startnode, endnode, name);
+        public static Route Create(Node startnode, Node endnode)
+            => new Route(startnode, endnode);
 
-
-        public static string getNameFromNode (Node startNode, Node endNode)
-        {
-            return
-                $"Position start: x: {startNode.Latitude} y: {startNode.Longitude} End position: x: {endNode} y: {endNode}";
-        }
     }
 }
