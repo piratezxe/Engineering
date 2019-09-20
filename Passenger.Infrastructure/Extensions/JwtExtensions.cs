@@ -1,9 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Passenger.Infrastructure.Settings;
 
 namespace Passenger.Infrastructure.Extensions
 {
