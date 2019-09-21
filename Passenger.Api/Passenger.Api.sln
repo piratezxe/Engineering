@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EngineeringWork.Core", "..\EngineeringWork.Core\EngineeringWork.Core.csproj", "{268550E1-DF6E-4D8D-B695-8B78C73E4D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Passenger.Core", "..\Passenger.Core\Passenger.Core.csproj", "{268550E1-DF6E-4D8D-B695-8B78C73E4D7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EngineeringWork.Infrastructure", "..\EngineeringWork.Infrastructure\EngineeringWork.Infrastructure.csproj", "{6D443777-BF9C-44A1-B76B-46AFC493B1FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Passenger.Infrastructure", "..\Passenger.Infrastructure\Passenger.Infrastructure.csproj", "{6D443777-BF9C-44A1-B76B-46AFC493B1FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EngineringWork.UnitTest", "..\EngineringWork.UnitTest\EngineringWork.UnitTest.csproj", "{46334812-9976-486B-BD1B-43DA94BF949B}"
 EndProject
