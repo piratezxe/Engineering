@@ -16,7 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Passenger.Infrastructure\Passenger.Infrastructure.csproj" />
+    <Folder Include="ServiceTest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EngineeringWork.Infrastructure\EngineeringWork.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
