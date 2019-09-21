@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Users;
 using Passenger.Infrastructure.Services;
+using Passenger.Infrastructure.Services.UserService;
 
 namespace EngineeringWork.Web.Controllers
 {
