@@ -19,8 +19,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../Passenger.Infrastructure/Passenger.Infrastructure.csproj" />
-    <ProjectReference Include="..\Passenger.Core\Passenger.Core.csproj" />
+    <ProjectReference Include="..\EngineeringWork.Core\EngineeringWork.Core.csproj" />
+    <ProjectReference Include="..\EngineeringWork.Infrastructure\EngineeringWork.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="netstandard" />

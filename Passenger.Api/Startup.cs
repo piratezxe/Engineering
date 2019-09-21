@@ -10,13 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Passenger.Core.Database;
-using Passenger.Core.Domain;
 using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.IoC;
 using Passenger.Infrastructure.Seed;
 using Passenger.Infrastructure.Settings;
 
-namespace Passenger.Api
+namespace EngineeringWork.Web
 {
     public class Startup
     {
