@@ -29,9 +29,14 @@ namespace Passenger.Api.Controllers
         }
         
         [HttpGet]
-        public async Task<IEnumerable<DriverDto>> GetAll()
+        public async Task<JsonResult> GetAll()
         {
-            return await _driverService.BrowseAsync();
+            var drivers = await _driverService.BrowseAsync();
+            if (drivers == null)
+            {
+            }
+            var json = Json(drivers);
+            return json;
         }
         
         [Authorize]

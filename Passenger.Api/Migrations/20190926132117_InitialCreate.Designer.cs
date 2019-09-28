@@ -10,7 +10,7 @@ using Passenger.Core.Database;
 namespace EngineeringWork.Web.Migrations
 {
     [DbContext(typeof(PassengerContext))]
-    [Migration("20190919114146_InitialCreate")]
+    [Migration("20190926132117_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,47 +21,41 @@ namespace EngineeringWork.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.DailyRoute", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.DailyRoute", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("DailyRouteId");
+
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<Guid>("DriverId");
-
-                    b.Property<Guid?>("RouteId");
+                    b.Property<Guid?>("DriverId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DriverId");
 
-                    b.HasIndex("RouteId");
-
                     b.ToTable("DailyRoutes");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Driver", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Driver", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("DriverId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<Guid>("UserId");
-
                     b.Property<Guid?>("VehicleId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("DriverId");
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Driver");
+                    b.ToTable("Drivers");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Node", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Node", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -79,7 +73,7 @@ namespace EngineeringWork.Web.Migrations
                     b.ToTable("Node");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Passenger", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Passenger", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -95,7 +89,7 @@ namespace EngineeringWork.Web.Migrations
                     b.ToTable("Passenger");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerNode", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.PassengerNode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -117,7 +111,7 @@ namespace EngineeringWork.Web.Migrations
                     b.ToTable("PassengerNode");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.RefreshToken", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -130,19 +124,24 @@ namespace EngineeringWork.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshToken");
+                    b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Route", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Route", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("RouteId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("DailyRouteId");
 
                     b.Property<Guid?>("EndNodeId");
 
                     b.Property<Guid?>("StartNodeId");
 
-                    b.HasKey("Id");
+                    b.HasKey("RouteId");
+
+                    b.HasIndex("DailyRouteId")
+                        .IsUnique();
 
                     b.HasIndex("EndNodeId");
 
@@ -151,7 +150,7 @@ namespace EngineeringWork.Web.Migrations
                     b.ToTable("Route");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.User", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -174,10 +173,10 @@ namespace EngineeringWork.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Vehicle", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -193,59 +192,54 @@ namespace EngineeringWork.Web.Migrations
                     b.ToTable("Vehicle");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.DailyRoute", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.DailyRoute", b =>
                 {
-                    b.HasOne("EngineeringWork.Core.Domain.Driver")
+                    b.HasOne("Passenger.Core.Domain.Driver", "Driver")
                         .WithMany("DailyRoutes")
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EngineeringWork.Core.Domain.Route", "Route")
-                        .WithMany()
-                        .HasForeignKey("RouteId");
+                        .HasForeignKey("DriverId");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Driver", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Driver", b =>
                 {
-                    b.HasOne("EngineeringWork.Core.Domain.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EngineeringWork.Core.Domain.Vehicle", "Vehicle")
+                    b.HasOne("Passenger.Core.Domain.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Passenger", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Passenger", b =>
                 {
-                    b.HasOne("EngineeringWork.Core.Domain.Node", "Address")
+                    b.HasOne("Passenger.Core.Domain.Node", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerNode", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.PassengerNode", b =>
                 {
-                    b.HasOne("EngineeringWork.Core.Domain.DailyRoute")
+                    b.HasOne("Passenger.Core.Domain.DailyRoute", "DailyRoute")
                         .WithMany("PassengerNodes")
                         .HasForeignKey("DailyRouteId");
 
-                    b.HasOne("EngineeringWork.Core.Domain.Node", "Node")
+                    b.HasOne("Passenger.Core.Domain.Node", "Node")
                         .WithMany()
                         .HasForeignKey("NodeId");
 
-                    b.HasOne("EngineeringWork.Core.Domain.Passenger", "Passenger")
+                    b.HasOne("Passenger.Core.Domain.Passenger", "Passenger")
                         .WithMany()
                         .HasForeignKey("PassengerId");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Route", b =>
+            modelBuilder.Entity("Passenger.Core.Domain.Route", b =>
                 {
-                    b.HasOne("EngineeringWork.Core.Domain.Node", "EndNode")
+                    b.HasOne("Passenger.Core.Domain.DailyRoute", "DailyRoute")
+                        .WithOne("Route")
+                        .HasForeignKey("Passenger.Core.Domain.Route", "DailyRouteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Passenger.Core.Domain.Node", "EndNode")
                         .WithMany()
                         .HasForeignKey("EndNodeId");
 
-                    b.HasOne("EngineeringWork.Core.Domain.Node", "StartNode")
+                    b.HasOne("Passenger.Core.Domain.Node", "StartNode")
                         .WithMany()
                         .HasForeignKey("StartNodeId");
                 });

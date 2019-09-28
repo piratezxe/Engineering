@@ -23,7 +23,7 @@ namespace EngineeringWork.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RefreshToken",
+                name: "RefreshTokens",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -33,11 +33,11 @@ namespace EngineeringWork.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -52,7 +52,7 @@ namespace EngineeringWork.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,50 +89,18 @@ namespace EngineeringWork.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Route",
+                name: "Drivers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    StartNodeId = table.Column<Guid>(nullable: true),
-                    EndNodeId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Route", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Route_Node_EndNodeId",
-                        column: x => x.EndNodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Route_Node_StartNodeId",
-                        column: x => x.StartNodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Driver",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
+                    DriverId = table.Column<Guid>(nullable: false),
                     VehicleId = table.Column<Guid>(nullable: true),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Driver", x => x.Id);
+                    table.PrimaryKey("PK_Drivers", x => x.DriverId);
                     table.ForeignKey(
-                        name: "FK_Driver_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Driver_Vehicle_VehicleId",
+                        name: "FK_Drivers_Vehicle_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicle",
                         principalColumn: "Id",
@@ -144,24 +112,18 @@ namespace EngineeringWork.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    DriverId = table.Column<Guid>(nullable: false),
+                    DailyRouteId = table.Column<int>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    RouteId = table.Column<Guid>(nullable: true)
+                    DriverId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DailyRoutes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DailyRoutes_Driver_DriverId",
+                        name: "FK_DailyRoutes_Drivers_DriverId",
                         column: x => x.DriverId,
-                        principalTable: "Driver",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DailyRoutes_Route_RouteId",
-                        column: x => x.RouteId,
-                        principalTable: "Route",
-                        principalColumn: "Id",
+                        principalTable: "Drivers",
+                        principalColumn: "DriverId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -170,9 +132,9 @@ namespace EngineeringWork.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    DailyRouteId = table.Column<Guid>(nullable: true),
                     NodeId = table.Column<Guid>(nullable: true),
-                    PassengerId = table.Column<Guid>(nullable: true),
-                    DailyRouteId = table.Column<Guid>(nullable: true)
+                    PassengerId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -197,24 +159,46 @@ namespace EngineeringWork.Web.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Route",
+                columns: table => new
+                {
+                    RouteId = table.Column<Guid>(nullable: false),
+                    DailyRouteId = table.Column<Guid>(nullable: false),
+                    StartNodeId = table.Column<Guid>(nullable: true),
+                    EndNodeId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Route", x => x.RouteId);
+                    table.ForeignKey(
+                        name: "FK_Route_DailyRoutes_DailyRouteId",
+                        column: x => x.DailyRouteId,
+                        principalTable: "DailyRoutes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Route_Node_EndNodeId",
+                        column: x => x.EndNodeId,
+                        principalTable: "Node",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Route_Node_StartNodeId",
+                        column: x => x.StartNodeId,
+                        principalTable: "Node",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DailyRoutes_DriverId",
                 table: "DailyRoutes",
                 column: "DriverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DailyRoutes_RouteId",
-                table: "DailyRoutes",
-                column: "RouteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Driver_UserId",
-                table: "Driver",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Driver_VehicleId",
-                table: "Driver",
+                name: "IX_Drivers_VehicleId",
+                table: "Drivers",
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
@@ -238,6 +222,12 @@ namespace EngineeringWork.Web.Migrations
                 column: "PassengerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Route_DailyRouteId",
+                table: "Route",
+                column: "DailyRouteId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Route_EndNodeId",
                 table: "Route",
                 column: "EndNodeId");
@@ -254,28 +244,28 @@ namespace EngineeringWork.Web.Migrations
                 name: "PassengerNode");
 
             migrationBuilder.DropTable(
-                name: "RefreshToken");
-
-            migrationBuilder.DropTable(
-                name: "DailyRoutes");
-
-            migrationBuilder.DropTable(
-                name: "Passenger");
-
-            migrationBuilder.DropTable(
-                name: "Driver");
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "Route");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Vehicle");
+                name: "Passenger");
+
+            migrationBuilder.DropTable(
+                name: "DailyRoutes");
 
             migrationBuilder.DropTable(
                 name: "Node");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
+
+            migrationBuilder.DropTable(
+                name: "Vehicle");
         }
     }
 }

@@ -21,5 +21,12 @@ namespace EngineeringWork.Web.Controllers
         {
             return await _driverRouteService.GetRouteByLocation(start, end);
         }
+        
+        [HttpGet]
+        public async Task<IEnumerable<DailyRouteDto>> GetAllAsync()
+        {
+            var passenger = await _driverRouteService.GetAllAsync();
+            return passenger;
+        }
     }
 }
