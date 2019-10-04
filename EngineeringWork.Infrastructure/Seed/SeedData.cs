@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Infrastructure.Services.DriverService;
+using EngineeringWork.Infrastructure.Services.PassengerService;
 using Microsoft.Extensions.Logging;
+using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.DriverService;
 using Passenger.Infrastructure.Services.NodeService;
-using Passenger.Infrastructure.Services.PassengerService;
 using Passenger.Infrastructure.Services.Password;
 using Passenger.Infrastructure.Services.UserService;
 
@@ -62,14 +65,17 @@ namespace Passenger.Infrastructure.Seed
                 await _driverService.SetVehickle(userId, "bmw", "x5", 5);
                 _logger.LogInformation($"Set vehickle for user: {userId}");
                 
+                await _passengerService.CreatePassenger(userId, new Adress("lublin", "21-500", "karola"));
+                _logger.LogInformation($"Passenger with userId: {userId} created async");
+                
                 var routeStartTime = DateTime.UtcNow;
                 var routeId = Guid.NewGuid();
                 
-                await _driverRouteService.AddRouteAsync(routeId, userId, 52.21890,  54.36286, 21.23400, 18.60375, routeStartTime);
+                await _driverRouteService.AdDailyRouteAsync(routeId, userId, 52.21890,  54.36286, 21.23400, 18.60375, routeStartTime);
                 _logger.LogInformation($"Route start in {routeStartTime} created async");
 
                 await _passengerService.AddPassengerToRoute(userId, routeId, 52, 54);
-                _logger.LogInformation($"Passebger with {userId} are saved to route {routeId}");
+                _logger.LogInformation($"Passenger with {userId} are saved to route {routeId}");
                 
             }
             _logger.LogTrace("Data was initialized.");  

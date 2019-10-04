@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
+using Passenger.Infrastructure.Services.DriverService;
 using Passenger.Infrastructure.Services.NodeService;
 
-namespace Passenger.Infrastructure.Services.DriverService
+namespace EngineeringWork.Infrastructure.Services.DriverService
 {
     public class DriverRouteService : IDriverRouteService
     {
@@ -40,7 +42,25 @@ namespace Passenger.Infrastructure.Services.DriverService
             return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(routeByLocation);
         }
 
-        public async Task AddRouteAsync(Guid Id, Guid userId, double startLatitude, double endLatitude, double startLongitude, double endLongitude,
+        public async Task<DailyRouteDto> GetById(Guid Id)
+        {
+            var dailyRoute = await _dailyRouteRepository.GetAsync(Id);
+            return _mapper.Map<DailyRoute, DailyRouteDto>(dailyRoute);
+        }
+
+        public async Task<IEnumerable<DailyRouteDto>> GetMyDailyRoutes(Guid userId)
+        {
+            var  dailyRoute = await _dailyRouteRepository.BrowseAsync(x => x.DriverId == userId);
+            return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);
+        }
+
+        public async Task<IEnumerable<DailyRouteDto>> GetPassengerRoute(Guid passengerId)
+        {
+            var dailyRoute = await _dailyRouteRepository.BrowseAsync(x => x.PassengerNodes.All(k => k.Passenger.Id == passengerId));
+            return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);
+        }
+
+        public async Task AdDailyRouteAsync(Guid Id, Guid userId, double startLatitude, double endLatitude, double startLongitude, double endLongitude,
              DateTime startTime)
         {
             var driver = await _driverRepository.GetAsync(userId);

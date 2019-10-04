@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
 using Moq;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;

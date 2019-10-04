@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Passenger.Core.Domain
+namespace EngineeringWork.Core.Domain
 {
     public class Node
     {
@@ -13,7 +13,7 @@ namespace Passenger.Core.Domain
         public double Longitude { get; protected set; }
         public double Latitude { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
-
+        
         protected Node()
         {
         }

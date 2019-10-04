@@ -2,15 +2,12 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
-using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
-using Passenger.Infrastructure.Services;
 using Passenger.Infrastructure.Services.Password;
 using Passenger.Infrastructure.Services.UserService;
 using Xunit;
-using Xunit.Sdk;
 
-namespace EngineringWork.UnitTest.UserServiceTest
+namespace EngineringWork.UnitTest.ServiceTest.User
 {
     public class UnitTest1
     {
@@ -23,10 +20,7 @@ namespace EngineringWork.UnitTest.UserServiceTest
 
             passwordServiceMock.Setup(x => x.HashPassword(It.IsAny<string>())).Returns("hash");
             
-            var userService =  new UserService(userRepositoryMock.Object,mapperMock.Object, passwordServiceMock.Object);
-            await userService.RegisterAsync(Guid.NewGuid(), "email@gmail.com", "username", "secret", "user");
-            
-            userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
+            userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Passenger.Core.Domain.User>()), Times.Once);
         }
 
         [Fact]
@@ -38,7 +32,7 @@ namespace EngineringWork.UnitTest.UserServiceTest
 
             var userService =  new UserService(userRepositoryMock.Object, mapperMock.Object, encrypterMock.Object);
 
-            var user = new User(Guid.NewGuid(),"karol@gmail.com", "asdasd", "User", "hash");
+            var user = new Passenger.Core.Domain.User(Guid.NewGuid(),"karol@gmail.com", "asdasd", "User", "hash");
 
             userRepositoryMock.Setup(x => x.GetAsyncByEmail(It.IsAny<string>())).ReturnsAsync(user);
 

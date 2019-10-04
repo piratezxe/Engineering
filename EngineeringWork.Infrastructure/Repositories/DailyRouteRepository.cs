@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using EngineeringWork.Core.Database;
+using EngineeringWork.Core.Domain;
 using Microsoft.EntityFrameworkCore;
-using Passenger.Core.Database;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
+using Passenger.Infrastructure.Extensions;
 namespace Passenger.Infrastructure.Repositories
 {
     public class DailyRouteRepository : IDailyRouteRepository
@@ -20,7 +22,7 @@ namespace Passenger.Infrastructure.Repositories
 
         public async Task<IEnumerable<DailyRoute>> GetAsyncByPlace(string departue, string destination)
         {
-            var route = await _passengerContext.DailyRoutes.ToListAsync();
+            var route = await BrowseAsync();
             return route.Where(x =>
                 x.Route.StartNode.Address == departue && x.Route.EndNode.Address == destination);
         }
@@ -36,9 +38,12 @@ namespace Passenger.Infrastructure.Repositories
             await _passengerContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<DailyRoute>> BrowseAsync()
+        public async Task<IEnumerable<DailyRoute>> BrowseAsync(Expression<Func<DailyRoute, bool>> predicate = null)
         {
-            return await _passengerContext.DailyRoutes.ToListAsync();
+            var query = _passengerContext.Set<DailyRoute>().Include(_passengerContext.GetIncludePaths(typeof(DailyRoute)));
+            if (predicate != null)
+                query = query.Where(predicate);
+            return await query.ToListAsync();        
         }
 
         public async Task RemoveAsync(Guid routeId)

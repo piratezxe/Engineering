@@ -8,6 +8,20 @@ namespace EngineeringWork.Web.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Adress",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ZipCode = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adress", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Node",
                 columns: table => new
                 {
@@ -43,7 +57,6 @@ namespace EngineeringWork.Web.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    Salt = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
@@ -81,9 +94,9 @@ namespace EngineeringWork.Web.Migrations
                 {
                     table.PrimaryKey("PK_Passenger", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Passenger_Node_AddressId",
+                        name: "FK_Passenger_Adress_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "Node",
+                        principalTable: "Adress",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -112,9 +125,8 @@ namespace EngineeringWork.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    DailyRouteId = table.Column<int>(nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false),
-                    DriverId = table.Column<Guid>(nullable: true)
+                    DriverId = table.Column<Guid>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,7 +136,7 @@ namespace EngineeringWork.Web.Migrations
                         column: x => x.DriverId,
                         principalTable: "Drivers",
                         principalColumn: "DriverId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,9 +144,9 @@ namespace EngineeringWork.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    DailyRouteId = table.Column<Guid>(nullable: true),
                     NodeId = table.Column<Guid>(nullable: true),
-                    PassengerId = table.Column<Guid>(nullable: true)
+                    PassengerId = table.Column<Guid>(nullable: true),
+                    DailyRouteId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -260,6 +272,9 @@ namespace EngineeringWork.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Node");
+
+            migrationBuilder.DropTable(
+                name: "Adress");
 
             migrationBuilder.DropTable(
                 name: "Drivers");

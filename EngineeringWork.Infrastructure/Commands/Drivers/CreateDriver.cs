@@ -1,7 +1,6 @@
-using System;
 using Passenger.Infrastructure.Commands.Auth;
 
-namespace Passenger.Infrastructure.Commands.Drivers
+namespace EngineeringWork.Infrastructure.Commands.Drivers
 {
     public class CreateDriver : AuthCommandBase
     {

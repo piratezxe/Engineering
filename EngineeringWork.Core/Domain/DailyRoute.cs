@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Passenger.Core.Domain;
 
-namespace Passenger.Core.Domain
+namespace EngineeringWork.Core.Domain
 {
     public class DailyRoute
     {
+        [Key]
+        public Guid Id { get; set; }
+        
         public Guid DriverId { get; set; }
         
-        public Guid Id { get; set; }
         public DateTime DateTime { get; protected set; }
         
         private ISet<PassengerNode> _passengerNodes = new HashSet<PassengerNode>();
@@ -28,17 +32,18 @@ namespace Passenger.Core.Domain
             DateTime = dateTime;
         }
 
-        public void AddPassengerNode(Passenger passenger, Node node)
+        public void AddPassengerNode(EngineeringWork.Core.Domain.Passenger passenger, Node node)
         {
             var passengerNode = GetPassengerNode(passenger);
             if(passengerNode != null)
             {
                 throw new InvalidOperationException($"Node already exists for passenger: '{passenger.UserId}'.");
             }
+            
             _passengerNodes.Add(PassengerNode.Create(passenger, node));
         }
 
-        public void RemovePassengerNode(Passenger passenger)
+        public void RemovePassengerNode(EngineeringWork.Core.Domain.Passenger passenger)
         {
             var passengerNode = GetPassengerNode(passenger);
             if(passengerNode is null)
@@ -48,7 +53,7 @@ namespace Passenger.Core.Domain
             _passengerNodes.Remove(passengerNode);
         } 
 
-        private PassengerNode GetPassengerNode(Passenger passenger)
+        private PassengerNode GetPassengerNode(EngineeringWork.Core.Domain.Passenger passenger)
             => _passengerNodes.SingleOrDefault(x => x.Passenger.UserId == passenger.UserId);
 
         public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id)

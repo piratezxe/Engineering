@@ -1,6 +1,7 @@
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EngineeringWork.Core.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Passenger.Core.Database;
 using Passenger.Infrastructure.ExceptionsModels;
 using Passenger.Infrastructure.Extensions;
 using Passenger.Infrastructure.IoC;

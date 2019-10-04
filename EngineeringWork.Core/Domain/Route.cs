@@ -1,16 +1,21 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using EngineeringWork.Core.Domain;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Passenger.Core.Domain
 {
     public class Route
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid RouteId { get; set; }
+        public Guid DailyRouteId { get; set; }
+        public DailyRoute DailyRoute { get; set; }
         public Node StartNode { get; protected set; }
         public Node EndNode { get; protected set; }
-        
+
         protected Route()
         {
-            
         }
 
         protected Route(Node startnode, Node endnode)

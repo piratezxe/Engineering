@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Passenger.Core.Domain;
 
-namespace Passenger.Core.Domain
+namespace EngineeringWork.Core.Domain
 {
     public class Driver
     {
-        public Guid Id { get; protected set; }
-        public Guid UserId { get; protected set; }
+        [Key]
+        public Guid DriverId { get; protected set; }
         public Vehicle Vehicle { get; protected set; }
         
         private ISet<DailyRoute> _dailyRoutes = new HashSet<DailyRoute>();
        
-        public IEnumerable<DailyRoute> DailyRoutes
+        public virtual ICollection<DailyRoute> DailyRoutes
         {
             get => _dailyRoutes;
 
@@ -27,7 +29,7 @@ namespace Passenger.Core.Domain
 
         public Driver (Guid userid)
         {
-            UserId = userid;
+            DriverId = userid;
         }
 
         public void AddDailyRoute(Guid Id, Node start, Node end, DateTime routeDate)

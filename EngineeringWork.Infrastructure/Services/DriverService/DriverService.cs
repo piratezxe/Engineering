@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
+using EngineeringWork.Infrastructure.Services.DriverService;
 using Passenger.Core.Domain;
 using Passenger.Core.Repositories;
 using Passenger.Infrastructure.DTO;
@@ -39,7 +42,8 @@ namespace Passenger.Infrastructure.Services.DriverService
         public async Task<IEnumerable<DriverDto>> BrowseAsync()
         {
             var drivers = await _driverRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDto>>(drivers);
+            var dto_drivers = _mapper.Map<IEnumerable<Driver>, IEnumerable<DriverDto>>(drivers);
+            return dto_drivers;
         }
 
         public async Task SetVehickle(Guid userId, string brand, string name, int seats)

@@ -1,6 +1,7 @@
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using EngineeringWork.Infrastructure.Services.DriverService;
 using Microsoft.AspNetCore.Http;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Drivers;
@@ -27,7 +28,7 @@ namespace Passenger.Infrastructure.Handlers.Drivers
         public async Task HandleAsync(AddDriverRoute command)
         {
 
-            await _driverRouteService.AddRouteAsync(Guid.NewGuid(), command.UserId, command.StartLatitude, command.EndLatitude,
+            await _driverRouteService.AdDailyRouteAsync(Guid.NewGuid(), command.UserId, command.StartLatitude, command.EndLatitude,
                 command.StartLongitude, command.EndLongitude, command.StartTime);
         }
     }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Passenger.Core.Domain;
 using Passenger.Infrastructure.DTO;
+using Passenger.Infrastructure.Services;
 
-namespace Passenger.Infrastructure.Services.DriverService
+namespace EngineeringWork.Infrastructure.Services.DriverService
 {
     public interface IDriverService : IService
     {

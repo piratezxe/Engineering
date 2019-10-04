@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using EngineeringWork.Infrastructure.Services.PassengerService;
 using Passenger.Infrastructure.Commands;
 using Passenger.Infrastructure.Commands.Passenger;
-using Passenger.Infrastructure.Services.PassengerService;
 
 namespace Passenger.Infrastructure.Handlers.Passenger
 {

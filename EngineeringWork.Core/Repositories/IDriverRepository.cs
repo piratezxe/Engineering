@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Passenger.Core.Domain;
+using EngineeringWork.Core.Domain;
+using Passenger.Core.Repositories;
 
-namespace Passenger.Core.Repositories
+namespace EngineeringWork.Core.Repositories
 {
     public interface IDriverRepository : IRepository
     {
