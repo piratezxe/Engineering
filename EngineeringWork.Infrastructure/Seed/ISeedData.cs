@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Passenger.Infrastructure.Seed
+namespace EngineeringWork.Infrastructure.Seed
 {
     public interface ISeedData
     {

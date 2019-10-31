@@ -1,10 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Infrastructure.Commands.Passenger;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.PassengerCommands;
 using EngineeringWork.Infrastructure.Services.PassengerService;
-using Passenger.Core.Domain;
-using Passenger.Infrastructure.Commands;
 
 namespace EngineeringWork.Infrastructure.Handlers.Passenger
 {

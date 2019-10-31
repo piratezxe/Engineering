@@ -1,6 +1,4 @@
-using System;
-
-namespace Passenger.Infrastructure.Commands.Users
+namespace EngineeringWork.Infrastructure.Commands.Users
 {
     public class CreateUser : ICommand
     {

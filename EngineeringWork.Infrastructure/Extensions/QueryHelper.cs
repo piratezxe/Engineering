@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Passenger.Infrastructure.Extensions
+namespace EngineeringWork.Infrastructure.Extensions
 {
     public static class QueryHelper
     {

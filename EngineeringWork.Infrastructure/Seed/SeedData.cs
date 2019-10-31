@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
 using EngineeringWork.Infrastructure.Services.DriverService;
+using EngineeringWork.Infrastructure.Services.NodeService;
+using EngineeringWork.Infrastructure.Services.PassengerRouteService;
 using EngineeringWork.Infrastructure.Services.PassengerService;
+using EngineeringWork.Infrastructure.Services.Password;
+using EngineeringWork.Infrastructure.Services.RouteService;
+using EngineeringWork.Infrastructure.Services.UserService;
 using Microsoft.Extensions.Logging;
-using Passenger.Core.Domain;
-using Passenger.Core.Repositories;
-using Passenger.Infrastructure.Services;
-using Passenger.Infrastructure.Services.DriverService;
-using Passenger.Infrastructure.Services.NodeService;
-using Passenger.Infrastructure.Services.Password;
-using Passenger.Infrastructure.Services.UserService;
 
-namespace Passenger.Infrastructure.Seed
+namespace EngineeringWork.Infrastructure.Seed
 {
     public class SeedData : ISeedData
     {
@@ -22,27 +19,27 @@ namespace Passenger.Infrastructure.Seed
 
         private readonly IUserService _userService;
 
-        private readonly IPasswordService _passwordService;
-        
         private readonly IDriverRouteService _driverRouteService;
 
         private readonly ILogger<SeedData> _logger;
 
-        private readonly INodeManager _nodeManager;
-
+        private readonly IDailyRouteService _dailyRouteService;
+    
         private readonly IUserRepository _userRepository;
+
+        private readonly IPassengerRouteService _passengerRouteService;
 
         private readonly IPassengerService _passengerService;
         
-        public SeedData(IUserService userService, IDriverService driverService, ILogger<SeedData> logger, IDriverRouteService driverRouteService, INodeManager nodeManager, IUserRepository userRepository, IPassengerService passengerService, IPasswordService passwordService)
+        public SeedData(IUserService userService, IDriverService driverService, ILogger<SeedData> logger, IDriverRouteService driverRouteService, INodeManager nodeManager, IUserRepository userRepository,  IDailyRouteService dailyRouteService, IPassengerRouteService passengerRouteService, IPassengerService passengerService)
         {
             _userService = userService;
             _driverService = driverService;
+            _dailyRouteService = dailyRouteService;
+            _passengerRouteService = passengerRouteService;
             _passengerService = passengerService;
-            _passwordService = passwordService;
             _logger = logger;
             _driverRouteService = driverRouteService;
-            _nodeManager = nodeManager;
             _userRepository = userRepository;
         }
 
@@ -71,10 +68,10 @@ namespace Passenger.Infrastructure.Seed
                 var routeStartTime = DateTime.UtcNow;
                 var routeId = Guid.NewGuid();
                 
-                await _driverRouteService.AdDailyRouteAsync(routeId, userId, 52.21890,  54.36286, 21.23400, 18.60375, routeStartTime);
+                await _dailyRouteService.AddDailyRouteAsync(routeId, userId, 52.21890,  54.36286, 21.23400, 18.60375, routeStartTime);
                 _logger.LogInformation($"Route start in {routeStartTime} created async");
 
-                await _passengerService.AddPassengerToRoute(userId, routeId, 52, 54);
+                await _passengerRouteService.AddPassengerToRoute(userId, routeId, 52, 54);
                 _logger.LogInformation($"Passenger with {userId} are saved to route {routeId}");
                 
             }

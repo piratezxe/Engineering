@@ -1,9 +1,9 @@
 using Autofac;
+using EngineeringWork.Infrastructure.Extensions;
+using EngineeringWork.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
-using Passenger.Infrastructure.Extensions;
-using Passenger.Infrastructure.Settings;
 
-namespace Passenger.Infrastructure.IoC.Modules
+namespace EngineeringWork.Infrastructure.IoC.Modules
 {
     public class SettingsModule : Autofac.Module
     {

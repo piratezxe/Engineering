@@ -1,6 +1,6 @@
 using System;
 
-namespace Passenger.Infrastructure.Commands.Auth
+namespace EngineeringWork.Infrastructure.Commands.Auth
 {
     public interface IAuthCommand : ICommand
     {

@@ -1,4 +1,4 @@
-namespace Passenger.Infrastructure.Extensions
+namespace EngineeringWork.Infrastructure.Extensions
 {
     public static class StringExtensions
     {

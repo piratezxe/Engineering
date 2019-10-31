@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Passenger.Infrastructure.Extensions
+namespace EngineeringWork.Infrastructure.Extensions
 {
     public static class JwtExtensions
     {

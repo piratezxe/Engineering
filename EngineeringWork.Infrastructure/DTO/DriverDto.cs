@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Passenger.Core.Domain;
+using EngineeringWork.Core.Domain;
 
-namespace Passenger.Infrastructure.DTO
+namespace EngineeringWork.Infrastructure.DTO
 {
     public class DriverDto
     {

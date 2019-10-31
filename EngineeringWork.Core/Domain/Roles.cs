@@ -1,4 +1,4 @@
-namespace Passenger.Core.Domain
+namespace EngineeringWork.Core.Domain
 {
     public class Roles
     {

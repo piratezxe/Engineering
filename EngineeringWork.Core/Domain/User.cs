@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Passenger.Core.Domain
+namespace EngineeringWork.Core.Domain
 {
     public class User
     {

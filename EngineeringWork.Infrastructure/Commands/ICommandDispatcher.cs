@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Passenger.Infrastructure.Commands
+namespace EngineeringWork.Infrastructure.Commands
 {
     public interface ICommandDispatcher
     {

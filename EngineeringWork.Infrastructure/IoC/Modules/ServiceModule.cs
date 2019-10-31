@@ -1,15 +1,13 @@
 using System.Reflection;
 using Autofac;
-using Microsoft.AspNetCore.Http;
+using EngineeringWork.Infrastructure.Seed;
+using EngineeringWork.Infrastructure.Services;
+using EngineeringWork.Infrastructure.Services.JwtTokenService;
+using EngineeringWork.Infrastructure.Services.NodeService;
+using EngineeringWork.Infrastructure.Services.Password;
 using Microsoft.AspNetCore.Identity;
-using Passenger.Core.Domain;
-using Passenger.Infrastructure.Seed;
-using Passenger.Infrastructure.Services;
-using Passenger.Infrastructure.Services.JwtTokenService;
-using Passenger.Infrastructure.Services.NodeService;
-using Passenger.Infrastructure.Services.Password;
 
-namespace Passenger.Infrastructure.IoC.Modules
+namespace EngineeringWork.Infrastructure.IoC.Modules
 {
     public class ServiceModule : Autofac.Module
     {

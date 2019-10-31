@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
+using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Infrastructure.Services.JwtTokenService;
 using Moq;
-using Passenger.Core.Domain;
-using Passenger.Core.Repositories;
-using Passenger.Infrastructure.DTO;
-using Passenger.Infrastructure.Services.JwtTokenService;
 using Xunit;
 
 namespace EngineringWork.UnitTest.ServiceTest.Refresh

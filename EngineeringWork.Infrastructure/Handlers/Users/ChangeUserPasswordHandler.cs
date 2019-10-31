@@ -1,12 +1,10 @@
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Users;
-using Passenger.Infrastructure.Services;
-using Passenger.Infrastructure.Services.UserService;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.Users;
+using EngineeringWork.Infrastructure.Services.UserService;
 
-namespace Passenger.Infrastructure.Handlers.Users
+namespace EngineeringWork.Infrastructure.Handlers.Users
 {
     public class ChangeUserPasswordHandler : ICommandHandler<ChangeUserPassword>
     {

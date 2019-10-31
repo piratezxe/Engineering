@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Passenger.Core.Domain;
-using Passenger.Core.Repositories;
-using Passenger.Infrastructure.DTO;
-using Passenger.Infrastructure.Services.Password;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
+using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Infrastructure.Services.Password;
 
-namespace Passenger.Infrastructure.Services.UserService
+namespace EngineeringWork.Infrastructure.Services.UserService
 {
     public class UserService : IUserService
     { 

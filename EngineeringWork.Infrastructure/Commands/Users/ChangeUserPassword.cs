@@ -1,4 +1,4 @@
-namespace Passenger.Infrastructure.Commands.Users
+namespace EngineeringWork.Infrastructure.Commands.Users
 {
     public class ChangeUserPassword : ICommand
     {

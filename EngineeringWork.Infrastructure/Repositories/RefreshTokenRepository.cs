@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Database;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Passenger.Core.Domain;
-using Passenger.Core.Repositories;
 
-namespace Passenger.Infrastructure.Repositories
+namespace EngineeringWork.Infrastructure.Repositories
 {
     public class RefreshTokenRepository : ITokenRepository
     {

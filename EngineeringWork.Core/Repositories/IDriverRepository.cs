@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
-using Passenger.Core.Repositories;
 
 namespace EngineeringWork.Core.Repositories
 {

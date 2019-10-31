@@ -1,6 +1,6 @@
-using Passenger.Infrastructure.Commands.Auth;
+using EngineeringWork.Infrastructure.Commands.Auth;
 
-namespace Passenger.Infrastructure.Commands.Drivers
+namespace EngineeringWork.Infrastructure.Commands.Drivers
 {
     public class SetVehickle : AuthCommandBase
     {

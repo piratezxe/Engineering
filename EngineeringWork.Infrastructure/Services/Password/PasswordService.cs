@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Passenger.Infrastructure.Services.Password
+namespace EngineeringWork.Infrastructure.Services.Password
 {
     public class PasswordService : IPasswordService
     {

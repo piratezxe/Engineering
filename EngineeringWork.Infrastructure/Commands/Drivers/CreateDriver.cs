@@ -1,4 +1,4 @@
-using Passenger.Infrastructure.Commands.Auth;
+using EngineeringWork.Infrastructure.Commands.Auth;
 
 namespace EngineeringWork.Infrastructure.Commands.Drivers
 {

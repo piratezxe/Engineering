@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Passenger.Infrastructure.DTO;
+using EngineeringWork.Infrastructure.DTO;
 
-namespace Passenger.Infrastructure.Services.JwtTokenService
+namespace EngineeringWork.Infrastructure.Services.JwtTokenService
 {
     public interface ITokenManager : IService
     {

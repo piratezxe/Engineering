@@ -1,6 +1,5 @@
 using EngineeringWork.Core.Domain;
 using Microsoft.EntityFrameworkCore;
-using Passenger.Core.Domain;
 
 namespace EngineeringWork.Core.Database
 {

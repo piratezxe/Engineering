@@ -1,8 +1,8 @@
 using System.Reflection;
 using Autofac;
-using Passenger.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands;
 
-namespace Passenger.Infrastructure.IoC.Modules
+namespace EngineeringWork.Infrastructure.IoC.Modules
 {
     public class CommandModule : Autofac.Module
     {

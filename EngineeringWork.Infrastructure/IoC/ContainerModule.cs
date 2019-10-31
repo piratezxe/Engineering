@@ -1,9 +1,9 @@
 using Autofac;
+using EngineeringWork.Infrastructure.IoC.Modules;
+using EngineeringWork.Infrastructure.Mappers;
 using Microsoft.Extensions.Configuration;
-using Passenger.Infrastructure.IoC.Modules;
-using Passenger.Infrastructure.Mappers;
 
-namespace Passenger.Infrastructure.IoC
+namespace EngineeringWork.Infrastructure.IoC
 {
     public class ContainerModule : Autofac.Module
     {

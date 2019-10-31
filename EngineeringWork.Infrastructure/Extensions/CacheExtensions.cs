@@ -1,8 +1,8 @@
 using System;
+using EngineeringWork.Infrastructure.DTO;
 using Microsoft.Extensions.Caching.Memory;
-using Passenger.Infrastructure.DTO;
 
-namespace Passenger.Infrastructure.Extensions
+namespace EngineeringWork.Infrastructure.Extensions
 {
     public static class CacheExtensions
     {

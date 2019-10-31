@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using Passenger.Core.Repositories;
-using Passenger.Infrastructure.DTO;
+using EngineeringWork.Core.Repositories;
+using EngineeringWork.Infrastructure.DTO;
 
-namespace Passenger.Infrastructure.Services.JwtTokenService
+namespace EngineeringWork.Infrastructure.Services.JwtTokenService
 {
     public class TokenManager : ITokenManager
     {

@@ -4,12 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Repositories;
-using EngineeringWork.Infrastructure.Services.DriverService;
-using Passenger.Core.Domain;
-using Passenger.Core.Repositories;
-using Passenger.Infrastructure.DTO;
+using EngineeringWork.Infrastructure.DTO;
 
-namespace Passenger.Infrastructure.Services.DriverService
+namespace EngineeringWork.Infrastructure.Services.DriverService
 {
     public class DriverService : IDriverService
     {

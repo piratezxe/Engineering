@@ -1,6 +1,6 @@
 using System;
 
-namespace Passenger.Infrastructure.Extensions
+namespace EngineeringWork.Infrastructure.Extensions
 {
     public static class DateTimeExtensions
     {

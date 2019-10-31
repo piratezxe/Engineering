@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Passenger.Core.Domain;
+using EngineeringWork.Core.Domain;
 
-namespace Passenger.Core.Repositories
+namespace EngineeringWork.Core.Repositories
 {
     public interface ITokenRepository : IRepository
     {

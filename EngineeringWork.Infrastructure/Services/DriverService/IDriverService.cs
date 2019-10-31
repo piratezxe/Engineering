@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Passenger.Infrastructure.DTO;
-using Passenger.Infrastructure.Services;
+using EngineeringWork.Infrastructure.DTO;
 
 namespace EngineeringWork.Infrastructure.Services.DriverService
 {

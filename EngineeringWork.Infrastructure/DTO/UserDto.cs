@@ -1,6 +1,6 @@
 using System;
 
-namespace Passenger.Infrastructure.DTO
+namespace EngineeringWork.Infrastructure.DTO
 {
     public class UserDto
     {

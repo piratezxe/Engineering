@@ -1,22 +1,23 @@
 using System.Threading.Tasks;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.PassengerCommands;
+using EngineeringWork.Infrastructure.Services.PassengerRouteService;
 using EngineeringWork.Infrastructure.Services.PassengerService;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Passenger;
 
-namespace Passenger.Infrastructure.Handlers.Passenger
+namespace EngineeringWork.Infrastructure.Handlers.Passenger
 {
     public class AddPassengerToRouteHandler : ICommandHandler<AddPassengerToRoute>
     {
-        private readonly IPassengerService _passengerService;
+        private readonly IPassengerRouteService _passengerRouteService;
 
-        public AddPassengerToRouteHandler(IPassengerService passengerService)
+        public AddPassengerToRouteHandler()
         {
-            _passengerService = passengerService;
+            _passengerRouteService = _passengerRouteService;
         }
 
         public async Task HandleAsync(AddPassengerToRoute command)
         {
-            await _passengerService.AddPassengerToRoute(command.UserId, command.RouteId, command.Latitude,
+            await _passengerRouteService.AddPassengerToRoute(command.UserId, command.RouteId, command.Latitude,
                 command.Longitude);
         }
     } 

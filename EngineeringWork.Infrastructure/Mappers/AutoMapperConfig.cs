@@ -1,10 +1,8 @@
-using System.Security.Policy;
 using AutoMapper;
 using EngineeringWork.Core.Domain;
-using Passenger.Core.Domain;
-using Passenger.Infrastructure.DTO;
+using EngineeringWork.Infrastructure.DTO;
 
-namespace Passenger.Infrastructure.Mappers
+namespace EngineeringWork.Infrastructure.Mappers
 {
     public static class AutoMapperConfig
     {

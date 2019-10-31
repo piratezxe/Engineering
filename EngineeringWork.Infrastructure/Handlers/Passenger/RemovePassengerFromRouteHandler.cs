@@ -1,22 +1,23 @@
 using System.Threading.Tasks;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.PassengerCommands;
+using EngineeringWork.Infrastructure.Services.PassengerRouteService;
 using EngineeringWork.Infrastructure.Services.PassengerService;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Passenger;
 
-namespace Passenger.Infrastructure.Handlers.Passenger
+namespace EngineeringWork.Infrastructure.Handlers.Passenger
 {
     public class RemovePassengerFromRouteHandler : ICommandHandler<RemovePassengerFromRoute>
     {
-        private readonly IPassengerService _passengerService;
+        private readonly IPassengerRouteService _passengerRouteService;
 
-        public RemovePassengerFromRouteHandler(IPassengerService passengerService)
+        public RemovePassengerFromRouteHandler(IPassengerRouteService passengerRouteService)
         {
-            _passengerService = passengerService;
+            _passengerRouteService = passengerRouteService;
         }
 
         public async Task HandleAsync(RemovePassengerFromRoute command)
         {
-            await _passengerService.RemovePassengerFromRoute(command.UserId, command.RouteId);
+            await _passengerRouteService.RemovePassengerFromRoute(command.UserId, command.RouteId);
         }
     }
 }

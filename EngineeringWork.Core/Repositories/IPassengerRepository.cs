@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Passenger.Core.Repositories;
 
 namespace EngineeringWork.Core.Repositories
 {

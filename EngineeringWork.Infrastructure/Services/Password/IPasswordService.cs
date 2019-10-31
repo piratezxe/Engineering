@@ -1,4 +1,4 @@
-namespace Passenger.Infrastructure.Services.Password
+namespace EngineeringWork.Infrastructure.Services.Password
 {
     public interface IPasswordService : IService
     {

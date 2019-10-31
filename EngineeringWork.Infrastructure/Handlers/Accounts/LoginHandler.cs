@@ -1,14 +1,13 @@
 using System.Threading.Tasks;
+using EngineeringWork.Core.Repositories;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.Accounts;
+using EngineeringWork.Infrastructure.Extensions;
+using EngineeringWork.Infrastructure.Services.JwtTokenService;
+using EngineeringWork.Infrastructure.Services.UserService;
 using Microsoft.Extensions.Caching.Memory;
-using Passenger.Core.Repositories;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Accounts;
-using Passenger.Infrastructure.Extensions;
-using Passenger.Infrastructure.Services;
-using Passenger.Infrastructure.Services.JwtTokenService;
-using Passenger.Infrastructure.Services.UserService;
 
-namespace Passenger.Infrastructure.Handlers.Accounts
+namespace EngineeringWork.Infrastructure.Handlers.Accounts
 {
     public class LoginHandler : ICommandHandler<Login>
     {

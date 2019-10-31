@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Passenger.Infrastructure.Services.NodeService
+namespace EngineeringWork.Infrastructure.Services.NodeService
 {
     public interface INodeManager
     {

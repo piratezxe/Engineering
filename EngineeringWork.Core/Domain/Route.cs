@@ -1,9 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using EngineeringWork.Core.Domain;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Passenger.Core.Domain
+namespace EngineeringWork.Core.Domain
 {
     public class Route
     {

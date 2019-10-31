@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Accounts;
-using Passenger.Infrastructure.Services.JwtTokenService;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.Accounts;
+using EngineeringWork.Infrastructure.Services.JwtTokenService;
 
-namespace Passenger.Infrastructure.Handlers.Accounts
+namespace EngineeringWork.Infrastructure.Handlers.Accounts
 {
     public class RevokeAcessTokenHandler : ICommandHandler<RevokeAcessToken>
     {

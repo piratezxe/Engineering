@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Autofac;
 
-namespace Passenger.Infrastructure.Commands
+namespace EngineeringWork.Infrastructure.Commands
 {
     public class CommandDispatcher : ICommandDispatcher
     {

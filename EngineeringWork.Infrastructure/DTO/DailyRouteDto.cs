@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Routing;
-using Passenger.Core.Domain;
-using Route = Passenger.Core.Domain.Route;
+using EngineeringWork.Core.Domain;
 
-namespace Passenger.Infrastructure.DTO
+namespace EngineeringWork.Infrastructure.DTO
 {
     public class DailyRouteDto
     {

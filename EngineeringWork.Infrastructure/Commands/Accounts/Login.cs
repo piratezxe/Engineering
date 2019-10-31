@@ -1,4 +1,4 @@
-namespace Passenger.Infrastructure.Commands.Accounts
+namespace EngineeringWork.Infrastructure.Commands.Accounts
 {
     public class Login : ICommand
     {

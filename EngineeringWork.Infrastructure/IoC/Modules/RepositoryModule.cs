@@ -1,8 +1,8 @@
 using System.Reflection;
 using Autofac;
-using Passenger.Core.Repositories;
+using EngineeringWork.Core.Repositories;
 
-namespace Passenger.Infrastructure.IoC.Modules
+namespace EngineeringWork.Infrastructure.IoC.Modules
 {
     public class RepositoryModule : Autofac.Module
     {

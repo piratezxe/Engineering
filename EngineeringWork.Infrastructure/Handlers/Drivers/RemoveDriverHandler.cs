@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.Drivers;
 using EngineeringWork.Infrastructure.Services.DriverService;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Drivers;
-using Passenger.Infrastructure.Services.DriverService;
 
-namespace Passenger.Infrastructure.Handlers.Drivers
+namespace EngineeringWork.Infrastructure.Handlers.Drivers
 {
     public class RemoveDriverHandler : ICommandHandler<RemoveDriver>
     {

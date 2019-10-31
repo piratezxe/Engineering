@@ -1,6 +1,6 @@
 using System;
 
-namespace Passenger.Infrastructure.Commands.Auth
+namespace EngineeringWork.Infrastructure.Commands.Auth
 {
     public class AuthCommandBase : IAuthCommand
     {

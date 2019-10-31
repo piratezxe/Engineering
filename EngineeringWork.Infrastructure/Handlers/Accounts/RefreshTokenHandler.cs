@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
+using EngineeringWork.Infrastructure.Commands;
+using EngineeringWork.Infrastructure.Commands.Accounts;
+using EngineeringWork.Infrastructure.Services.JwtTokenService;
 using Microsoft.Extensions.Caching.Memory;
-using Passenger.Infrastructure.Commands;
-using Passenger.Infrastructure.Commands.Accounts;
-using Passenger.Infrastructure.Services.JwtTokenService;
 
-namespace Passenger.Infrastructure.Handlers.Accounts
+namespace EngineeringWork.Infrastructure.Handlers.Accounts
 {
     public class RefreshAcessTokenHandler : ICommandHandler<ResfreshAcessToken>
     {

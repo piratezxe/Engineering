@@ -3,15 +3,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.IdentityModel.JsonWebTokens;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Infrastructure.Extensions;
+using EngineeringWork.Infrastructure.Settings;
 using Microsoft.IdentityModel.Tokens;
-using Passenger.Core.Domain;
-using Passenger.Infrastructure.DTO;
-using Passenger.Infrastructure.Extensions;
-using Passenger.Infrastructure.Settings;
 using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
-namespace Passenger.Infrastructure.Services.JwtTokenService
+namespace EngineeringWork.Infrastructure.Services.JwtTokenService
 {
     public class JwtHandler : IJwtHandler
     {

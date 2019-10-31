@@ -1,8 +1,8 @@
 using System;
-using Passenger.Core.Domain;
-using Passenger.Infrastructure.DTO;
+using EngineeringWork.Core.Domain;
+using EngineeringWork.Infrastructure.DTO;
 
-namespace Passenger.Infrastructure.Services.JwtTokenService
+namespace EngineeringWork.Infrastructure.Services.JwtTokenService
 {
     public interface IJwtHandler
     {
