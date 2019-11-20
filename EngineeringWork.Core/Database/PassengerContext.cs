@@ -10,7 +10,7 @@ namespace EngineeringWork.Core.Database
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Domain.Passenger> Passenger { get; set; }
+        public DbSet<Passenger> Passenger { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<DailyRoute> DailyRoutes { get; set; }

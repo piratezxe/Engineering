@@ -1,5 +1,5 @@
 using System;
-using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Core.DTO;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace EngineeringWork.Infrastructure.Extensions

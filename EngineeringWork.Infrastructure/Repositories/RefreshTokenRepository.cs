@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Database;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Core.Repositories;
+using EngineeringWork.Core.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringWork.Infrastructure.Repositories
@@ -17,18 +17,12 @@ namespace EngineeringWork.Infrastructure.Repositories
         }
 
         public async Task<RefreshToken> GetTokneAsync(string token)
-        {
-            return await _passengerContext.RefreshTokens.SingleOrDefaultAsync(x => x.Token == token);
-        }
+            => await _passengerContext.RefreshTokens.SingleOrDefaultAsync(x => x.Token == token);
 
         public async Task<IEnumerable<RefreshToken>> BrowseAllAsync()
-        {
-            return await _passengerContext.RefreshTokens.ToListAsync();
-        }
+            => await _passengerContext.RefreshTokens.ToListAsync();
 
         public async Task CreateAsync(RefreshToken refreshToken)
-        {
-            await _passengerContext.RefreshTokens.AddAsync(refreshToken);
-        }
+            => await _passengerContext.RefreshTokens.AddAsync(refreshToken);
     }
 }

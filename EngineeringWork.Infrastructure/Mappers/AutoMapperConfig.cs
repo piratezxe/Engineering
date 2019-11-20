@@ -1,6 +1,6 @@
 using AutoMapper;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Core.DTO;
 
 namespace EngineeringWork.Infrastructure.Mappers
 {

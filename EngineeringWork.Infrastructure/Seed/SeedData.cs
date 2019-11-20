@@ -1,45 +1,36 @@
 using System;
 using System.Threading.Tasks;
-using EngineeringWork.Core.Domain;
-using EngineeringWork.Core.Repositories;
-using EngineeringWork.Infrastructure.Services.DriverService;
+using EngineeringWork.Core.Interface.Repositories;
+using EngineeringWork.Core.Interface.Services.NodeService;
+using EngineeringWork.Core.Interface.Services.UserService;
+using EngineeringWork.Infrastructure.Commands.Drivers;
+using EngineeringWork.Infrastructure.Commands.Passenger;
+using EngineeringWork.Infrastructure.Commands.Users;
 using EngineeringWork.Infrastructure.Services.NodeService;
-using EngineeringWork.Infrastructure.Services.PassengerRouteService;
-using EngineeringWork.Infrastructure.Services.PassengerService;
-using EngineeringWork.Infrastructure.Services.Password;
-using EngineeringWork.Infrastructure.Services.RouteService;
 using EngineeringWork.Infrastructure.Services.UserService;
+using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace EngineeringWork.Infrastructure.Seed
 {
     public class SeedData : ISeedData
     {
-        private readonly IDriverService _driverService;
 
         private readonly IUserService _userService;
 
-        private readonly IDriverRouteService _driverRouteService;
+        private readonly IMediator _mediator;
 
         private readonly ILogger<SeedData> _logger;
 
-        private readonly IDailyRouteService _dailyRouteService;
-    
         private readonly IUserRepository _userRepository;
 
-        private readonly IPassengerRouteService _passengerRouteService;
-
-        private readonly IPassengerService _passengerService;
-        
-        public SeedData(IUserService userService, IDriverService driverService, ILogger<SeedData> logger, IDriverRouteService driverRouteService, INodeManager nodeManager, IUserRepository userRepository,  IDailyRouteService dailyRouteService, IPassengerRouteService passengerRouteService, IPassengerService passengerService)
+        public SeedData(ILogger<SeedData> logger, 
+            INodeManager nodeManager, IUserRepository userRepository,  
+             IMediator mediator, IUserService userService)
         {
+            _mediator = mediator;
             _userService = userService;
-            _driverService = driverService;
-            _dailyRouteService = dailyRouteService;
-            _passengerRouteService = passengerRouteService;
-            _passengerService = passengerService;
             _logger = logger;
-            _driverRouteService = driverRouteService;
             _userRepository = userRepository;
         }
 
@@ -52,26 +43,34 @@ namespace EngineeringWork.Infrastructure.Seed
                 var password = "karol.pisarzewski";
                 var userId = Guid.NewGuid();
                 var email = $"karol.pisarzewski{i}@gmail.com";
-                
-                 await _userService.RegisterAsync(userId, email , $"karol.pisarzewski{i}", password, "user");
+
+                await _mediator.Send(new CreateUser()
+                    {Email = email, Password = password, Role = "user", Username = $"karol.pisarzewski{i}", UserId = userId});
                 _logger.LogInformation($"User with email: {email} and password {password} created async");
-                
-                await _driverService.CreateAsync(userId);
+
+                await _mediator.Send(new CreateDriver() {UserId = userId}); 
                 _logger.LogInformation($"Driver with {userId} created async");
 
-                await _driverService.SetVehickle(userId, "bmw", "x5", 5);
+                await _mediator.Send(new SetVehickle() {UserId = userId, seats = 5, brand = "bmw", name = "x5"});
                 _logger.LogInformation($"Set vehickle for user: {userId}");
+
+                var adress = new CreatePassengerCommand().Adress;
+                adress.City = "lublin";
+                adress.Street = "21-500";
+                adress.ZipCode = "21-500";
                 
-                await _passengerService.CreatePassenger(userId, new Adress("lublin", "21-500", "karola"));
+                var passenger = new CreatePassengerCommand() { UserId = userId,  Adress =  adress };
+                await _mediator.Send( passenger );
                 _logger.LogInformation($"Passenger with userId: {userId} created async");
                 
                 var routeStartTime = DateTime.UtcNow;
                 var routeId = Guid.NewGuid();
                 
-                await _dailyRouteService.AddDailyRouteAsync(routeId, userId, 52.21890,  54.36286, 21.23400, 18.60375, routeStartTime);
+                await _mediator.Send(new AddDriverRoute { UserId = userId, StartLatitude = 52.21890, StartLongitude  = 54.36286, EndLatitude = 21.23400, EndLongitude = 18.60375, StartTime = routeStartTime });
                 _logger.LogInformation($"Route start in {routeStartTime} created async");
 
-                await _passengerRouteService.AddPassengerToRoute(userId, routeId, 52, 54);
+                await _mediator.Send(new AddPassengerToRouteCommand()
+                    {Latitude = 52, Longitude = 54, RouteId = routeId, UserId = userId});
                 _logger.LogInformation($"Passenger with {userId} are saved to route {routeId}");
                 
             }

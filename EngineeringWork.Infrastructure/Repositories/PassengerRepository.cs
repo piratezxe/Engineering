@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Database;
-using EngineeringWork.Core.Repositories;
+using EngineeringWork.Core.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringWork.Infrastructure.Repositories
@@ -22,8 +22,6 @@ namespace EngineeringWork.Infrastructure.Repositories
         }
 
         public async Task<Core.Domain.Passenger> GetAsync(Guid passengerId)
-        {
-            return await _passengerContext.Passenger.SingleOrDefaultAsync(x => x.Id == passengerId);
-        }
+            => await _passengerContext.Passenger.SingleOrDefaultAsync(x => x.Id == passengerId);
     }
 }

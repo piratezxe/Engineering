@@ -1,8 +1,9 @@
 using System;
+using MediatR;
 
 namespace EngineeringWork.Infrastructure.Commands.Auth
 {
-    public interface IAuthCommand : ICommand
+    public interface IAuthCommand : IRequest  
     {
         Guid UserId { get; set; }
     }

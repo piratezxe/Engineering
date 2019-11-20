@@ -1,6 +1,6 @@
 using System.Reflection;
 using Autofac;
-using EngineeringWork.Core.Repositories;
+using EngineeringWork.Core.Interface.Repositories;
 
 namespace EngineeringWork.Infrastructure.IoC.Modules
 {

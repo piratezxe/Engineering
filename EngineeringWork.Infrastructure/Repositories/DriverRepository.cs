@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Database;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Core.Repositories;
+using EngineeringWork.Core.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringWork.Infrastructure.Repositories
@@ -18,15 +18,10 @@ namespace EngineeringWork.Infrastructure.Repositories
         }
 
         public async Task<Driver> GetAsync(Guid userId)
-        {
-            return await _passengerContext.Drivers.SingleOrDefaultAsync(x => x.DriverId == userId);
-        }
+            => await _passengerContext.Drivers.SingleOrDefaultAsync(x => x.DriverId == userId);
 
         public async Task<IEnumerable<Driver>> GetAllAsync()
-        {
-            var cos = await _passengerContext.Drivers.ToListAsync();
-            return cos;
-        }
+            => await _passengerContext.Drivers.ToListAsync();
 
         public async Task RemoveAsync(Driver driver)
         {

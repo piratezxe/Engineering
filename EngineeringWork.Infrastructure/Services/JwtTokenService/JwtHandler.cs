@@ -4,11 +4,11 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Core.DTO;
+using EngineeringWork.Core.Interface.Services.JwtTokenService;
 using EngineeringWork.Infrastructure.Extensions;
 using EngineeringWork.Infrastructure.Settings;
 using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
 namespace EngineeringWork.Infrastructure.Services.JwtTokenService
 {
@@ -35,7 +35,7 @@ namespace EngineeringWork.Infrastructure.Services.JwtTokenService
             };
 
             var expires = now.AddMinutes(_settings.ExpiryMinutes);
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)), 
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes((string) _settings.Key)), 
                 SecurityAlgorithms.HmacSha256);
             var jwt = new JwtSecurityToken(
                 issuer: _settings.Issuer,

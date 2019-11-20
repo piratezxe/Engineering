@@ -12,7 +12,6 @@ namespace EngineeringWork.Core.Domain
         public Vehicle Vehicle { get; protected set; }
         
         private ISet<DailyRoute> _dailyRoutes = new HashSet<DailyRoute>();
-       
         public virtual ICollection<DailyRoute> DailyRoutes
         {
             get => _dailyRoutes;

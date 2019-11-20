@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using EngineeringWork.Core.Repositories;
-using EngineeringWork.Infrastructure.DTO;
+using EngineeringWork.Core.DTO;
+using EngineeringWork.Core.Interface.Repositories;
+using EngineeringWork.Core.Interface.Services.JwtTokenService;
 
 namespace EngineeringWork.Infrastructure.Services.JwtTokenService
 {

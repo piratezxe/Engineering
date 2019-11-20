@@ -2,11 +2,13 @@ using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EngineeringWork.Core.Database;
+using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Infrastructure.ExceptionsModels;
 using EngineeringWork.Infrastructure.Extensions;
 using EngineeringWork.Infrastructure.IoC;
 using EngineeringWork.Infrastructure.Seed;
 using EngineeringWork.Infrastructure.Settings;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,7 +48,8 @@ namespace EngineeringWork.Web
             services.AddSwaggerToService();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSignalR();
-            
+            services.AddMediatR(typeof(Startup).Assembly);
+
             var key = Configuration.GetSettings<JwtSettings>().Key;
             var issuer = Configuration.GetSettings<JwtSettings>().Issuer;
             var database = Configuration.GetSettings<DatabaseSettings>().ConnectionString;

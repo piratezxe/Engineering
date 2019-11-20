@@ -6,17 +6,17 @@ namespace EngineeringWork.Core.Domain
     public class User
     {
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
-
         public Guid Id { get; private set; }
         public string Email { get; protected set; }
         public string Password { get; protected set; }
         public string Username { get; protected set; }
+        
         public string FullName { get; protected set; }
         public string Role { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
     
-        protected User()
+        public User()
         {
         }
 
@@ -31,9 +31,6 @@ namespace EngineeringWork.Core.Domain
             CreatedAt = DateTime.UtcNow;
         }
         
-        public void SetUserId(string userId)
-        {
-        }
         public void SetUsername(string username) 
         {
             if(!NameRegex.IsMatch(username))
@@ -68,7 +65,7 @@ namespace EngineeringWork.Core.Domain
         public void SetRole(string role)
         {
             if (Role == role)
-            return;
+                return;
 
             Role = role;
             UpdatedAt = DateTime.UtcNow;

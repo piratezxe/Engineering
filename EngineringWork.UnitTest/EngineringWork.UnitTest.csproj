@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceTest\Node" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EngineeringWork.Infrastructure\EngineeringWork.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Database;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Core.Repositories;
+using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,8 +26,6 @@ namespace EngineeringWork.Infrastructure.Repositories
             return route.Where(x =>
                 x.Route.StartNode.Address == departue && x.Route.EndNode.Address == destination);
         }
-
-    
 
         public async Task<DailyRoute> GetAsync(Guid routeId)
         {
