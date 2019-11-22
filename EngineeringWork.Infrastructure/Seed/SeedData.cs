@@ -15,7 +15,6 @@ namespace EngineeringWork.Infrastructure.Seed
 {
     public class SeedData : ISeedData
     {
-
         private readonly IUserService _userService;
 
         private readonly IMediator _mediator;
@@ -24,9 +23,7 @@ namespace EngineeringWork.Infrastructure.Seed
 
         private readonly IUserRepository _userRepository;
 
-        public SeedData(ILogger<SeedData> logger, 
-            INodeManager nodeManager, IUserRepository userRepository,  
-             IMediator mediator, IUserService userService)
+        public SeedData(ILogger<SeedData> logger, IUserRepository userRepository, IMediator mediator, IUserService userService)
         {
             _mediator = mediator;
             _userService = userService;
@@ -44,8 +41,9 @@ namespace EngineeringWork.Infrastructure.Seed
                 var userId = Guid.NewGuid();
                 var email = $"karol.pisarzewski{i}@gmail.com";
 
-                await _mediator.Send(new CreateUser()
-                    {Email = email, Password = password, Role = "user", Username = $"karol.pisarzewski{i}", UserId = userId});
+                var createUser = new CreateUser() { Email = email, Password = password, Username = $"karol.pisarzewski{i}" };
+
+                await _mediator.Send(createUser);
                 _logger.LogInformation($"User with email: {email} and password {password} created async");
 
                 await _mediator.Send(new CreateDriver() {UserId = userId}); 
@@ -66,7 +64,7 @@ namespace EngineeringWork.Infrastructure.Seed
                 var routeStartTime = DateTime.UtcNow;
                 var routeId = Guid.NewGuid();
                 
-                await _mediator.Send(new AddDriverRoute { UserId = userId, StartLatitude = 52.21890, StartLongitude  = 54.36286, EndLatitude = 21.23400, EndLongitude = 18.60375, StartTime = routeStartTime });
+                await _mediator.Send(new CreatedDriverRoute { UserId = userId, StartLatitude = 52.21890, StartLongitude  = 54.36286, EndLatitude = 21.23400, EndLongitude = 18.60375, StartTime = routeStartTime });
                 _logger.LogInformation($"Route start in {routeStartTime} created async");
 
                 await _mediator.Send(new AddPassengerToRouteCommand()

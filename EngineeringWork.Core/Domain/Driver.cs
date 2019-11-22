@@ -10,7 +10,6 @@ namespace EngineeringWork.Core.Domain
         [Key]
         public Guid DriverId { get; protected set; }
         public Vehicle Vehicle { get; protected set; }
-        
         private ISet<DailyRoute> _dailyRoutes = new HashSet<DailyRoute>();
         public virtual ICollection<DailyRoute> DailyRoutes
         {
@@ -30,13 +29,16 @@ namespace EngineeringWork.Core.Domain
             DriverId = userid;
         }
 
-        public void AddDailyRoute(Guid Id, Node start, Node end, DateTime routeDate)
+        public void AddDailyRoute(Guid Id, Node start, Node end, DateTime routeDate, int FreeSeats)
         {
             var route = _dailyRoutes.SingleOrDefault(x => x.DateTime == routeDate);
-            if(route != null)
+            if (route != null)
                 throw new ArgumentException("Daily route at this time actual exist");
 
-            var dailyRoute = DailyRoute.CreateDailyRoute(routeDate, Route.Create(start, end), Id);
+            if (FreeSeats < 1 || FreeSeats >= Vehicle.Seats)
+                throw new ArgumentException($"You have only {FreeSeats} ");
+
+            var dailyRoute = DailyRoute.CreateDailyRoute(routeDate, Route.Create(start, end), Id, FreeSeats);
             _dailyRoutes.Add(dailyRoute);
             UpdatedAt = DateTime.UtcNow;
         }

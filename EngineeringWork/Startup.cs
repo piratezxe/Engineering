@@ -47,7 +47,6 @@ namespace EngineeringWork.Web
             services.AddMvc();
             services.AddSwaggerToService();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSignalR();
             services.AddMediatR(typeof(Startup).Assembly);
 
             var key = Configuration.GetSettings<JwtSettings>().Key;
@@ -78,14 +77,13 @@ namespace EngineeringWork.Web
             }
             else
             {
-                app.UseMiddleware<ExceptionHandler>();
+                //app.UseMiddleware<ExceptionHandler>();
             }
 
             app.UseAuthentication();
             app.AddSwaggerToApp();
             app.InitialCors();
             app.UseMvc();
-            app.ApplicationServices.GetService<ISeedData>().Init();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

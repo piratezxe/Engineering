@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.CommandHandlers.DriversHandler
 {
-    public class DriverHandler : IRequestHandler<AddDriverRoute>, IRequestHandler<CreateDriver>, IRequestHandler<RemoveDriver>, IRequestHandler<SetVehickle>
+    public class DriverHandler : IRequestHandler<CreateDriver>, IRequestHandler<RemoveDriver>, IRequestHandler<SetVehickle>
     {
         private readonly INodeManager _nodeManager;
 
@@ -21,22 +21,6 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.DriversHandler
         {
             _nodeManager = nodeManager;
             _driverRepository = driverRepository;
-        }
-
-        public async Task<Unit> Handle(AddDriverRoute notification, CancellationToken cancellationToken)
-        {
-            var driver = await _driverRepository.GetAsync(notification.UserId);
-            if(driver is null)
-                throw new ArgumentException($"Driver with {notification.UserId} not exist");
-
-            var startNodeAddress = await _nodeManager.GetAdrressAsync(notification.StartLatitude, notification.StartLongitude);
-            var endNodeAdress = await _nodeManager.GetAdrressAsync(notification.EndLatitude, notification.EndLongitude);
-            
-            var startNode = Node.Create(startNodeAddress, notification.StartLatitude, notification.StartLongitude);
-            var endNode = Node.Create(endNodeAdress, notification.EndLatitude, notification.EndLongitude);
-            driver.AddDailyRoute(Guid.NewGuid(), startNode, endNode, notification.StartTime);
-            await _driverRepository.UpdateAsync(driver);
-            return Unit.Value;
         }
 
         public async Task<Unit> Handle(CreateDriver request, CancellationToken cancellationToken)

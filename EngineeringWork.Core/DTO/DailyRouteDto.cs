@@ -9,7 +9,7 @@ namespace EngineeringWork.Core.DTO
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
         public RouteDto Route { get;  set; }
-        public IEnumerable<PassengerNode> PassengerNodes { get; set; }
+        public IEnumerable<PassengerBooking> PassengerBookings { get; set; }
 
     }
 }

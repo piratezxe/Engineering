@@ -11,7 +11,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace EngineeringWork.Infrastructure.CommandHandlers.AccountsHandler
 {
-    public class LoginHandler :  IRequestHandler<Login>
+    public class LoginUserHandler :  IRequestHandler<Login>
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
@@ -19,7 +19,7 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.AccountsHandler
         private readonly IMemoryCache _cache;
         private readonly ITokenRepository _tokenRepository;
         
-        public LoginHandler(IJwtHandler jwtHandler,
+        public LoginUserHandler(IJwtHandler jwtHandler,
             IMemoryCache cache, ITokenRepository tokenRepository, IUserService userService, IUserRepository userRepository)
         {    
             _jwtHandler = jwtHandler;
@@ -38,7 +38,7 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.AccountsHandler
             jwt.RefreshToken = refreshToken;
             await _tokenRepository.CreateAsync(refreshToken);
             _cache.SetJwt(notification.Email, jwt);      
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 }

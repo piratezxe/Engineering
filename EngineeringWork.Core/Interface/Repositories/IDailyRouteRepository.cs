@@ -6,12 +6,12 @@ using EngineeringWork.Core.Domain;
 
 namespace EngineeringWork.Core.Interface.Repositories
 {
-    public interface IRouteRepository : IRepository
+    public interface IDailyRouteRepository : IRepository
     {
         Task<DailyRoute> GetAsync(Guid routeId);
-        Task<IEnumerable<DailyRoute>> GetAsyncByPlace(string departue, string destination);
         Task CreateAsync(DailyRoute dailyRoute);
         Task<IEnumerable<DailyRoute>> BrowseAsync(Expression<Func<DailyRoute, bool>> predicate);
+        Task<IEnumerable<DailyRoute>> GetAllAsync();
         Task RemoveAsync(Guid routeId);
         Task UpdateAsync(DailyRoute dailyRoute);
     }

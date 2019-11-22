@@ -7,8 +7,6 @@ namespace EngineeringWork.Core.Domain
     {
         [Key]
         public Guid RouteId { get; set; }
-        public Guid DailyRouteId { get; set; }
-        public DailyRoute DailyRoute { get; set; }
         public Node StartNode { get; protected set; }
         public Node EndNode { get; protected set; }
 

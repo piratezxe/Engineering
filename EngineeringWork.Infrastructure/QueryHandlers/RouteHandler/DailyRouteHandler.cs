@@ -17,10 +17,10 @@ namespace EngineeringWork.Infrastructure.QueryHandlers.RouteHandler
         IRequestHandler<GetDailyRouteByLocationQuery, IEnumerable<DailyRouteDto>>,
         IRequestHandler<BrowseDailyRouteQuery, IEnumerable<DailyRouteDto>>
     {
-        private readonly IRouteRepository _routeRepository;
+        private readonly IDailyRouteRepository _routeRepository;
         private readonly IMapper _mapper;   
 
-        public GetDailyRotueByIdQueryHandler(IRouteRepository routeRepository, IMapper mapper)
+        public GetDailyRotueByIdQueryHandler(IDailyRouteRepository routeRepository, IMapper mapper)
         {
             _routeRepository = routeRepository;
             _mapper = mapper;
@@ -36,7 +36,7 @@ namespace EngineeringWork.Infrastructure.QueryHandlers.RouteHandler
 
         public async Task<IEnumerable<DailyRouteDto>> Handle(GetDailyRouteByLocationQuery request, CancellationToken cancellationToken)
         {
-            var route = await _routeRepository.GetAsyncByPlace(request.StartPlace, request.EndPlace);
+            var route = await _routeRepository.BrowseAsync(x => x.Route.StartNode.Address == request.StartPlace && x.Route.EndNode.Address == request.EndPlace);
             var routeByLocation = route.ToList();
             if (!routeByLocation.Any())
                 throw new ArgumentException($"Route start at {request.StartPlace} and end at {request.EndPlace} not exist");
@@ -45,8 +45,8 @@ namespace EngineeringWork.Infrastructure.QueryHandlers.RouteHandler
 
         public async Task<IEnumerable<DailyRouteDto>> Handle(BrowseDailyRouteQuery request, CancellationToken cancellationToken)
         {
-            var rotues = await _routeRepository.BrowseAsync(null);
-            return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(rotues);        
+            var routs = await _routeRepository.BrowseAsync(null);
+            return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(routs);        
         }
     }
 }

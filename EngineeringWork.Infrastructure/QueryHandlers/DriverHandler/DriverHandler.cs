@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,11 +17,11 @@ namespace EngineeringWork.Infrastructure.QueryHandlers.DriverHandler
     {
         private readonly IDriverRepository _driverRepository;
 
-        private readonly IRouteRepository _routeRepository;
+        private readonly IDailyRouteRepository _routeRepository;
 
         private readonly IMapper _mapper;
 
-        public DriverHandler(IDriverRepository driverRepository, IMapper mapper, IRouteRepository routeRepository)
+        public DriverHandler(IDriverRepository driverRepository, IMapper mapper, IDailyRouteRepository routeRepository)
         {
             _driverRepository = driverRepository;
             _mapper = mapper;
@@ -40,7 +42,7 @@ namespace EngineeringWork.Infrastructure.QueryHandlers.DriverHandler
         
         public async Task<IEnumerable<DailyRouteDto>> Handle(DriverDailyRouteCommand request, CancellationToken cancellationToken)
         {
-            var  dailyRoute = await _routeRepository.BrowseAsync(x => x.DriverId == request.UserId);
+            var dailyRoute = await _routeRepository.BrowseAsync(x => x.DriverId == request.UserId);
             return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);
         }
     }

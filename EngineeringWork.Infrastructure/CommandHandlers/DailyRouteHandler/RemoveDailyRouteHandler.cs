@@ -10,9 +10,9 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.DailyRouteHandler
     public class RemoveDailyRouteHandler :  IRequestHandler<RemoveDailyRouteCommand>
     {
 
-        private readonly IRouteRepository _routeRepository;
+        private readonly IDailyRouteRepository _routeRepository;
 
-        public RemoveDailyRouteHandler(IRouteRepository routeRepository)
+        public RemoveDailyRouteHandler(IDailyRouteRepository routeRepository)
         {
             _routeRepository = routeRepository;
         }

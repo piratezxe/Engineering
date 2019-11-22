@@ -3,7 +3,7 @@ using EngineeringWork.Infrastructure.Commands.Auth;
 
 namespace EngineeringWork.Infrastructure.Commands.Drivers
 {
-    public class AddDriverRoute : AuthCommandBase
+    public class CreatedDriverRoute : AuthCommandBase
     {
         public double StartLatitude { get; set; }
         
@@ -14,5 +14,7 @@ namespace EngineeringWork.Infrastructure.Commands.Drivers
         public double EndLongitude { get; set; }
         
         public DateTime StartTime { get; set; }
+
+        public int FreeSeats { get; set; }
     }
 }

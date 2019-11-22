@@ -9,53 +9,51 @@ namespace EngineeringWork.Core.Domain
     {
         [Key]
         public Guid Id { get; set; }
-        
         public Guid DriverId { get; set; }
-        
         public DateTime DateTime { get; protected set; }
-        
-        private ISet<PassengerNode> _passengerNodes = new HashSet<PassengerNode>();
-        
+        private ISet<PassengerBooking> _passengerBooking = new HashSet<PassengerBooking>();
         public Route Route { get; protected set; }
-        
-        public IEnumerable<PassengerNode> PassengerNodes => _passengerNodes;
+        public IEnumerable<PassengerBooking> passengerBooking => _passengerBooking;
+        public int FreeSeats { get; private set; }
 
         public DailyRoute()
         {
         }
         
-        protected DailyRoute(DateTime dateTime, Route route, Guid id)
+        protected DailyRoute(DateTime dateTime, Route route, Guid id, int freeSeats)
         {
             Id = id;
             Route = route;
             DateTime = dateTime;
+            FreeSeats = freeSeats;
         }
 
-        public void AddPassengerNode(EngineeringWork.Core.Domain.Passenger passenger, Node node)
+        public void AddPassengerBooking(Passenger passenger, Booking booking)
         {
-            var passengerNode = GetPassengerNode(passenger);
-            if(passengerNode != null)
+            var passengerBooking = GetPassengerBooking(passenger);
+            if(passengerBooking != null)
             {
-                throw new InvalidOperationException($"Node already exists for passenger: '{passenger.UserId}'.");
+                throw new InvalidOperationException($"Passeger: '{passenger.UserId}' already exist in route");
             }
-            
-            _passengerNodes.Add(PassengerNode.Create(passenger, node));
+            _passengerBooking.Add(PassengerBooking.Create(passenger, booking));
+            FreeSeats++;
         }
 
-        public void RemovePassengerNode(EngineeringWork.Core.Domain.Passenger passenger)
+        public void RemovePassengerBooking(Passenger passenger)
         {
-            var passengerNode = GetPassengerNode(passenger);
-            if(passengerNode is null)
+            var passengerBooking = GetPassengerBooking(passenger);
+            if(passengerBooking is null)
             {
                 return;
             }
-            _passengerNodes.Remove(passengerNode);
+            _passengerBooking.Remove(passengerBooking);
+            FreeSeats--;
         } 
 
-        private PassengerNode GetPassengerNode(EngineeringWork.Core.Domain.Passenger passenger)
-            => _passengerNodes.SingleOrDefault(x => x.Passenger.UserId == passenger.UserId);
+        private PassengerBooking GetPassengerBooking(Passenger passenger)
+            => _passengerBooking.SingleOrDefault(x => x.Passenger.Id == passenger.Id);
 
-        public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id)
-            => new DailyRoute(dateTime, route,  Id);
+        public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id, int FreeSeats)
+            => new DailyRoute(dateTime, route,  Id, FreeSeats);
     }
 }

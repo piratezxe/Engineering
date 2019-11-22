@@ -71,4 +71,7 @@
     <_ContentIncludedByDefault Remove="EngineeringWork.UnitTest\packages.config" />
     <_ContentIncludedByDefault Remove="EngineeringWork.FunctionalTest\packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>

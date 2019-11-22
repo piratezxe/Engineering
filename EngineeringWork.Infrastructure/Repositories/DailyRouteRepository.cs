@@ -11,21 +11,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringWork.Infrastructure.Repositories
 {
-    public class RouteRepository : IRouteRepository
+    public class DailyRouteRepository : IDailyRouteRepository
     {
         private readonly PassengerContext _passengerContext;
 
-        public RouteRepository(PassengerContext passengerContext)
+        public DailyRouteRepository(PassengerContext passengerContext)
         {
             _passengerContext = passengerContext;
         }
 
-        public async Task<IEnumerable<DailyRoute>> GetAsyncByPlace(string departue, string destination)
-        {
-            var route = await BrowseAsync();
-            return route.Where(x =>
-                x.Route.StartNode.Address == departue && x.Route.EndNode.Address == destination);
-        }
 
         public async Task<DailyRoute> GetAsync(Guid routeId)
         {
@@ -58,5 +52,8 @@ namespace EngineeringWork.Infrastructure.Repositories
             _passengerContext.DailyRoutes.Update(dailyRoute);
             await _passengerContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<DailyRoute>> GetAllAsync()
+            => await _passengerContext.DailyRoutes.ToListAsync();
     }
 }

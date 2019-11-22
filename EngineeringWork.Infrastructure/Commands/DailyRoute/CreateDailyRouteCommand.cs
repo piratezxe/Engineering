@@ -17,5 +17,7 @@ namespace EngineeringWork.Infrastructure.Commands.DailyRoute
         public double EndLongitude { get; set; }
         
         public DateTime StartTime { get; set; }
+
+        public int FreeSeats { get; set; }
     }
 }

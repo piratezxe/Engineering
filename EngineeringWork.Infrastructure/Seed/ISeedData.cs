@@ -1,8 +1,9 @@
+using EngineeringWork.Core.Interface.Services;
 using System.Threading.Tasks;
 
 namespace EngineeringWork.Infrastructure.Seed
 {
-    public interface ISeedData
+    public interface ISeedData 
     {
         Task Init();
     }

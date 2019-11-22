@@ -74,5 +74,20 @@ namespace EngineeringWork.Core.Domain
 
         public static Node Create(string address, double longitude, double latitude)
             => new Node(address, longitude, latitude);
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

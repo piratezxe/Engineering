@@ -20,14 +20,12 @@ namespace EngineringWork.UnitTest.CommandHandlerTest
             var userRepositoryMock = new Mock<IUserRepository>();
             var passwordService = new Mock<IPasswordService>();
             passwordService.Setup(x => x.HashPassword(It.IsAny<string>())).Returns("asdasd");
-            var createUserHandler = new UserCommandHandler(userRepositoryMock.Object, passwordService.Object);
+            var createUserHandler = new CreateUserHandler(userRepositoryMock.Object, passwordService.Object);
 
             var result = await createUserHandler.Handle(new CreateUser()
             {
-                UserId = Guid.NewGuid(), 
                 Email = "asdasdasd",
                 Password = "asdasd", 
-                Role = "user", 
                 Username = "asdasdasd"
             }, new CancellationToken());
 
@@ -39,23 +37,23 @@ namespace EngineringWork.UnitTest.CommandHandlerTest
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var passwordService = new Mock<IPasswordService>();
-            var userHandler = new UserCommandHandler(userRepositoryMock.Object, passwordService.Object);
+            var userHandler = new ChangeUserPasswordHandler(userRepositoryMock.Object, passwordService.Object);
             
             passwordService.Setup(x => x.HashPassword(It.IsAny<string>())).Returns("asdasd");
             userRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>())).ReturnsAsync( 
-                new EngineeringWork.Core.Domain.User(
-                new Guid(), 
+            new EngineeringWork.Core.Domain.User(
+            new Guid(), 
                 "asdasd", 
                 "aasdasd" ,
                 "user", 
                 "asdasdasdasdasd" 
-                ) 
+            ) 
             );
             
             var result = await userHandler.Handle(new ChangeUserPassword()
             {
-                CurrentPassword = "asasdasd",
-                NewPassword = "asasdasd"
+            CurrentPassword = "asasdasd",
+            NewPassword = "asasdasd"
             }, new CancellationToken());
 
             result.Should().NotBeNull();

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Autofac;
+using EngineeringWork.Core.Interface.Services;
 using EngineeringWork.Core.Interface.Services.JwtTokenService;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using EngineeringWork.Core.Interface.Services.Password;

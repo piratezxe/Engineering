@@ -12,33 +12,22 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.QueryHandlers.PassengerHandler
 {
-    public class PassengerHandler : IRequestHandler<GetPassengerRouteQuery, IEnumerable<DailyRouteDto>>, IRequestHandler<GetPassengerByIdQuery, Passenger>
+    public class PassengerHandler : IRequestHandler<GetPassengerRouteQuery, IEnumerable<DailyRouteDto>>
     {
-        private readonly IRouteRepository _routeRepository;
-
-        private readonly IPassengerRepository _passengerRepository;
+        private readonly IDailyRouteRepository _routeRepository;
 
         private readonly IMapper _mapper;
 
-        public PassengerHandler(IRouteRepository routeRepository, IMapper mapper, IPassengerRepository passengerRepository)
+        public PassengerHandler(IDailyRouteRepository routeRepository, IMapper mapper)
         {
             _routeRepository = routeRepository;
             _mapper = mapper;
-            _passengerRepository = passengerRepository;
         }
 
         public async Task<IEnumerable<DailyRouteDto>> Handle(GetPassengerRouteQuery request, CancellationToken cancellationToken)
         {
-            var dailyRoute = await _routeRepository.BrowseAsync(x => x.PassengerNodes.All(k => k.Passenger.Id == request.UserId));
+            var dailyRoute =  await _routeRepository.BrowseAsync(x => x.passengerBooking.All(k => k.Passenger.Id == request.UserId));
             return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);        
-        }
-
-        public async Task<Passenger> Handle(GetPassengerByIdQuery request, CancellationToken cancellationToken)
-        {
-            var passenger = await _passengerRepository.GetAsync(request.PassengerId);
-            if(passenger is null)
-                throw new ArgumentNullException($"Passenger with {request.PassengerId} not exist");
-            return passenger;        
         }
     }
 }

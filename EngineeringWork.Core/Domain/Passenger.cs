@@ -20,7 +20,5 @@ namespace EngineeringWork.Core.Domain
         {
             
         }
-        
-        
     }
 }
