@@ -83,8 +83,10 @@ namespace EngineeringWork.Web
             app.UseAuthentication();
             app.AddSwaggerToApp();
             app.InitialCors();
-            app.UseMvc();
-            app.ApplicationServices.GetService<ISeedData>().Init();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            }); app.ApplicationServices.GetService<ISeedData>().Init();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

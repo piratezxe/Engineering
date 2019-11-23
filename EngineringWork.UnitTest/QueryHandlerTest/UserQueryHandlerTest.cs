@@ -20,7 +20,7 @@ namespace EngineringWork.UnitTest.QueryHandlerTest
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
-            var userQueryHandler = new GetUserQueryHandler(userRepositoryMock.Object, mapperMock.Object);
+            var userQueryHandler = new GetAllUserQueryHandler(userRepositoryMock.Object, mapperMock.Object);
 
              userRepositoryMock.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<User>());
 

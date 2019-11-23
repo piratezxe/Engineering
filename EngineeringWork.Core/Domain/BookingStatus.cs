@@ -6,8 +6,8 @@ namespace EngineeringWork.Core.Domain
 {
     public enum BookingStatus
     {
-        Send,
-        Cancel,
-        Accepted
+        Send = 0,
+        Cancel = 1,
+        Accepted = 2
     }
 }
