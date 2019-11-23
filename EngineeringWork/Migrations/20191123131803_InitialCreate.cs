@@ -191,10 +191,10 @@ namespace EngineeringWork.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    DailyRouteId = table.Column<Guid>(nullable: false),
                     PassengerId = table.Column<Guid>(nullable: true),
                     BookingId = table.Column<Guid>(nullable: true),
-                    BookingStatus = table.Column<int>(nullable: false),
-                    DailyRouteId = table.Column<Guid>(nullable: true)
+                    BookingStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -210,7 +210,7 @@ namespace EngineeringWork.Web.Migrations
                         column: x => x.DailyRouteId,
                         principalTable: "DailyRoutes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PassengerBooking_Passenger_PassengerId",
                         column: x => x.PassengerId,

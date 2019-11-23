@@ -13,7 +13,11 @@ namespace EngineeringWork.Core.Domain
         public DateTime DateTime { get; protected set; }
         private ISet<PassengerBooking> _passengerBooking = new HashSet<PassengerBooking>();
         public Route Route { get; protected set; }
-        public IEnumerable<PassengerBooking> passengerBooking => _passengerBooking;
+        public virtual ICollection<PassengerBooking> PassengerBookings 
+        {
+            get => _passengerBooking;
+            set => new HashSet<PassengerBooking>(value);
+        } 
         public int FreeSeats { get; private set; }
 
         public DailyRoute()
@@ -36,7 +40,7 @@ namespace EngineeringWork.Core.Domain
                 throw new InvalidOperationException($"Passeger: '{passenger.UserId}' already exist in route");
             }
             _passengerBooking.Add(PassengerBooking.Create(passenger, booking));
-            FreeSeats++;
+            FreeSeats--;
         }
 
         public void RemovePassengerBooking(Passenger passenger)
@@ -47,7 +51,7 @@ namespace EngineeringWork.Core.Domain
                 return;
             }
             _passengerBooking.Remove(passengerBooking);
-            FreeSeats--;
+            FreeSeats++;
         } 
 
         private PassengerBooking GetPassengerBooking(Passenger passenger)

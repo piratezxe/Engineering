@@ -13,6 +13,7 @@ namespace EngineeringWork.Infrastructure.Mappers
                 cfg.CreateMap<Driver, DriverDto>();
                 cfg.CreateMap<DailyRoute, DailyRouteDto>();
                 cfg.CreateMap<Route, RouteDto>();
+                cfg.CreateMap<PassengerBooking, PassengerBookingDto>();
             })
             .CreateMapper();
     }

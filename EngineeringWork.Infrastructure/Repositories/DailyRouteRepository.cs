@@ -34,10 +34,14 @@ namespace EngineeringWork.Infrastructure.Repositories
 
         public async Task<IEnumerable<DailyRoute>> BrowseAsync(Expression<Func<DailyRoute, bool>> predicate = null)
         {
-            var query = _passengerContext.Set<DailyRoute>().Include(_passengerContext.GetIncludePaths(typeof(DailyRoute)));
-            if (predicate != null)
-                query = query.Where(predicate);
-            return await query.ToListAsync();        
+            var query = await _passengerContext.DailyRoutes.Where(predicate)
+                .Include(x => x.PassengerBookings)
+                .Include(x => x.Route)
+                    .ThenInclude(x => x.StartNode)
+                .Include(x => x.Route)
+                    .ThenInclude(x => x.EndNode)
+                    .ToListAsync();
+            return query;        
         }
 
         public async Task RemoveAsync(Guid routeId)

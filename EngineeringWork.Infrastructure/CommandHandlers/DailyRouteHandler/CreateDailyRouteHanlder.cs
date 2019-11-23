@@ -10,10 +10,10 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.CommandHandlers.DailyRouteHandler
 {
+
     public class CreateDailyRouteHanlder : IRequestHandler<CreateDailyRouteCommand>
     {
         private readonly IDriverRepository _driverRepository;
-
         private readonly INodeManager _nodeManager;
         
         public CreateDailyRouteHanlder(IDriverRepository driverRepository, INodeManager nodeManager)

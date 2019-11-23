@@ -17,8 +17,8 @@ namespace EngineeringWork.Infrastructure.Repositories
             _passengerContext = passengerContext;
         }
 
-        public async Task<Driver> GetAsync(Guid userId)
-            => await _passengerContext.Drivers.SingleOrDefaultAsync(x => x.DriverId == userId);
+        public async Task<Driver> GetAsync(Guid driverId)
+            => await _passengerContext.Drivers.SingleOrDefaultAsync(x => x.DriverId == driverId);
 
         public async Task<IEnumerable<Driver>> GetAllAsync()
             => await _passengerContext.Drivers.ToListAsync();
@@ -41,5 +41,6 @@ namespace EngineeringWork.Infrastructure.Repositories
             await _passengerContext.SaveChangesAsync();
 
         }
+        
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineeringWork.Web.Migrations
 {
     [DbContext(typeof(PassengerContext))]
-    [Migration("20191121143131_InitialCreate")]
+    [Migration("20191123131803_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,7 +134,7 @@ namespace EngineeringWork.Web.Migrations
 
                     b.Property<int>("BookingStatus");
 
-                    b.Property<Guid?>("DailyRouteId");
+                    b.Property<Guid>("DailyRouteId");
 
                     b.Property<Guid?>("PassengerId");
 
@@ -255,9 +255,10 @@ namespace EngineeringWork.Web.Migrations
                         .WithMany()
                         .HasForeignKey("BookingId");
 
-                    b.HasOne("EngineeringWork.Core.Domain.DailyRoute")
-                        .WithMany("passengerBooking")
-                        .HasForeignKey("DailyRouteId");
+                    b.HasOne("EngineeringWork.Core.Domain.DailyRoute", "DailyRoute")
+                        .WithMany("PassengerBookings")
+                        .HasForeignKey("DailyRouteId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("EngineeringWork.Core.Domain.Passenger", "Passenger")
                         .WithMany()

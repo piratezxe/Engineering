@@ -45,7 +45,7 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.PassengerHandler
         private async Task<bool> isPassengerExistInRoute(Guid routeId, Guid passengerId)
         {
             var dailyRoute = await _dailyRouteRepository.GetAsync(routeId);
-            return dailyRoute.passengerBooking.Any(x => x.Passenger.Id == passengerId);
+            return dailyRoute.PassengerBookings.Any(x => x.Passenger.Id == passengerId);
         }
         
       

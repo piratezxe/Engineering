@@ -26,7 +26,7 @@ namespace EngineeringWork.Infrastructure.QueryHandlers.PassengerHandler
 
         public async Task<IEnumerable<DailyRouteDto>> Handle(GetPassengerRouteQuery request, CancellationToken cancellationToken)
         {
-            var dailyRoute =  await _routeRepository.BrowseAsync(x => x.passengerBooking.All(k => k.Passenger.Id == request.UserId));
+            var dailyRoute =  await _routeRepository.BrowseAsync(x => x.PassengerBookings.All(k => k.Passenger.Id == request.UserId));
             return _mapper.Map<IEnumerable<DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);        
         }
     }

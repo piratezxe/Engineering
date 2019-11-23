@@ -17,6 +17,10 @@ namespace EngineeringWork.Core.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PassengerBooking>()
+                .HasOne<DailyRoute>(x => x.DailyRoute)
+                .WithMany(d => d.PassengerBookings)
+                .HasForeignKey(x => x.DailyRouteId);
         }
     }
 }

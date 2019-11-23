@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.CommandHandlers.PassengerHandler
 {
-    public class CreatePassengerHandler 
+    public class CreatePassengerHandler : IRequestHandler<CreatePassengerCommand>
     {
         private readonly IPassengerRepository _passengerRepository;
         public CreatePassengerHandler(IPassengerRepository passengerRepository)

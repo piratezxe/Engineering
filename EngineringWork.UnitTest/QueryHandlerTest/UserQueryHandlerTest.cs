@@ -20,7 +20,7 @@ namespace EngineringWork.UnitTest.QueryHandlerTest
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
-            var userQueryHandler = new UserQueryHandler(userRepositoryMock.Object, mapperMock.Object);
+            var userQueryHandler = new GetUserQueryHandler(userRepositoryMock.Object, mapperMock.Object);
 
              userRepositoryMock.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<User>());
 
@@ -33,7 +33,7 @@ namespace EngineringWork.UnitTest.QueryHandlerTest
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
-            var userQueryHandler = new UserQueryHandler(userRepositoryMock.Object, mapperMock.Object);
+            var userQueryHandler = new GetUserQueryHandler(userRepositoryMock.Object, mapperMock.Object);
 
             userRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>())).ReturnsAsync(new User());
             

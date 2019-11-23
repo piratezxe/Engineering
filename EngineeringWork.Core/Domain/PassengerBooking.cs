@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace EngineeringWork.Core.Domain
 {
     public class PassengerBooking
     {
+        [Key]
         public Guid Id { get; set; }
-        public Passenger Passenger { get; private set; }
-        public Booking Booking { get; private set; }
+        public Guid DailyRouteId { get; set; }
+        public DailyRoute DailyRoute { get; set; }
+        public Passenger Passenger { get; protected set; }
+        public Booking Booking { get; protected set; }
         public BookingStatus BookingStatus { get; private set; }
 
         private PassengerBooking(Passenger passenger, Booking booking)

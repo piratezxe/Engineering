@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.Query.DailyRoute
 {
-    public class DriverDailyRouteCommand : AuthCommandBase, IRequest<IEnumerable<DailyRouteDto>>
+    public class DriverDailyRouteQuery : AuthCommandBase, IRequest<IEnumerable<DailyRouteDto>>
     {
     }
 }

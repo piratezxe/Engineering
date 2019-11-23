@@ -30,7 +30,7 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.Users
             }
 
             var hash = _passwordService.HashPassword(notification.Password);
-            user = new User(Guid.NewGuid(), notification.Email, notification.Username , "user", hash);
+            user = new User(notification.UserId, notification.Email, notification.Username , "user", hash);
             await _userRepository.AddAsync(user);            
             return Unit.Value;
         }

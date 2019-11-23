@@ -84,6 +84,7 @@ namespace EngineeringWork.Web
             app.AddSwaggerToApp();
             app.InitialCors();
             app.UseMvc();
+            app.ApplicationServices.GetService<ISeedData>().Init();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

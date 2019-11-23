@@ -7,7 +7,7 @@ namespace EngineeringWork.Core.Interface.Repositories
 {
     public interface IDriverRepository : IRepository
     {
-        Task<Driver> GetAsync(Guid userId); 
+        Task<Driver> GetAsync(Guid driverId);
         Task<IEnumerable<Driver>> GetAllAsync();
         Task RemoveAsync(Driver driver);
         Task AddAsync(Driver driver);
