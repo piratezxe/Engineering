@@ -39,8 +39,12 @@ namespace EngineeringWork.Core.Domain
             {
                 throw new InvalidOperationException($"Passeger: '{passenger.UserId}' already exist in route");
             }
-            _passengerBooking.Add(PassengerBooking.Create(passenger, booking));
-            FreeSeats--;
+            if (FreeSeats > 0)
+            {
+                _passengerBooking.Add(PassengerBooking.Create(passenger, booking));
+                FreeSeats--;
+            }
+            throw new ArgumentException("No empty seats");
         }
 
         public void RemovePassengerBooking(Passenger passenger)
