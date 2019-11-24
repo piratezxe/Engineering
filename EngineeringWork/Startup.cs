@@ -12,6 +12,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +46,7 @@ namespace EngineeringWork.Web
             services.AddMemoryCache();
             services.InitialCors();
             services.AddMvc();
-            services.AddSwaggerToService();
+            //services.AddSwaggerToService();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMediatR(typeof(Startup).Assembly);
 
@@ -57,8 +58,11 @@ namespace EngineeringWork.Web
             services.AddDbContext<PassengerContext>(options =>
                 {
                     options.UseSqlServer(database, x => x.MigrationsAssembly("EngineeringWork.Api"));
-                });    
-            
+                });
+
+            services.AddMvc();
+            services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
@@ -77,16 +81,33 @@ namespace EngineeringWork.Web
             }
             else
             {
-                //app.UseMiddleware<ExceptionHandler>();
+                app.UseMiddleware<ExceptionHandler>();
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
+            app.UseRouting();
             app.UseAuthentication();
-            app.AddSwaggerToApp();
+            //app.AddSwaggerToApp();
             app.InitialCors();
-            app.UseMvc(routes =>
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            }); 
+                endpoints.MapControllers();
+            });
+
+            // add following statements
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "client-app";
+                if (env.IsDevelopment())
+                {
+                    // Launch development server for Vue.js
+                    spa.UseVueDevelopmentServer();
+                }
+            });
+
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

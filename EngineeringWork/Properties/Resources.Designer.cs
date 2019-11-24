@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EngineeringWork.Web.Properties {
+namespace EngineeringWork.Api.Properties {
     using System;
     
     
