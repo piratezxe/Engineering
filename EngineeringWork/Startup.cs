@@ -1,12 +1,12 @@
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EngineeringWork.Core;
 using EngineeringWork.Core.Database;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Infrastructure.ExceptionsModels;
 using EngineeringWork.Infrastructure.Extensions;
 using EngineeringWork.Infrastructure.IoC;
-using EngineeringWork.Infrastructure.Seed;
 using EngineeringWork.Infrastructure.Settings;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -86,7 +86,7 @@ namespace EngineeringWork.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            }); app.ApplicationServices.GetService<ISeedData>().Init();
+            }); 
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

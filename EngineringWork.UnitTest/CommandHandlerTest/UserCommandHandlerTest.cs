@@ -5,7 +5,6 @@ using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.Password;
 using EngineeringWork.Infrastructure.CommandHandlers.Users;
 using EngineeringWork.Infrastructure.Commands.Users;
-using EngineeringWork.Infrastructure.Services.Password;
 using FluentAssertions;
 using Moq;
 using Xunit;

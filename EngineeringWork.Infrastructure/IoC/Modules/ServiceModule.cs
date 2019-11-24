@@ -4,11 +4,8 @@ using EngineeringWork.Core.Interface.Services;
 using EngineeringWork.Core.Interface.Services.JwtTokenService;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using EngineeringWork.Core.Interface.Services.Password;
-using EngineeringWork.Infrastructure.Seed;
-using EngineeringWork.Infrastructure.Services;
 using EngineeringWork.Infrastructure.Services.JwtTokenService;
 using EngineeringWork.Infrastructure.Services.NodeService;
-using EngineeringWork.Infrastructure.Services.Password;
 using Microsoft.AspNetCore.Identity;
 
 namespace EngineeringWork.Infrastructure.IoC.Modules
@@ -37,11 +34,6 @@ namespace EngineeringWork.Infrastructure.IoC.Modules
             builder.RegisterType<NodeManager>()
                 .As<INodeManager>()
                 .SingleInstance();
-
-            builder.RegisterType<SeedData>()
-                .As<ISeedData>()
-                .SingleInstance();
-
         }
     }
 }

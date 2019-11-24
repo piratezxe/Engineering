@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Interface.Services.JwtTokenService;
 using EngineeringWork.Infrastructure.Commands.Accounts;
-using EngineeringWork.Infrastructure.Services.JwtTokenService;
 using MediatR;
 
 namespace EngineeringWork.Infrastructure.CommandHandlers.AccountsHandler

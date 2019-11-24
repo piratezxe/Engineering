@@ -5,7 +5,6 @@ using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using EngineeringWork.Infrastructure.Commands.DailyRoute;
-using EngineeringWork.Infrastructure.Services.NodeService;
 using MediatR;
 
 namespace EngineeringWork.Infrastructure.CommandHandlers.DailyRouteHandler
