@@ -87,7 +87,6 @@ namespace EngineeringWork.Web
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
-            app.ApplicationServices.GetService<ISeedData>().Init();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
