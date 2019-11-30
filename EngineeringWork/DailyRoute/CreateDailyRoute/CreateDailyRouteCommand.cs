@@ -7,8 +7,6 @@ namespace EngineeringWork.Infrastructure.Commands.DailyRoute
 {
     public class CreateDailyRouteCommand : AuthCommandBase
     {
-        public Guid RouteId { get; set; }
-        
         public double StartLatitude { get; set; }
         
         public double EndLatitude { get; set; }
