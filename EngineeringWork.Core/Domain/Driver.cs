@@ -29,7 +29,7 @@ namespace EngineeringWork.Core.Domain
             DriverId = userid;
         }
 
-        public void AddDailyRoute(Guid Id, Node start, Node end, DateTime routeDate, int FreeSeats)
+        public void AddDailyRoute(Guid Id, Node start, Node end, DateTime routeDate, int FreeSeats, MoneyValue moneyValue)
         {
             var route = _dailyRoutes.SingleOrDefault(x => x.DateTime == routeDate);
             if (route != null)
@@ -38,7 +38,7 @@ namespace EngineeringWork.Core.Domain
             if (FreeSeats < 1 || FreeSeats >= Vehicle.Seats)
                 throw new ArgumentException($"You have only {FreeSeats} ");
 
-            var dailyRoute = DailyRoute.CreateDailyRoute(routeDate, Route.Create(start, end), Id, FreeSeats);
+            var dailyRoute = DailyRoute.CreateDailyRoute(routeDate, Route.Create(start, end), Id, FreeSeats, moneyValue);
             _dailyRoutes.Add(dailyRoute);
             UpdatedAt = DateTime.UtcNow;
         }

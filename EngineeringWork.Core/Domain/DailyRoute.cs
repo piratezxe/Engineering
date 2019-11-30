@@ -14,7 +14,7 @@ namespace EngineeringWork.Core.Domain
         private ISet<PassengerBooking> _passengerBooking = new HashSet<PassengerBooking>();
         public Route Route { get; protected set; }
         public int FreeSeats { get; private set; }
-        
+        public MoneyValue MoneyValue { get; private set; } 
 
         public virtual ICollection<PassengerBooking> PassengerBookings 
         {
@@ -26,12 +26,13 @@ namespace EngineeringWork.Core.Domain
         {
         }
         
-        protected DailyRoute(DateTime dateTime, Route route, Guid id, int freeSeats)
+        protected DailyRoute(DateTime dateTime, Route route, Guid id, int freeSeats, MoneyValue moneyValue)
         {
             Id = id;
             Route = route;
             DateTime = dateTime;
             FreeSeats = freeSeats;
+            MoneyValue = moneyValue;
         }
 
         public void AddPassengerBooking(Passenger passenger, Booking booking)
@@ -63,7 +64,7 @@ namespace EngineeringWork.Core.Domain
         private PassengerBooking GetPassengerBooking(Passenger passenger)
             => _passengerBooking.SingleOrDefault(x => x.Passenger.Id == passenger.Id);
 
-        public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id, int FreeSeats)
-            => new DailyRoute(dateTime, route,  Id, FreeSeats);
+        public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id, int FreeSeats, MoneyValue moneyValue)
+            => new DailyRoute(dateTime, route,  Id, FreeSeats, moneyValue);
     }
 }

@@ -1,3 +1,4 @@
+using EngineeringWork.Core.Configuration;
 using EngineeringWork.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,13 +15,12 @@ namespace EngineeringWork.Core.Database
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<DailyRoute> DailyRoutes { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PassengerBooking>()
-                .HasOne<DailyRoute>(x => x.DailyRoute)
-                .WithMany(d => d.PassengerBookings)
-                .HasForeignKey(x => x.DailyRouteId);
+           modelBuilder.ApplyConfiguration(new PassengerBookingEntityTypeConfiguration());
+           modelBuilder.ApplyConfiguration(new DailyRouteEntityTypeConfiguration());
         }
     }
 }

@@ -32,7 +32,7 @@ namespace EngineeringWork.Infrastructure.CommandHandlers.DailyRouteHandler
             
             var startNode = Node.Create(startNodeAddress, request.StartLatitude, request.StartLongitude);
             var endNode = Node.Create(endNodeAdress, request.EndLatitude, request.EndLongitude);
-            driver.AddDailyRoute(request.RouteId, startNode, endNode, request.StartTime, request.FreeSeats);
+            driver.AddDailyRoute(request.RouteId, startNode, endNode, request.StartTime, request.FreeSeats, request.moneyValue);
             await _driverRepository.UpdateAsync(driver);
             return Unit.Value;
         }

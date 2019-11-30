@@ -1,4 +1,5 @@
 using System;
+using EngineeringWork.Core.Domain;
 using EngineeringWork.Infrastructure.Commands.Auth;
 using MediatR;
 
@@ -19,5 +20,7 @@ namespace EngineeringWork.Infrastructure.Commands.DailyRoute
         public DateTime StartTime { get; set; }
 
         public int FreeSeats { get; set; }
+
+        public MoneyValue moneyValue { get; set;}
     }
 }

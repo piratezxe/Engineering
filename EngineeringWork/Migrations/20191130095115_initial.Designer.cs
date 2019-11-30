@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineeringWork.Web.Migrations
 {
     [DbContext(typeof(PassengerContext))]
-    [Migration("20191123131803_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20191130095115_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -233,6 +233,20 @@ namespace EngineeringWork.Web.Migrations
                     b.HasOne("EngineeringWork.Core.Domain.Route", "Route")
                         .WithMany()
                         .HasForeignKey("RouteId");
+
+                    b.OwnsOne("EngineeringWork.Core.Domain.MoneyValue", "MoneyValue", b1 =>
+                        {
+                            b1.Property<Guid>("DailyRouteId");
+
+                            b1.HasKey("DailyRouteId");
+
+                            b1.ToTable("DailyRoutes");
+
+                            b1.HasOne("EngineeringWork.Core.Domain.DailyRoute")
+                                .WithOne("MoneyValue")
+                                .HasForeignKey("EngineeringWork.Core.Domain.MoneyValue", "DailyRouteId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 
             modelBuilder.Entity("EngineeringWork.Core.Domain.Driver", b =>
