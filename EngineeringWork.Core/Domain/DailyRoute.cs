@@ -13,12 +13,14 @@ namespace EngineeringWork.Core.Domain
         public DateTime DateTime { get; protected set; }
         private ISet<PassengerBooking> _passengerBooking = new HashSet<PassengerBooking>();
         public Route Route { get; protected set; }
+        public int FreeSeats { get; private set; }
+        
+
         public virtual ICollection<PassengerBooking> PassengerBookings 
         {
             get => _passengerBooking;
             set => new HashSet<PassengerBooking>(value);
         } 
-        public int FreeSeats { get; private set; }
 
         public DailyRoute()
         {

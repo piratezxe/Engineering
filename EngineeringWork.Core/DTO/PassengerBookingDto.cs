@@ -9,7 +9,5 @@ namespace EngineeringWork.Core.DTO
     {
         public Guid Id { get; set; }
         public Passenger Passenger { get;  set; }
-        public Booking Booking { get;  set; }
-        public BookingStatus BookingStatus { get;  set; }
     }
 }

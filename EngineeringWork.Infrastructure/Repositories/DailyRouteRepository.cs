@@ -36,6 +36,7 @@ namespace EngineeringWork.Infrastructure.Repositories
         {
             var query = await _passengerContext.DailyRoutes.Where(predicate)
                 .Include(x => x.PassengerBookings)
+                    .ThenInclude(x => x.Passenger)
                 .Include(x => x.Route)
                     .ThenInclude(x => x.StartNode)
                 .Include(x => x.Route)
