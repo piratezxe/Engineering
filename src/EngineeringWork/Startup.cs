@@ -39,25 +39,14 @@ namespace EngineeringWork.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddAuthorization();
             services.AddAuthentication();
             services.AddMemoryCache();
             services.InitialCors();
             services.AddMvc();
             services.AddSwaggerToService();
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMediatR(typeof(Startup).Assembly);
-
-            var key = Configuration.GetSettings<JwtSettings>().Key;
-            var issuer = Configuration.GetSettings<JwtSettings>().Issuer;
-            var database = Configuration.GetSettings<DatabaseSettings>().ConnectionString;
-            
-            services.AddJwtConfiguration(key, issuer);
-            services.AddDbContext<PassengerContext>(options =>
-                {
-                    options.UseSqlServer(database, x => x.MigrationsAssembly("EngineeringWork.Api"));
-                });    
+            services.AddDatabaseService(Configuration);   
             
             var builder = new ContainerBuilder();
             builder.Populate(services);

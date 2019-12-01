@@ -9,13 +9,15 @@ namespace EngineeringWork.Infrastructure.Extensions
     {
         public static void AddJwtConfiguration(this IServiceCollection services, string key, string issuer)
         {
-//            var key = Configuration.GetSettings<JwtSettings>().Key;
-//            var issuer = Configuration.GetSettings<JwtSettings>().Issuer;
             services.AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(cfg => {
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.Authority = "http://localhost:5000";
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.Audience = "api1";
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),

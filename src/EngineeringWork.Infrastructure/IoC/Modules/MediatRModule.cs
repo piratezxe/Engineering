@@ -4,7 +4,7 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.IoC.Modules
 {
-    public class MediatRModule : Autofac.Module
+    public class  MediatRModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {

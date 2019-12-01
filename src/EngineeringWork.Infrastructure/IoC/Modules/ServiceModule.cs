@@ -6,6 +6,7 @@ using EngineeringWork.Core.Interface.Services.NodeService;
 using EngineeringWork.Core.Interface.Services.Password;
 using EngineeringWork.Infrastructure.Services.JwtTokenService;
 using EngineeringWork.Infrastructure.Services.NodeService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace EngineeringWork.Infrastructure.IoC.Modules
@@ -33,6 +34,10 @@ namespace EngineeringWork.Infrastructure.IoC.Modules
             
             builder.RegisterType<NodeManager>()
                 .As<INodeManager>()
+                .SingleInstance();
+
+            builder.RegisterType<HttpContextAccessor>()
+                .As<IHttpContextAccessor>()
                 .SingleInstance();
         }
     }
