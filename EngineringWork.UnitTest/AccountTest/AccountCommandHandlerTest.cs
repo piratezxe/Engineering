@@ -1,4 +1,4 @@
-namespace EngineringWork.UnitTest.CommandHandlerTest
+namespace EngineringWork.UnitTest.AccountTest
 {
     public class AccountCommandHandlerTest
     {

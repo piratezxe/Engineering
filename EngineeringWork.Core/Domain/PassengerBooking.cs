@@ -14,6 +14,7 @@ namespace EngineeringWork.Core.Domain
         public DailyRoute DailyRoute { get; set; }
         public Passenger Passenger { get; protected set; }
         public Booking Booking { get; protected set; }
+        
         public BookingStatus BookingStatus { get; private set; }
 
         private PassengerBooking(Passenger passenger, Booking booking)

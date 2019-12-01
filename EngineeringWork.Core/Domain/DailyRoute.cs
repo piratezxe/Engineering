@@ -10,7 +10,9 @@ namespace EngineeringWork.Core.Domain
         [Key]
         public Guid Id { get; set; }
         public Guid DriverId { get; set; }
-        public DateTime DateTime { get; protected set; }
+        public DateTime CrateDate { get; protected set; }
+        public DateTime BeginingDate { get; protected set; }
+        
         private ISet<PassengerBooking> _passengerBooking = new HashSet<PassengerBooking>();
         public Route Route { get; protected set; }
         public int FreeSeats { get; private set; }
@@ -22,15 +24,16 @@ namespace EngineeringWork.Core.Domain
             set => new HashSet<PassengerBooking>(value);
         } 
 
-        public DailyRoute()
+        protected DailyRoute()
         {
         }
         
-        protected DailyRoute(DateTime dateTime, Route route, Guid id, int freeSeats, MoneyValue moneyValue)
+        protected DailyRoute(DateTime createDate, DateTime beginingDate,  Route route, Guid id, int freeSeats, MoneyValue moneyValue)
         {
             Id = id;
             Route = route;
-            DateTime = dateTime;
+            CrateDate = createDate;
+            BeginingDate = beginingDate;
             FreeSeats = freeSeats;
             MoneyValue = moneyValue;
         }
@@ -64,7 +67,7 @@ namespace EngineeringWork.Core.Domain
         private PassengerBooking GetPassengerBooking(Passenger passenger)
             => _passengerBooking.SingleOrDefault(x => x.Passenger.Id == passenger.Id);
 
-        public static DailyRoute CreateDailyRoute(DateTime dateTime, Route route, Guid Id, int FreeSeats, MoneyValue moneyValue)
-            => new DailyRoute(dateTime, route,  Id, FreeSeats, moneyValue);
+        public static DailyRoute CreateDailyRoute(DateTime createDate,DateTime beginingDate,  Route route, Guid Id, int FreeSeats, MoneyValue moneyValue)
+            => new DailyRoute(createDate, beginingDate,  route,  Id, FreeSeats, moneyValue);
     }
 }
