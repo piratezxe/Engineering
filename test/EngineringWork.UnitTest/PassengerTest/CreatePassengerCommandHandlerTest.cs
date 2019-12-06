@@ -17,9 +17,8 @@ namespace EngineringWork.UnitTest.PassengerTest
         public async Task create_passenger_handler_should_not_be_null()
         {
             var routeRepositoryMock = new Mock<IPassengerRepository>();
-            var mapperMock = new Mock<IMapper>();
-            
             var passengerHandler = new CreatePassengerCommandHandler(routeRepositoryMock.Object);
+            
             routeRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>()))
                 .ReturnsAsync( new Passenger(Guid.NewGuid(), new Adress("", "", "")));
             
