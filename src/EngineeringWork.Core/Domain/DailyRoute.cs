@@ -50,7 +50,10 @@ namespace EngineeringWork.Core.Domain
                 _passengerBooking.Add(PassengerBooking.Create(passenger, booking));
                 FreeSeats--;
             }
-            throw new ArgumentException("No empty seats");
+            else
+            {
+                throw new ArgumentException("No empty seats");
+            }
         }
 
         public void RemovePassengerBooking(Passenger passenger)

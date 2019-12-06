@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EngineeringWork.Web.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,9 +26,7 @@ namespace EngineeringWork.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreateDate = table.Column<DateTime>(nullable: false),
-                    UpdateTime = table.Column<DateTime>(nullable: false),
-                    BookingStatus = table.Column<int>(nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,6 +46,17 @@ namespace EngineeringWork.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Node", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PassengerBookingProposalDecision",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PassengerBookingProposalDecision", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,6 +150,26 @@ namespace EngineeringWork.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PassengerBookingProposals",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserPropsalId = table.Column<Guid>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false),
+                    PassengerBookingProposalDecisionId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PassengerBookingProposals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PassengerBookingProposals_PassengerBookingProposalDecision_PassengerBookingProposalDecisionId",
+                        column: x => x.PassengerBookingProposalDecisionId,
+                        principalTable: "PassengerBookingProposalDecision",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Drivers",
                 columns: table => new
                 {
@@ -165,7 +194,8 @@ namespace EngineeringWork.Web.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     DriverId = table.Column<Guid>(nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false),
+                    CrateDate = table.Column<DateTime>(nullable: false),
+                    BeginingDate = table.Column<DateTime>(nullable: false),
                     RouteId = table.Column<Guid>(nullable: true),
                     FreeSeats = table.Column<int>(nullable: false)
                 },
@@ -193,8 +223,7 @@ namespace EngineeringWork.Web.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     DailyRouteId = table.Column<Guid>(nullable: false),
                     PassengerId = table.Column<Guid>(nullable: true),
-                    BookingId = table.Column<Guid>(nullable: true),
-                    BookingStatus = table.Column<int>(nullable: false)
+                    BookingId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -255,6 +284,11 @@ namespace EngineeringWork.Web.Migrations
                 column: "PassengerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PassengerBookingProposals_PassengerBookingProposalDecisionId",
+                table: "PassengerBookingProposals",
+                column: "PassengerBookingProposalDecisionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Route_EndNodeId",
                 table: "Route",
                 column: "EndNodeId");
@@ -271,6 +305,9 @@ namespace EngineeringWork.Web.Migrations
                 name: "PassengerBooking");
 
             migrationBuilder.DropTable(
+                name: "PassengerBookingProposals");
+
+            migrationBuilder.DropTable(
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
@@ -284,6 +321,9 @@ namespace EngineeringWork.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Passenger");
+
+            migrationBuilder.DropTable(
+                name: "PassengerBookingProposalDecision");
 
             migrationBuilder.DropTable(
                 name: "Drivers");

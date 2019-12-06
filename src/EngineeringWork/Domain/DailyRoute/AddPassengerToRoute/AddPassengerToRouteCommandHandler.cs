@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute
 {
-    public class AddPassengerToRouteHandler : IRequestHandler<AddPassengerToRouteCommand>
+    public class AddPassengerToRouteCommandHandler : IRequestHandler<AddPassengerToRouteCommand>
     {
         private readonly IPassengerRepository _passengerRepository;
 
@@ -17,7 +17,7 @@ namespace EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute
 
         private readonly INodeManager _nodeManager;
 
-        public AddPassengerToRouteHandler(IPassengerRepository passengerRepository, IDailyRouteRepository dailyRouteRepository, INodeManager nodeManager)
+        public AddPassengerToRouteCommandHandler(IPassengerRepository passengerRepository, IDailyRouteRepository dailyRouteRepository, INodeManager nodeManager)
         {
             _passengerRepository = passengerRepository;
             _nodeManager = nodeManager;

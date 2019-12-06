@@ -15,9 +15,7 @@ namespace EngineeringWork.Infrastructure.Extensions
                 })
                 .AddJwtBearer(cfg =>
                 {
-                    cfg.Authority = "http://localhost:5000";
                     cfg.RequireHttpsMetadata = false;
-                    cfg.Audience = "api1";
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),

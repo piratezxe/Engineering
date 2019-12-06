@@ -8,17 +8,20 @@ namespace EngineeringWork.Infrastructure.Extensions
         public static void InitialCors(this IApplicationBuilder app)
         {
             //before add.mvc
-            app.UseCors("MyPolicy");
+            app.UseCors("AllowAll");
         }
 
         public static void InitialCors(this IServiceCollection service)
         {
-            service.AddCors( o => o.AddPolicy("MyPolicy", builder =>
+            service.AddCors(options =>
             {
-                builder.AllowAnyOrigin()
+                options.AddPolicy("AllowAll",
+                    builder => builder
+                    .WithOrigins("http://localhost:8080")
+                    .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
-            }));
+                    .AllowCredentials());
+            });
         }
     }
 }

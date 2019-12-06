@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Database;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineeringWork.Infrastructure.Repositories

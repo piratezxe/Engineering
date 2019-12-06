@@ -26,7 +26,9 @@ namespace EngineeringWork.Web.Domain.DailyRoute.RemovePassengerFromRoute
          public async Task<Unit> Handle(RemovePassengerFromRouteCommand request, CancellationToken cancellationToken)
         {
             var passenger = await _passengerRepository.GetAsync(request.UserId);
-
+            if (passenger is null)
+                throw new ArithmeticException($"Passenger with id {request.UserId} not exist");
+            
             var route = await _dailyRouteRepository.GetAsync(request.RouteId);
             if(route is null)
                 throw new ArgumentException($"Route not exist");

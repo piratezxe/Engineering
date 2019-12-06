@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace EngineeringWork.Core.Domain
 {
@@ -12,11 +10,9 @@ namespace EngineeringWork.Core.Domain
         public Guid Id { get; set; }
         public Guid DailyRouteId { get; set; }
         public DailyRoute DailyRoute { get; set; }
-        public Passenger Passenger { get; protected set; }
-        public Booking Booking { get; protected set; }
+        public Passenger Passenger { get; private set; }
+        public Booking Booking { get; private set; }
         
-        public BookingStatus BookingStatus { get; private set; }
-
         private PassengerBooking(Passenger passenger, Booking booking)
         {
             Booking = booking;
@@ -27,7 +23,6 @@ namespace EngineeringWork.Core.Domain
         protected PassengerBooking()
         {
         }
-
         public static PassengerBooking Create(Passenger passenger, Booking booking)
             => new PassengerBooking(passenger, booking);
     }

@@ -7,7 +7,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Drivers.GetDriverDailyRoute
+namespace EngineeringWork.Web.Domain.DailyRoute.GetDriverDailyRoute
 {
     public class DriverDailyRouteQueryHandler : IRequestHandler<DriverDailyRouteQuery, IEnumerable<DailyRouteDto>>
     {

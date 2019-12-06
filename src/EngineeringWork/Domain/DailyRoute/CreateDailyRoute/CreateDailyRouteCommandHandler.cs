@@ -9,12 +9,12 @@ using MediatR;
 namespace EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute
 {
 
-    public class CreateDailyRouteHandler : IRequestHandler<CreateDailyRouteCommand>
+    public class CreateDailyRouteCommandHandler : IRequestHandler<CreateDailyRouteCommand>
     {
         private readonly IDriverRepository _driverRepository;
         private readonly INodeManager _nodeManager;
         
-        public CreateDailyRouteHandler(IDriverRepository driverRepository, INodeManager nodeManager)
+        public CreateDailyRouteCommandHandler(IDriverRepository driverRepository, INodeManager nodeManager)
         {
             _driverRepository = driverRepository;
             _nodeManager = nodeManager;

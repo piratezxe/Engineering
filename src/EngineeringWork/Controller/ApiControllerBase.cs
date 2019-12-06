@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EngineeringWork.Web.Domain.Auth;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EngineeringWork.Web.Controller
@@ -22,7 +23,7 @@ namespace EngineeringWork.Web.Controller
             IRequest<TResponse> request,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            if(request is IAuthCommand authenticatedCommand)
+            if (request is IAuthCommand authenticatedCommand)
             {
                 authenticatedCommand.UserId = UserId;
             }

@@ -8,6 +8,7 @@ using EngineeringWork.Web.Domain.Accounts.RevokeAcessToken;
 using EngineeringWork.Web.Domain.Users.ChangeUserPassword;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -17,9 +18,9 @@ namespace EngineeringWork.Web.Domain.Accounts
     {
         private readonly IMemoryCache _cache;
 
-        public AccountController( 
-            IMemoryCache cache, IMediator mediator) 
-            : base( mediator)
+        public AccountController(
+            IMemoryCache cache, IMediator mediator)
+            : base(mediator)
         {
             _cache = cache;
         }
@@ -32,8 +33,8 @@ namespace EngineeringWork.Web.Domain.Accounts
             var jwt = _cache.GetJwt(command.Email);
 
             return Json(jwt);
-        }   
-        
+        }
+
         [Authorize]
         [HttpPut]
         [Route("password")]
@@ -48,7 +49,7 @@ namespace EngineeringWork.Web.Domain.Accounts
         public async Task<IActionResult> RefreshAcessToken([FromQuery]RefreshAcessTokenCommand command)
         {
             await Send(command);
-            
+
             var jwt = _cache.Get<JwtDto>(command.Email);
             return Json(jwt);
         }

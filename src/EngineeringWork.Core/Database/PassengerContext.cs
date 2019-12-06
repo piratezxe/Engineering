@@ -16,6 +16,7 @@ namespace EngineeringWork.Core.Database
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<DailyRoute> DailyRoutes { get; set; }
         
+        public DbSet<PassengerBookingProposal> PassengerBookingProposals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
