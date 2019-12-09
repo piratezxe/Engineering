@@ -8,6 +8,7 @@ using EngineeringWork.Infrastructure.ExceptionsModels;
 using EngineeringWork.Infrastructure.Extensions;
 using EngineeringWork.Infrastructure.IoC;
 using EngineeringWork.Infrastructure.Settings;
+using EngineeringWork.Web.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,7 +47,8 @@ namespace EngineeringWork.Web
             services.AddMvc();
             services.AddSwaggerToService();
             services.AddMediatR(typeof(Startup).Assembly);
-            services.AddDatabaseService(Configuration);   
+            services.AddDatabaseService(Configuration);
+            services.AddSingleton<ISeedData, SeedData>();
             
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -72,6 +74,7 @@ namespace EngineeringWork.Web
             app.UseAuthentication();
             app.AddSwaggerToApp();
             app.InitialCors();
+            app.ApplicationServices.GetService<ISeedData>().Init();
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
