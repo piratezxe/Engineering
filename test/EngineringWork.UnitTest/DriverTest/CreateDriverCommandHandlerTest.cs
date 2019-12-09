@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
-using EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute;
 using EngineeringWork.Web.Domain.Drivers.CreateDriver;
 using FluentAssertions;
 using Moq;
@@ -25,13 +24,7 @@ namespace EngineringWork.UnitTest.DriverTest
 
             var command = new CreateDriverCommand()
             {
-                UserId = Guid.NewGuid(), 
-                Vehicle = new CreateDriverCommand.DriverVehicle()
-                {
-                    Brand = "Bmw",
-                    Name = "x5",
-                    Seats = 5
-                }
+                UserId = Guid.NewGuid()
             };
            
             var commandHandler =  new CreateDriverCommandHandler(nodeManagerMock.Object, driverRepositoryMock.Object);
