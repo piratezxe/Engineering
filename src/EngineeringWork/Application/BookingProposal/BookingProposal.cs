@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using EngineeringWork.Web.Controller;
+using EngineeringWork.Web.Application;
 using EngineeringWork.Web.Domain.BookingProposal.AcceptPassengerBookingProposal;
 using EngineeringWork.Web.Domain.BookingProposal.RejectPassengerBookingProposal;
 using EngineeringWork.Web.Domain.BookingProposal.RequestPassengerBookingProposalVerification;

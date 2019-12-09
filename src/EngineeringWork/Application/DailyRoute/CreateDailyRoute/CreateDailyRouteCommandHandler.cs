@@ -31,7 +31,7 @@ namespace EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute
             
             var startNode = Node.Create(startNodeAddress, request.StartLatitude, request.StartLongitude);
             var endNode = Node.Create(endNodeAdress, request.EndLatitude, request.EndLongitude);
-            driver.AddDailyRoute(Guid.NewGuid(), startNode, endNode, request.StartTime, request.BeginingTime ,request.FreeSeats, request.moneyValue);
+            driver.AddDailyRoute(request.RouteId, startNode, endNode, request.StartTime, request.BeginingTime ,request.FreeSeats, request.moneyValue);
             await _driverRepository.UpdateAsync(driver);
             return Unit.Value;
         }

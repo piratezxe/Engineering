@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using EngineeringWork.Core.DTO;
 using EngineeringWork.Infrastructure.Extensions;
-using EngineeringWork.Web.Controller;
+using EngineeringWork.Web.Application;
 using EngineeringWork.Web.Domain.Accounts.LoginUser;
 using EngineeringWork.Web.Domain.Accounts.RefreshAcessToken;
 using EngineeringWork.Web.Domain.Accounts.RevokeAcessToken;

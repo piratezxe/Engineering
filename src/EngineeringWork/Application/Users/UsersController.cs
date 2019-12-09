@@ -1,6 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
-using EngineeringWork.Web.Controller;
+using EngineeringWork.Web.Application;
 using EngineeringWork.Web.Domain.Users.GetUsers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

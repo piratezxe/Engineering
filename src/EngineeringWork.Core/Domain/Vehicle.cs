@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EngineeringWork.Core.Domain
 {
     public class Vehicle
     {
+        [Key]
         public Guid Id { get; set; }
         public string Brand { get; protected set; }
         public string Name { get; protected set; }

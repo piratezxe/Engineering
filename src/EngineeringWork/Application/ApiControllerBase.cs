@@ -3,10 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using EngineeringWork.Web.Domain.Auth;
 using MediatR;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Controller
+namespace EngineeringWork.Web.Application
 {
     [Route("[controller]")]
     public abstract class ApiControllerBase : Microsoft.AspNetCore.Mvc.Controller

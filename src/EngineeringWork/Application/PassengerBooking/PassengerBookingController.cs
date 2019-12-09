@@ -1,4 +1,4 @@
-﻿using EngineeringWork.Web.Controller;
+﻿using EngineeringWork.Web.Application;
 using MediatR;
 
 namespace EngineeringWork.Web.Domain.PassengerBooking

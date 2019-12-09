@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using EngineeringWork.Web.Controller;
+using EngineeringWork.Web.Application;
 using EngineeringWork.Web.Domain.Drivers.SetDriverVehickle;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

@@ -21,5 +21,7 @@ namespace EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute
         public int FreeSeats { get; set; }
 
         public MoneyValue moneyValue { get; set;}
+
+        public Guid RouteId { get; set; }
     }
 }
