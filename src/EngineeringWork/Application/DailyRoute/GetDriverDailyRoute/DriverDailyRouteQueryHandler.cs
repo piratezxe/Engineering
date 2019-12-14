@@ -7,7 +7,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.GetDriverDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.GetDriverDailyRoute
 {
     public class DriverDailyRouteQueryHandler : IRequestHandler<DriverDailyRouteQuery, IEnumerable<DailyRouteDto>>
     {
@@ -26,14 +26,16 @@ namespace EngineeringWork.Web.Domain.DailyRoute.GetDriverDailyRoute
         
         public async Task<IEnumerable<DailyRouteDto>> Handle(DriverDailyRouteQuery request, CancellationToken cancellationToken)
         {
-            var driver = await _driverRepository.GetAsync(request.UserId);
-            if (driver is null) 
-                throw new ArgumentNullException($"Driver with id: {request.UserId} not exist");
+            //var driver = await _driverRepository.GetAsync(request.UserId);
+            //if (driver is null) 
+            //    throw new ArgumentNullException($"Driver with id: {request.UserId} not exist");
 
-            var dailyRoute = await _routeRepository.BrowseAsync(x => x.DriverId == request.UserId);
-            var dailyRouteDto =  _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);
+            //var dailyRoute = await _routeRepository.BrowseAsync(x => x.DriverId == request.UserId);
+            //var dailyRouteDto =  _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);
 
-            return dailyRouteDto;
+            //return dailyRouteDto;
+            throw new System.Exception();
+
         }
     }
 }

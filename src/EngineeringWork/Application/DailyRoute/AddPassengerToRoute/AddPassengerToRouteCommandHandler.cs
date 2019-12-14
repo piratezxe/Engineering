@@ -5,9 +5,8 @@ using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using MediatR;
-using Microsoft.Extensions.Configuration.UserSecrets;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute
+namespace EngineeringWork.Web.Application.DailyRoute.AddPassengerToRoute
 {
     public class AddPassengerToRouteCommandHandler : IRequestHandler<AddPassengerToRouteCommand>
     {

@@ -10,7 +10,7 @@ namespace EngineeringWork.Core.Interface.Repositories
     {
         Task<DailyRoute> GetAsync(Guid routeId);
         Task CreateAsync(DailyRoute dailyRoute);
-        Task<IEnumerable<DailyRoute>> BrowseAsync(Expression<Func<DailyRoute, bool>> predicate);
+        Task<IEnumerable<DailyRoute>> BrowseAsync();
         Task<IEnumerable<DailyRoute>> GetAllAsync();
         Task RemoveAsync(Guid routeId);
         Task UpdateAsync(DailyRoute dailyRoute);

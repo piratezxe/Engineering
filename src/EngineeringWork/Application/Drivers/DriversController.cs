@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EngineeringWork.Core.DTO;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Domain.Drivers.BrowseDriver;
-using EngineeringWork.Web.Domain.Drivers.CreateDriver;
-using EngineeringWork.Web.Domain.Drivers.GetDriver;
-using EngineeringWork.Web.Domain.Drivers.RemoveDriver;
+using EngineeringWork.Web.Application.Drivers.BrowseDriver;
+using EngineeringWork.Web.Application.Drivers.CreateDriver;
+using EngineeringWork.Web.Application.Drivers.GetDriver;
+using EngineeringWork.Web.Application.Drivers.RemoveDriver;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Domain.Drivers
+namespace EngineeringWork.Web.Application.Drivers
 {
     public class DriversController : ApiControllerBase
     {

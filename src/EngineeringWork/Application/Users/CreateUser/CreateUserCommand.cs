@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Users.CreateUser
+namespace EngineeringWork.Web.Application.Users.CreateUser
 {
     public class CreateUserCommand : IRequest  
     {

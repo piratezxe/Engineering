@@ -1,7 +1,7 @@
 using System;
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute
+namespace EngineeringWork.Web.Application.DailyRoute.AddPassengerToRoute
 {
     public class AddPassengerToRouteCommand: AuthCommandBase
     {

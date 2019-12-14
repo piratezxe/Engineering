@@ -1,28 +1,35 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EngineeringWork.Core.DTO;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute;
-using EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute;
-using EngineeringWork.Web.Domain.DailyRoute.GetDailyRoute;
-using EngineeringWork.Web.Domain.DailyRoute.GetDailyRouteByLocation;
-using EngineeringWork.Web.Domain.DailyRoute.GetDriverDailyRoute;
-using EngineeringWork.Web.Domain.DailyRoute.GetPassengerRoute;
-using EngineeringWork.Web.Domain.DailyRoute.RemoveDailyRoute;
-using EngineeringWork.Web.Domain.DailyRoute.RemovePassengerFromRoute;
+using EngineeringWork.Web.Application.DailyRoute.AddPassengerToRoute;
+using EngineeringWork.Web.Application.DailyRoute.BrowseDailyRoute;
+using EngineeringWork.Web.Application.DailyRoute.CreateDailyRoute;
+using EngineeringWork.Web.Application.DailyRoute.GetDailyRouteByLocation;
+using EngineeringWork.Web.Application.DailyRoute.GetDriverDailyRoute;
+using EngineeringWork.Web.Application.DailyRoute.GetPassengerRoute;
+using EngineeringWork.Web.Application.DailyRoute.RemoveDailyRoute;
+using EngineeringWork.Web.Application.DailyRoute.RemovePassengerFromRoute;
 using MediatR;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Domain.DailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute
 {
     [Authorize]
     public class RouteController : ApiControllerBase
     {
         public RouteController(IMediator mediator) : base(mediator)
         {
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [EnableQuery]
+        public async Task<IQueryable<DailyRouteDto>> BrowseAsync()
+        {
+            return await Send(new BrowseDailyRouteQuery());
         }
 
         [HttpGet("/{start}/{end}")]

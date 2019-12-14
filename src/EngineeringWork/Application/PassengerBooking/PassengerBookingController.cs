@@ -1,7 +1,6 @@
-﻿using EngineeringWork.Web.Application;
-using MediatR;
+﻿using MediatR;
 
-namespace EngineeringWork.Web.Domain.PassengerBooking
+namespace EngineeringWork.Web.Application.PassengerBooking
 {
 
     public class PassengerBookingController : ApiControllerBase

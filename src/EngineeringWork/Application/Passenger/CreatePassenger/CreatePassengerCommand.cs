@@ -1,6 +1,6 @@
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.Passenger.CreatePassenger
+namespace EngineeringWork.Web.Application.Passenger.CreatePassenger
 {
     public class CreatePassengerCommand : AuthCommandBase
     {

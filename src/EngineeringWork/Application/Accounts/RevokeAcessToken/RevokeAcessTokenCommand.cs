@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Domain.Accounts.RevokeAcessToken
+namespace EngineeringWork.Web.Application.Accounts.RevokeAcessToken
 {
     public class RevokeAcessTokenCommand : IRequest  
     {

@@ -6,7 +6,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.GetDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.GetDailyRoute
     { 
     public class GetDailyRouteQueryHandler : 
         IRequestHandler<GetDailyRouteQuery, DailyRouteDto>

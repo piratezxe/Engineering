@@ -8,7 +8,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.GetDailyRouteByLocation
+namespace EngineeringWork.Web.Application.DailyRoute.GetDailyRouteByLocation
 {
     public class GetDailyRouteByLocationQueryHandler : IRequestHandler<GetDailyRouteByLocationQuery, IEnumerable<DailyRouteDto>>
     {
@@ -22,11 +22,13 @@ namespace EngineeringWork.Web.Domain.DailyRoute.GetDailyRouteByLocation
         }
         public async Task<IEnumerable<DailyRouteDto>> Handle(GetDailyRouteByLocationQuery request, CancellationToken cancellationToken)
         {
-            var route = await _routeRepository.BrowseAsync(x => x.Route.StartNode.Address == request.StartPlace && x.Route.EndNode.Address == request.EndPlace);
-            var routeByLocation = route.ToList();
-            if (!routeByLocation.Any())
-                throw new ArgumentException($"Route start at {request.StartPlace} and end at {request.EndPlace} not exist");
-            return _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(routeByLocation);
+            //var route = await _routeRepository.BrowseAsync(x => x.Route.StartNode.Address == request.StartPlace && x.Route.EndNode.Address == request.EndPlace);
+            //var routeByLocation = route.ToList();
+            //if (!routeByLocation.Any())
+            //    throw new ArgumentException($"Route start at {request.StartPlace} and end at {request.EndPlace} not exist");
+            //return _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(routeByLocation);
+            throw new System.Exception();
+
         }
     }
 }

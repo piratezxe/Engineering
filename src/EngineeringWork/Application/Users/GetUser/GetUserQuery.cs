@@ -2,7 +2,7 @@ using System;
 using EngineeringWork.Core.DTO;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Users.GetUser
+namespace EngineeringWork.Web.Application.Users.GetUser
 {
     public class GetUserQuery : IRequest<UserDto>
     {

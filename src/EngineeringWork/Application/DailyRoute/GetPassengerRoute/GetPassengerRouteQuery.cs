@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using EngineeringWork.Core.DTO;
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.GetPassengerRoute
+namespace EngineeringWork.Web.Application.DailyRoute.GetPassengerRoute
 {
     public class GetPassengerRouteQuery : AuthCommandBase, IRequest<IEnumerable<DailyRouteDto>>
     {

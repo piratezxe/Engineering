@@ -31,9 +31,9 @@ namespace EngineeringWork.Infrastructure.Repositories
             await _passengerContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<DailyRoute>> BrowseAsync(Expression<Func<DailyRoute, bool>> predicate = null)
+        public async Task<IEnumerable<DailyRoute>> BrowseAsync()
         {
-            var query = await _passengerContext.DailyRoutes.Where(predicate)
+            var query = await _passengerContext.DailyRoutes
                 .Include(x => x.PassengerBookings)
                     .ThenInclude(x => x.Passenger)
                 .Include(x => x.Route)

@@ -6,7 +6,7 @@ using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Drivers.SetDriverVehickle
+namespace EngineeringWork.Web.Application.Drivers.SetDriverVehickle
 {
     public class SetDriverVehickleCommandHandler : IRequestHandler<SetVehickleCommand>
     {

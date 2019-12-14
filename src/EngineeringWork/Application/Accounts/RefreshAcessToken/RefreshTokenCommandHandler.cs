@@ -4,7 +4,7 @@ using EngineeringWork.Core.Interface.Services.JwtTokenService;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace EngineeringWork.Web.Domain.Accounts.RefreshAcessToken
+namespace EngineeringWork.Web.Application.Accounts.RefreshAcessToken
 {
     public class RefreshAcessTokenHandler : IRequestHandler<RefreshAcessTokenCommand>
     {

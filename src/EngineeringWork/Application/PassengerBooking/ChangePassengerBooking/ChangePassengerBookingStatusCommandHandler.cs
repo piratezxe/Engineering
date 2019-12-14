@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.PassengerBooking.ChangePassengerBooking
+namespace EngineeringWork.Web.Application.PassengerBooking.ChangePassengerBooking
 {
     public class ChangePassengerBookingStatusCommandHandler : IRequestHandler<ChangePassengerBooking>
     {

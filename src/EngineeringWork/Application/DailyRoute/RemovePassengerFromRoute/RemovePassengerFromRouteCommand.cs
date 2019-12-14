@@ -1,7 +1,7 @@
 using System;
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.RemovePassengerFromRoute
+namespace EngineeringWork.Web.Application.DailyRoute.RemovePassengerFromRoute
 {
     public class RemovePassengerFromRouteCommand : AuthCommandBase
     {

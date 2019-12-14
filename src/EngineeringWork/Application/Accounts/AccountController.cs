@@ -1,18 +1,16 @@
 using System.Threading.Tasks;
 using EngineeringWork.Core.DTO;
 using EngineeringWork.Infrastructure.Extensions;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Domain.Accounts.LoginUser;
-using EngineeringWork.Web.Domain.Accounts.RefreshAcessToken;
-using EngineeringWork.Web.Domain.Accounts.RevokeAcessToken;
-using EngineeringWork.Web.Domain.Users.ChangeUserPassword;
+using EngineeringWork.Web.Application.Accounts.LoginUser;
+using EngineeringWork.Web.Application.Accounts.RefreshAcessToken;
+using EngineeringWork.Web.Application.Accounts.RevokeAcessToken;
+using EngineeringWork.Web.Application.Users.ChangeUserPassword;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace EngineeringWork.Web.Domain.Accounts
+namespace EngineeringWork.Web.Application.Accounts
 {
     public class AccountController : ApiControllerBase
     {

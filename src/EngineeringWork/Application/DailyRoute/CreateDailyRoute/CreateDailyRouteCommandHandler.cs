@@ -6,7 +6,7 @@ using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.CreateDailyRoute
 {
 
     public class CreateDailyRouteCommandHandler : IRequestHandler<CreateDailyRouteCommand>

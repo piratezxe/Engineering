@@ -4,7 +4,7 @@ using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Passenger.CreatePassenger
+namespace EngineeringWork.Web.Application.Passenger.CreatePassenger
 {
     public class CreatePassengerCommandHandler : IRequestHandler<CreatePassengerCommand>
     {

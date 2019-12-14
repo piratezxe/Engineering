@@ -1,6 +1,6 @@
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.Users.ChangeUserPassword
+namespace EngineeringWork.Web.Application.Users.ChangeUserPassword
 {
     public class ChangeUserPasswordCommand : AuthCommandBase
     {

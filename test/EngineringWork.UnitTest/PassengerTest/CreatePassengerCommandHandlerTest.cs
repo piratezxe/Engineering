@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Web.Domain.Passenger.CreatePassenger;
+using EngineeringWork.Web.Application.Passenger.CreatePassenger;
 using FluentAssertions;
 using Moq;
 using Xunit;

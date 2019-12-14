@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
-using EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute;
+using EngineeringWork.Web.Application.DailyRoute.AddPassengerToRoute;
 using FluentAssertions;
 using Moq;
 using Xunit;

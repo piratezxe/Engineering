@@ -5,7 +5,7 @@ using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.Password;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Users.ChangeUserPassword
+namespace EngineeringWork.Web.Application.Users.ChangeUserPassword
 {
     public class ChangeUserPasswordCommandHandler : IRequestHandler<ChangeUserPasswordCommand>
     {

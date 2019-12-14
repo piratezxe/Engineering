@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Interface.Services.JwtTokenService;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Accounts.RevokeAcessToken
+namespace EngineeringWork.Web.Application.Accounts.RevokeAcessToken
 {
     public class RevokeAcessTokenHandler : IRequestHandler<RevokeAcessTokenCommand>
     {

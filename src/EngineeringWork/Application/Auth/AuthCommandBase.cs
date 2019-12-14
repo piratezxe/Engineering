@@ -1,6 +1,6 @@
 using System;
 
-namespace EngineeringWork.Web.Domain.Auth
+namespace EngineeringWork.Web.Application.Auth
 {
     public class AuthCommandBase : IAuthCommand
     {

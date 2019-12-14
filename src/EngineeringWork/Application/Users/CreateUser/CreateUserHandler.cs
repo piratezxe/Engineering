@@ -6,7 +6,7 @@ using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.Password;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Users.CreateUser
+namespace EngineeringWork.Web.Application.Users.CreateUser
 {
     public class CreateUserHandler : IRequestHandler<CreateUserCommand>
     {

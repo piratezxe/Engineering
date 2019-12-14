@@ -8,7 +8,7 @@ using EngineeringWork.Infrastructure.ExceptionsModels;
 using EngineeringWork.Infrastructure.Extensions;
 using EngineeringWork.Infrastructure.IoC;
 using EngineeringWork.Infrastructure.Settings;
-using EngineeringWork.Web.Domain;
+using EngineeringWork.Web.Application;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,20 +46,21 @@ namespace EngineeringWork.Web
             services.InitialCors();
             services.AddMvc();
             services.AddSwaggerToService();
+            services.AddOdataExtensions();
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddDatabaseService(Configuration);
-            services.AddSingleton<ISeedData, SeedData>();
-            
+            services.AddTransient<ISeedData, SeedData>();
+                
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
-            
+
             return new AutofacServiceProvider(ApplicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
         {
             if (env.IsDevelopment())
@@ -68,17 +69,14 @@ namespace EngineeringWork.Web
             }
             else
             {
-                //app.UseMiddleware<ExceptionHandler>();
+                app.UseMiddleware<ExceptionHandler>();
             }
 
             app.UseAuthentication();
             app.AddSwaggerToApp();
             app.InitialCors();
+            app.AddOdataExtensions();
             app.ApplicationServices.GetService<ISeedData>().Init();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            });
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }

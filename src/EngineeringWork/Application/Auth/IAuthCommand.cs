@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Auth
+namespace EngineeringWork.Web.Application.Auth
 {
     public interface IAuthCommand : IRequest  
     {

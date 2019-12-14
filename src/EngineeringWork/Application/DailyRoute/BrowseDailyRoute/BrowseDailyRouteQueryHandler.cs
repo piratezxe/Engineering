@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,9 +7,9 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.BrowseDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.BrowseDailyRoute
 {
-    public class BrowseDailyRouteQueryHandler : IRequestHandler<BrowseDailyRouteQuery, IEnumerable<DailyRouteDto>>
+    public class BrowseDailyRouteQueryHandler : IRequestHandler<BrowseDailyRouteQuery, IQueryable<DailyRouteDto>>
     {
         private readonly IDailyRouteRepository _routeRepository;
         private readonly IMapper _mapper;
@@ -18,10 +19,11 @@ namespace EngineeringWork.Web.Domain.DailyRoute.BrowseDailyRoute
             _routeRepository = routeRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<DailyRouteDto>> Handle(BrowseDailyRouteQuery request, CancellationToken cancellationToken)
+        public async Task<IQueryable<DailyRouteDto>> Handle(BrowseDailyRouteQuery request, CancellationToken cancellationToken)
         {
-            var routs = await _routeRepository.BrowseAsync(null);
-            return _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(routs);
+            var routes = await _routeRepository.BrowseAsync();
+            var mappRoutes = _mapper.Map<IEnumerable<EngineeringWork.Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(routes);
+            return mappRoutes.AsQueryable();
         }
     }
 }

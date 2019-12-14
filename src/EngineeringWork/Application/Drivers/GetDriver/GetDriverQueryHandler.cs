@@ -6,7 +6,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Drivers.GetDriver
+namespace EngineeringWork.Web.Application.Drivers.GetDriver
 {
     public class GetDriverQueryHandler : IRequestHandler<GetDriverQuery, DriverDto>
     {

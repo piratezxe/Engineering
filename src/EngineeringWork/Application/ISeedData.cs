@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace EngineeringWork.Web.Domain
+namespace EngineeringWork.Web.Application
 {
     public interface ISeedData
     {

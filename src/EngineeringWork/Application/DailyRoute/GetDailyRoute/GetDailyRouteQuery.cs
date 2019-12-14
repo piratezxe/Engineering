@@ -2,7 +2,7 @@ using System;
 using EngineeringWork.Core.DTO;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.GetDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.GetDailyRoute
 {
     public class GetDailyRouteQuery : IRequest<DailyRouteDto>
     {

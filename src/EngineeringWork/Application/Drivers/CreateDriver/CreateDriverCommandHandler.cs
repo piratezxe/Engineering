@@ -6,7 +6,7 @@ using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Drivers.CreateDriver
+namespace EngineeringWork.Web.Application.Drivers.CreateDriver
 {
     public class CreateDriverCommandHandler : IRequestHandler<CreateDriverCommand>
     {

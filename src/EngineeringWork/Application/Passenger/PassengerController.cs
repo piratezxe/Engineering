@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using EngineeringWork.Core.DTO;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Domain.DailyRoute.AddPassengerToRoute;
-using EngineeringWork.Web.Domain.DailyRoute.GetPassengerRoute;
-using EngineeringWork.Web.Domain.DailyRoute.RemovePassengerFromRoute;
-using EngineeringWork.Web.Domain.Passenger.CreatePassenger;
+using EngineeringWork.Web.Application.Passenger.CreatePassenger;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Domain.Passenger
+namespace EngineeringWork.Web.Application.Passenger
 {
     [Authorize]
     public class PassengerController : ApiControllerBase

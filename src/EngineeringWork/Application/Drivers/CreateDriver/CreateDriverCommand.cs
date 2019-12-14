@@ -1,6 +1,6 @@
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.Drivers.CreateDriver
+namespace EngineeringWork.Web.Application.Drivers.CreateDriver
 {
     public class CreateDriverCommand : AuthCommandBase
     {

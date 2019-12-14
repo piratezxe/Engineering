@@ -1,7 +1,7 @@
 
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Accounts.RefreshAcessToken
+namespace EngineeringWork.Web.Application.Accounts.RefreshAcessToken
 {
     public class RefreshAcessTokenCommand : IRequest  
     {

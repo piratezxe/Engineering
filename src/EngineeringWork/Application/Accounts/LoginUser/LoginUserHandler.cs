@@ -7,7 +7,7 @@ using EngineeringWork.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace EngineeringWork.Web.Domain.Accounts.LoginUser
+namespace EngineeringWork.Web.Application.Accounts.LoginUser
 {
     public class LoginUserHandler :  IRequestHandler<LoginUserCommand>
     {

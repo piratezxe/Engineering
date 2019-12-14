@@ -1,7 +1,7 @@
 using System;
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.RemoveDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.RemoveDailyRoute
 {
     public class RemoveDailyRouteCommand : AuthCommandBase
     {

@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Passenger.GetPassenger
+namespace EngineeringWork.Web.Application.Passenger.GetPassenger
 {
     public class GetPassengerByIdQuery : IRequest<Core.Domain.Passenger>
     {

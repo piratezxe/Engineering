@@ -1,12 +1,11 @@
 using System.Net;
 using System.Threading.Tasks;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Domain.Users.GetUsers;
+using EngineeringWork.Web.Application.Users.GetUsers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Domain.Users
+namespace EngineeringWork.Web.Application.Users
 {
     public class UsersController : ApiControllerBase
     {

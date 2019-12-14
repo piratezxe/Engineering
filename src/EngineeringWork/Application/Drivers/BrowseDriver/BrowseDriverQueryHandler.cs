@@ -7,7 +7,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Drivers.BrowseDriver
+namespace EngineeringWork.Web.Application.Drivers.BrowseDriver
 {
     public class BrowseDriverQueryHandler : IRequestHandler<BrowseDriverQuery, IEnumerable<DriverDto>>
     {

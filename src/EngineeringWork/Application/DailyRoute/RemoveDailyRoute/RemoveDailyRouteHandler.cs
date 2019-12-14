@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.RemoveDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.RemoveDailyRoute
 {
     public class RemoveDailyRouteHandler :  IRequestHandler<RemoveDailyRouteCommand>
     {

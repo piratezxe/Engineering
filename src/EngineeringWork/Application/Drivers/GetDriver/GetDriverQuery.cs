@@ -2,7 +2,7 @@ using System;
 using EngineeringWork.Core.DTO;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Drivers.GetDriver
+namespace EngineeringWork.Web.Application.Drivers.GetDriver
 {
     public class GetDriverQuery : IRequest<DriverDto>
     {

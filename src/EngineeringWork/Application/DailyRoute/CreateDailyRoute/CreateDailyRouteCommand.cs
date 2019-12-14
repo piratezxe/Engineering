@@ -1,8 +1,8 @@
 using System;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Web.Domain.Auth;
+using EngineeringWork.Web.Application.Auth;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.CreateDailyRoute
+namespace EngineeringWork.Web.Application.DailyRoute.CreateDailyRoute
 {
     public class CreateDailyRouteCommand : AuthCommandBase
     {

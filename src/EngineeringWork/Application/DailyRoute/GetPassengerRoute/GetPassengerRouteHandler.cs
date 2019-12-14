@@ -7,7 +7,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.DailyRoute.GetPassengerRoute
+namespace EngineeringWork.Web.Application.DailyRoute.GetPassengerRoute
 {
     public class GetPassengerRouteHandler : IRequestHandler<GetPassengerRouteQuery, IEnumerable<DailyRouteDto>>
     {
@@ -23,8 +23,9 @@ namespace EngineeringWork.Web.Domain.DailyRoute.GetPassengerRoute
 
         public async Task<IEnumerable<DailyRouteDto>> Handle(GetPassengerRouteQuery request, CancellationToken cancellationToken)
         {
-            var dailyRoute =  await _routeRepository.BrowseAsync(x => x.PassengerBookings.All(k => k.Passenger.Id == request.UserId));
-            return _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);        
+            //var dailyRoute =  await _routeRepository.BrowseAsync(x => x.PassengerBookings.All(k => k.Passenger.Id == request.UserId));
+            //return _mapper.Map<IEnumerable<Core.Domain.DailyRoute>, IEnumerable<DailyRouteDto>>(dailyRoute);    
+            throw new System.Exception();
         }
     }
 }

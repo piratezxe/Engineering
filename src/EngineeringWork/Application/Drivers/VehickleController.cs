@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Domain.Drivers.SetDriverVehickle;
+using EngineeringWork.Web.Application.Drivers.SetDriverVehickle;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngineeringWork.Web.Domain.Drivers
+namespace EngineeringWork.Web.Application.Drivers
 {
     public class VehickleController : ApiControllerBase
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Passenger.GetPassenger
+namespace EngineeringWork.Web.Application.Passenger.GetPassenger
 {
     public class GetPassengerHandler : IRequestHandler<GetPassengerByIdQuery, Core.Domain.Passenger>
     {

@@ -6,7 +6,7 @@ using EngineeringWork.Core.DTO;
 using EngineeringWork.Core.Interface.Repositories;
 using MediatR;
 
-namespace EngineeringWork.Web.Domain.Users.GetUser
+namespace EngineeringWork.Web.Application.Users.GetUser
 {
     public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
     {
