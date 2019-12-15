@@ -44,13 +44,13 @@ namespace EngineeringWork.Web
             services.AddAuthentication();
             services.AddMemoryCache();
             services.InitialCors();
-            services.AddMvc();
             services.AddSwaggerToService();
             services.AddOdataExtensions();
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddDatabaseService(Configuration);
             services.AddTransient<ISeedData, SeedData>();
-                
+            services.AddMvc();
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
@@ -75,6 +75,7 @@ namespace EngineeringWork.Web
             app.UseAuthentication();
             app.AddSwaggerToApp();
             app.InitialCors();
+            app.UseMvc();
             app.AddOdataExtensions();
             app.ApplicationServices.GetService<ISeedData>().Init();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());

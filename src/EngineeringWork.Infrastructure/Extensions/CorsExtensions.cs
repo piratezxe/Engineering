@@ -7,21 +7,19 @@ namespace EngineeringWork.Infrastructure.Extensions
     {
         public static void InitialCors(this IApplicationBuilder app)
         {
-            //before add.mvc
-            app.UseCors("AllowAll");
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+
+                .AllowAnyMethod()
+
+                .AllowAnyHeader()
+
+                .AllowCredentials());
         }
 
         public static void InitialCors(this IServiceCollection service)
         {
-            service.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll",
-                    builder => builder
-                    .WithOrigins("http://localhost:8080")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
-            });
+            service.AddCors();
         }
     }
 }
