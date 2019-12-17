@@ -1,8 +1,0 @@
-namespace EngineeringWork.Core.Interface.Services.Password
-{
-    public interface IPasswordService : IService
-    {
-        bool VerifedPasswordHash(string hash, string password);
-        string HashPassword(string value);
-    }
-}
