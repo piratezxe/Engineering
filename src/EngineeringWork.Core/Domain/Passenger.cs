@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EngineeringWork.Core.Domain
 {
@@ -7,18 +8,18 @@ namespace EngineeringWork.Core.Domain
     {
         public Guid Id { get; protected set; }
         public Guid UserId { get; protected set; }
-        public Adress Address { get; protected set; }
-
-        public Passenger(Guid userId, Adress adress)
+        public Address Address { get; protected set; }
+        
+        public Passenger(Guid userId, Address address)
         {
             Id = userId;
             UserId = userId;
-            Address = adress;
+            Address = address;
         }
 
-        protected Passenger()
+        private Passenger()
         {
-            
+
         }
     }
 }

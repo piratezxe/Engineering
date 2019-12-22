@@ -7,10 +7,10 @@ namespace EngineeringWork.Core.DTO
     public class DailyRouteDto
     {
         public Guid Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime StartDate { get; set; }
         public RouteDto Route { get;  set; }
         public IEnumerable<PassengerBookingDto> PassengerBookings { get; set; }
-        public int FreeSeats { get; private set; }
-
+        public int FreeSeats { get; set; }
+     
     }
 }

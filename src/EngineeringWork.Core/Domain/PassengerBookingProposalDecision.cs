@@ -1,21 +1,18 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using EngineeringWork.Core.DTO;
 
 namespace EngineeringWork.Core.Domain
 {
     public class PassengerBookingProposalDecision
     {
-        [Key]
-        public Guid Id { get; private set; }
-        public Guid UserId { get;  }
-        public PropsalStatus PropsalStatus { get; }
-        public DateTime DateTime { get; }
-        public string RejectReason { get; }
+        public ProposalStatus ProposalStatus { get; private set; }
+        public DateTime DateTime { get; set; }
+        public string RejectReason { get; set; }
 
-        private PassengerBookingProposalDecision(Guid userId, PropsalStatus status, string rejectReason, DateTime dateTime)
+        private PassengerBookingProposalDecision(ProposalStatus proposalStatus, string rejectReason, DateTime dateTime)
         {
-            UserId = userId;
-            PropsalStatus = PropsalStatus;
+            ProposalStatus = proposalStatus;
             RejectReason = rejectReason;
             DateTime = dateTime;
         }
@@ -24,21 +21,19 @@ namespace EngineeringWork.Core.Domain
         {
         }     
         
-        public static PassengerBookingProposalDecision RejectDecision(Guid userId, string rejectReason, DateTime dateTime)
+        public static PassengerBookingProposalDecision RejectDecision(string rejectReason, DateTime dateTime)
         {
-            return new PassengerBookingProposalDecision(userId, PropsalStatus.Acepted,  rejectReason, dateTime);
+            return new PassengerBookingProposalDecision(ProposalStatus.Rejected,  rejectReason, dateTime);
+        }
+        
+        public static PassengerBookingProposalDecision AcceptDecision(DateTime dateTime)
+        {
+            return new PassengerBookingProposalDecision(ProposalStatus.Accepted, null, dateTime);
         }
 
-        public static PassengerBookingProposalDecision AcceptDecision(Guid userId, DateTime dateTime)
+        public static PassengerBookingProposalDecision CreateToVerification(DateTime dateTime)
         {
-            return new PassengerBookingProposalDecision(userId, PropsalStatus.Rejcted, null, dateTime);
+            return new PassengerBookingProposalDecision(ProposalStatus.ToVerify, null, dateTime );
         }
-    }
-
-    public enum PropsalStatus
-    {
-        Acepted, 
-        Rejcted,
-        ToVerify
     }
 }

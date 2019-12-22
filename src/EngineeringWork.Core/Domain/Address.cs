@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace EngineeringWork.Core.Domain
 {
-    public class Adress : ValueObject
+    public class Address : ValueObject
     {
-        public Adress(string city, string zipCode, string street)
+        public Address(string city, string zipCode, string street)
         {
             City = city;
             ZipCode = zipCode;
@@ -13,7 +13,7 @@ namespace EngineeringWork.Core.Domain
             Id = Guid.NewGuid();
         }
 
-        private Adress()
+        private Address()
         {
         }
         

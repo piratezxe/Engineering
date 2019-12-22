@@ -5,15 +5,20 @@ namespace EngineeringWork.Core.Domain
     public class PassengerBookingProposal
     {
         public Guid Id { get; private set; }
-        public Guid UserPropsalId { get; private set; }
-        public DateTime CreateTime { get; private set; }  
+        public Guid UserProposalId { get; private set; }
+        public Guid DailyRouteId { get; private set; }
+        public DateTime CreateTime { get; private set; }
+        public int SeatsQuantity { get; private set; }
         public PassengerBookingProposalDecision PassengerBookingProposalDecision { get; private set; }
-        
-        private PassengerBookingProposal(DateTime createTime, Guid id, Guid userPropsalId)
+
+        private PassengerBookingProposal(DateTime createTime, Guid id, Guid userProposalId, Guid dailyRouteId,
+            int seatsQuantity)
         {
             CreateTime = createTime;
             Id = id;
-            UserPropsalId = userPropsalId;
+            UserProposalId = userProposalId;
+            DailyRouteId = dailyRouteId;
+            SeatsQuantity = seatsQuantity;
         }
 
         //defined for entity framework
@@ -21,19 +26,27 @@ namespace EngineeringWork.Core.Domain
         {
         }
 
-        public static PassengerBookingProposal CreateToVerify(Guid id, DateTime createTime, Guid userPropsalId)
-            => new PassengerBookingProposal(createTime, id, userPropsalId);
-
-        public void Accept(Guid userId)
+        public static PassengerBookingProposal CreateToVerify(Guid id, DateTime createTime, Guid userProposalId,
+            Guid dailyRouteId, int seatsQuantity)
         {
-            //check rule
-            PassengerBookingProposalDecision = PassengerBookingProposalDecision.AcceptDecision(userId, DateTime.UtcNow);
+            return new PassengerBookingProposal(createTime, id, userProposalId, dailyRouteId, seatsQuantity);
         }
 
-        public void Rejected(Guid userId, string rejectedReason)
+        public void Verify()
+        {
+            PassengerBookingProposalDecision = PassengerBookingProposalDecision.CreateToVerification(DateTime.UtcNow);
+        }
+
+        public void Accept()
         {
             //check rule
-            PassengerBookingProposalDecision = PassengerBookingProposalDecision.RejectDecision(userId, rejectedReason, DateTime.UtcNow);
+            PassengerBookingProposalDecision = PassengerBookingProposalDecision.AcceptDecision(DateTime.UtcNow);
+        }
+
+        public void Rejected(string rejectedReason)
+        {
+            //check rule
+            PassengerBookingProposalDecision = PassengerBookingProposalDecision.RejectDecision(rejectedReason, DateTime.UtcNow);
         }
     }
 }

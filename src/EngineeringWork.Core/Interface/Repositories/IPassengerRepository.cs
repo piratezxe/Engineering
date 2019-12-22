@@ -1,12 +1,15 @@
 using System;
 using System.Threading.Tasks;
+using EngineeringWork.Core.Domain;
 
 namespace EngineeringWork.Core.Interface.Repositories
 {
     public interface IPassengerRepository : IRepository
     {
-        Task CreatePassenger(Domain.Passenger passenger);
+        Task CreatePassenger(Passenger passenger);
 
-        Task<Domain.Passenger> GetAsync(Guid passengerId);
+        Task<Passenger> GetAsync(Guid passengerId);
+
+        Task UpdateAsync(Passenger passenger);
     }
 }

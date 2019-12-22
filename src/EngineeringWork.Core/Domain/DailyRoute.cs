@@ -2,75 +2,83 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace EngineeringWork.Core.Domain
 {
     public class DailyRoute
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
         public Guid DriverId { get; set; }
         public DateTime CrateDate { get; protected set; }
-        public DateTime BeginingDate { get; protected set; }
-        
-        private ISet<PassengerBooking> _passengerBooking = new HashSet<PassengerBooking>();
+        public DateTime StartDate { get; protected set; }
         public Route Route { get; protected set; }
         public int FreeSeats { get; private set; }
         public MoneyValue MoneyValue { get; private set; } 
+        
+        private IList<PassengerBookingProposal> _passengerBookings = new List<PassengerBookingProposal>();
 
-        public virtual ICollection<PassengerBooking> PassengerBookings 
-        {
-            get => _passengerBooking;
-            set => new HashSet<PassengerBooking>(value);
-        } 
+        public IEnumerable<PassengerBookingProposal> PassengerBookings => _passengerBookings;
 
         protected DailyRoute()
         {
         }
+
+        public void AddPassengerBookingProposal(DateTime createTime, Guid proposalId, Guid userProposalId, int seats)
+        {
+            if (_passengerBookings.Any(x => x.Id == proposalId))
+            {
+                throw new ArgumentException($"Proposal with id {proposalId} actual exist in dailyRoute");
+            }
+
+            var proposal = PassengerBookingProposal.CreateToVerify(proposalId, createTime, userProposalId, Id, seats);
+            proposal.Verify();
+            
+            _passengerBookings.Add(proposal);
+        }
+
+        public void AcceptedPassengerBookingProposal(Guid bookingProposal)
+        {
+            var passengerBookingProposal = GetOrFailPassengerBookingProposal(bookingProposal);
+            
+            if (FreeSeats < passengerBookingProposal.SeatsQuantity)
+            {
+                throw new ArgumentException($"Daily route have only {FreeSeats} seats");
+            }
+
+            passengerBookingProposal.Accept();
+            FreeSeats -= passengerBookingProposal.SeatsQuantity;
+        }
         
-        protected DailyRoute(DateTime createDate, DateTime beginingDate,  Route route, Guid id, int freeSeats, MoneyValue moneyValue)
+        public void RejectedPassengerBookingProposal(string rejectedReason, Guid bookingProposal)
+        {
+            var passengerBookingProposal = GetOrFailPassengerBookingProposal(bookingProposal);
+            passengerBookingProposal.Rejected(rejectedReason);
+        }
+
+        private DailyRoute(DateTime createDate, DateTime startDate,  Route route, Guid id, int freeSeats, MoneyValue moneyValue)
         {
             Id = id;
             Route = route;
             CrateDate = createDate;
-            BeginingDate = beginingDate;
+            StartDate = startDate;
             FreeSeats = freeSeats;
             MoneyValue = moneyValue;
         }
 
-        public void AddPassengerBooking(Passenger passenger, Booking booking)
+        public static DailyRoute CreateDailyRoute(DateTime createDate,DateTime startDate,  Route route, Guid id, int freeSeats, MoneyValue moneyValue)
+            => new DailyRoute(createDate, startDate,  route,  id, freeSeats, moneyValue);
+
+        private PassengerBookingProposal GetOrFailPassengerBookingProposal(Guid proposalId)
         {
-            var passengerBooking = GetPassengerBooking(passenger);
-            if(passengerBooking != null)
+            var passengerBookingProposal = _passengerBookings.SingleOrDefault(x => x.Id == proposalId);
+            if (passengerBookingProposal == null)
             {
-                throw new InvalidOperationException($"Passeger: '{passenger.UserId}' already exist in route");
+                throw new ArgumentException($"Passenger booking with id: {proposalId} not exist");
             }
-            if (FreeSeats > 0)
-            {
-                _passengerBooking.Add(PassengerBooking.Create(passenger, booking));
-                FreeSeats--;
-            }
-            else
-            {
-                throw new ArgumentException("No empty seats");
-            }
+
+            return passengerBookingProposal;
         }
-
-        public void RemovePassengerBooking(Passenger passenger)
-        {
-            var passengerBooking = GetPassengerBooking(passenger);
-            if(passengerBooking is null)
-            {
-                return;
-            }
-            _passengerBooking.Remove(passengerBooking);
-            FreeSeats++;
-        } 
-
-        private PassengerBooking GetPassengerBooking(Passenger passenger)
-            => _passengerBooking.SingleOrDefault(x => x.Passenger.Id == passenger.Id);
-
-        public static DailyRoute CreateDailyRoute(DateTime createDate,DateTime beginingDate,  Route route, Guid Id, int FreeSeats, MoneyValue moneyValue)
-            => new DailyRoute(createDate, beginingDate,  route,  Id, FreeSeats, moneyValue);
     }
 }

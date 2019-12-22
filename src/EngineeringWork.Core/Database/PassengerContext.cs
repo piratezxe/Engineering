@@ -15,10 +15,15 @@ namespace EngineeringWork.Core.Database
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<DailyRoute> DailyRoutes { get; set; }
+        public DbSet<PassengerBookingProposal> PassengerBookingProposals { get; set; }
+        
+        public DbSet<PassengerBooking> PassengerBookings { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           modelBuilder.ApplyConfiguration(new PassengerBookingEntityTypeConfiguration());
-           modelBuilder.ApplyConfiguration(new DailyRouteEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new DailyRouteEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PassengerBookingProposalEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PassengerBookingProposalDecisionEntityTypeConfiguration());
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace EngineeringWork.Core.Domain
 {
@@ -9,8 +10,11 @@ namespace EngineeringWork.Core.Domain
     {
         [Key]
         public Guid DriverId { get; protected set; }
+        public string PhoneNumber { get; private set; }
         public Vehicle Vehicle { get; protected set; }
+        
         private ISet<DailyRoute> _dailyRoutes = new HashSet<DailyRoute>();
+        
         public virtual ICollection<DailyRoute> DailyRoutes
         {
             get => _dailyRoutes;
@@ -20,25 +24,39 @@ namespace EngineeringWork.Core.Domain
 
         public DateTime UpdatedAt { get; private set; }
 
-        protected Driver() 
+        protected Driver()
         {
         }
 
-        public Driver (Guid userid)
+        public Driver (Guid userid, string phoneNumber)
         {
             DriverId = userid;
+            SetPhoneNumber(phoneNumber);
         }
 
-        public void AddDailyRoute(Guid Id, Node start, Node end, DateTime createDate, DateTime beginingDate, int FreeSeats, MoneyValue moneyValue)
+        public void SetPhoneNumber(string phoneNumber)
         {
-            var route = _dailyRoutes.SingleOrDefault(x => x.BeginingDate.Date == beginingDate.Date);
+            if (phoneNumber.Equals(PhoneNumber))
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                throw new ArgumentException($"Phone number cannot be empty");
+            }
+            PhoneNumber = phoneNumber;
+        }
+        
+        public void AddDailyRoute(Guid id, Node start, Node end, DateTime createDate, DateTime startDate, int freeSeats, MoneyValue moneyValue)
+        {
+            var route = _dailyRoutes.SingleOrDefault(x => x.Id == id);
             if (route != null)
-                throw new ArgumentException("Daily route at this time actual exist");
+                throw new ArgumentException($"Daily route with id: {id} actual exist");
 
-            if (FreeSeats < 1 || FreeSeats >= Vehicle.Seats)
-                throw new ArgumentException($"You have only {FreeSeats} ");
+            if (freeSeats < 1 || freeSeats >= Vehicle.Seats)
+                throw new ArgumentException($"Your vehicle have only {freeSeats} ");
 
-            var dailyRoute = DailyRoute.CreateDailyRoute(createDate, beginingDate, Route.Create(start, end), Id, FreeSeats, moneyValue);
+            var dailyRoute = DailyRoute.CreateDailyRoute(createDate, startDate, Route.Create(start, end), id, freeSeats, moneyValue);
             _dailyRoutes.Add(dailyRoute);
             UpdatedAt = DateTime.UtcNow;
         }
@@ -53,7 +71,7 @@ namespace EngineeringWork.Core.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetVehickle(Vehicle vehicle)
+        public void SetVehicle(Vehicle vehicle)
         {
             Vehicle = vehicle;
         }
