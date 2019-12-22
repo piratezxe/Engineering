@@ -9,7 +9,7 @@ branches:
    - develop
  
 before_script:
- - dotnet restore
+ -  dotnet restore .\EngineeringWork.sln
  
 script:
  - dotnet build .\src\EngineeringWork\EngineeringWork.sln
