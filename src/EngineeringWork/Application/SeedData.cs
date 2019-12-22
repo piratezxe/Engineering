@@ -1,18 +1,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EngineeringWork.Core.Database;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Web.Application.DailyRoute.AddPassengerToRoute;
 using EngineeringWork.Web.Application.DailyRoute.CreateDailyRoute;
 using EngineeringWork.Web.Application.Drivers.CreateDriver;
 using EngineeringWork.Web.Application.Drivers.SetDriverVehickle;
 using EngineeringWork.Web.Application.Passenger.CreatePassenger;
+using EngineeringWork.Web.Application.PassengerBookingProposal.CreatePassengerBookingProposal;
 using EngineeringWork.Web.Application.Users.CreateUser;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace EngineeringWork.Web.Application
@@ -58,10 +55,8 @@ namespace EngineeringWork.Web.Application
                 });
                 _logger.LogTrace($"User with email: {email} and password {password} created async");
 
-                await _mediator.Send(new CreateDriverCommand()
-                {
-                    UserId = userId
-                });
+                await _mediator.Send(new CreateDriverCommand("123123123") {UserId = userId});
+                
                 _logger.LogTrace($"Driver with {userId} created async");
 
                 await _mediator.Send(new SetVehickleCommand()
@@ -95,23 +90,15 @@ namespace EngineeringWork.Web.Application
                     StartLongitude = 54.36286,
                     EndLatitude = 21.23400,
                     EndLongitude = 18.60375,
-                    StartTime = routeStartTime,
-                    moneyValue = new MoneyValue(12, "PLN"),
-                    BeginingTime = DateTime.Now,
+                    StartDateTime = routeStartTime,
+                    MoneyValue = new MoneyValue(12, "PLN"),
+                    CreateDateTime = DateTime.Now,
                     FreeSeats = 4,
                     RouteId = routeId
                 });
                 _logger.LogTrace($"Route start in {routeStartTime} created async");
 
-                await _mediator.Send(new AddPassengerToRouteCommand()
-                {
-                    Latitude = 52,
-                    Longitude = 54,
-                    RouteId = routeId,
-                    UserId = userId
-                });
-                _logger.LogTrace($"Passenger with {userId} are saved to route {routeId}");
-
+                await _mediator.Send(new CreatePassengerBookingProposalCommand(routeId, 4, userId));
             }
             _logger.LogTrace("Data was initialized.");
         }

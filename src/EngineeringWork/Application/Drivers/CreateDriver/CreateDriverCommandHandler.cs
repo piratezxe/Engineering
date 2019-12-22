@@ -26,7 +26,7 @@ namespace EngineeringWork.Web.Application.Drivers.CreateDriver
             if (driver != null)
                 throw new ArgumentException($"Driver with Id: {request.UserId} actual exist");
 
-            var _driver = new Driver(request.UserId);
+            var _driver = new Driver(request.UserId, request.PhoneNumber);
             await _driverRepository.AddAsync(_driver);
             return Unit.Value;
         }

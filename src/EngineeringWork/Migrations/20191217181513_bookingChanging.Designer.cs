@@ -4,14 +4,16 @@ using EngineeringWork.Core.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EngineeringWork.Web.Migrations
 {
     [DbContext(typeof(PassengerContext))]
-    partial class PassengerContextModelSnapshot : ModelSnapshot
+    [Migration("20191217181513_bookingChanging")]
+    partial class bookingChanging
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace EngineeringWork.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.Address", b =>
+            modelBuilder.Entity("EngineeringWork.Core.Domain.Adress", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -32,13 +34,15 @@ namespace EngineeringWork.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Adress");
                 });
 
             modelBuilder.Entity("EngineeringWork.Core.Domain.DailyRoute", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("BeginingDate");
 
                     b.Property<DateTime>("CrateDate");
 
@@ -47,8 +51,6 @@ namespace EngineeringWork.Web.Migrations
                     b.Property<int>("FreeSeats");
 
                     b.Property<Guid?>("RouteId");
-
-                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
@@ -116,23 +118,17 @@ namespace EngineeringWork.Web.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("DailyRouteId");
+
                     b.Property<string>("DriverPhoneNumber");
-
-                    b.Property<string>("FromPlace");
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<Guid>("PassengerBookingProposalId");
 
-                    b.Property<string>("PassengerName");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<string>("ToPlace");
-
                     b.HasKey("Id");
 
-                    b.ToTable("PassengerBookings");
+                    b.HasIndex("DailyRouteId");
+
+                    b.ToTable("PassengerBooking");
                 });
 
             modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerBookingProposal", b =>
@@ -144,15 +140,27 @@ namespace EngineeringWork.Web.Migrations
 
                     b.Property<Guid>("DailyRouteId");
 
+                    b.Property<Guid?>("PassengerBookingProposalDecisionId");
+
                     b.Property<int>("SeatsQuantity");
 
                     b.Property<Guid>("UserProposalId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DailyRouteId");
+                    b.HasIndex("PassengerBookingProposalDecisionId");
 
                     b.ToTable("PassengerBookingProposals");
+                });
+
+            modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerBookingProposalDecision", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PassengerBookingProposalDecision");
                 });
 
             modelBuilder.Entity("EngineeringWork.Core.Domain.RefreshToken", b =>
@@ -264,38 +272,23 @@ namespace EngineeringWork.Web.Migrations
 
             modelBuilder.Entity("EngineeringWork.Core.Domain.Passenger", b =>
                 {
-                    b.HasOne("EngineeringWork.Core.Domain.Address", "Address")
+                    b.HasOne("EngineeringWork.Core.Domain.Adress", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
                 });
 
-            modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerBookingProposal", b =>
+            modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerBooking", b =>
                 {
                     b.HasOne("EngineeringWork.Core.Domain.DailyRoute")
                         .WithMany("PassengerBookings")
-                        .HasForeignKey("DailyRouteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DailyRouteId");
+                });
 
-                    b.OwnsOne("EngineeringWork.Core.Domain.PassengerBookingProposalDecision", "PassengerBookingProposalDecision", b1 =>
-                        {
-                            b1.Property<Guid>("PassengerBookingProposalId");
-
-                            b1.Property<DateTime>("DateTime");
-
-                            b1.Property<string>("ProposalStatus")
-                                .IsRequired();
-
-                            b1.Property<string>("RejectReason");
-
-                            b1.HasKey("PassengerBookingProposalId");
-
-                            b1.ToTable("PassengerBookingProposals");
-
-                            b1.HasOne("EngineeringWork.Core.Domain.PassengerBookingProposal")
-                                .WithOne("PassengerBookingProposalDecision")
-                                .HasForeignKey("EngineeringWork.Core.Domain.PassengerBookingProposalDecision", "PassengerBookingProposalId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
+            modelBuilder.Entity("EngineeringWork.Core.Domain.PassengerBookingProposal", b =>
+                {
+                    b.HasOne("EngineeringWork.Core.Domain.PassengerBookingProposalDecision", "PassengerBookingProposalDecision")
+                        .WithMany()
+                        .HasForeignKey("PassengerBookingProposalDecisionId");
                 });
 
             modelBuilder.Entity("EngineeringWork.Core.Domain.Route", b =>

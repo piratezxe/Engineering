@@ -32,8 +32,8 @@ namespace EngineeringWork.Infrastructure.Extensions
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
             builder.EntitySet<DailyRoute>(nameof(DailyRoute));
             builder.EntitySet<Route>(nameof(Route));
+            builder.EntitySet<PassengerBookingProposal>(nameof(PassengerBookingProposal));
             builder.EntitySet<PassengerBooking>(nameof(PassengerBooking));
-            builder.EntitySet<Booking>(nameof(Booking));
 
             app.UseMvc(routeBuilder =>
             {

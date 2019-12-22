@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\src\EngineeringWork\EngineeringWork.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PassengerBookingProposalTest" />
+  </ItemGroup>
+
 </Project>

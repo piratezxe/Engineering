@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.Password;
+using EngineeringWork.Infrastructure.Extensions.RepositoryExtensions;
 using MediatR;
 
 namespace EngineeringWork.Web.Application.Users.CreateUser
@@ -22,11 +23,7 @@ namespace EngineeringWork.Web.Application.Users.CreateUser
 
         public async Task<Unit> Handle(CreateUserCommand notification, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetAsyncByEmail(notification.Email);
-            if(user != null)
-            {
-                throw new Exception($"User with email: '{notification.Email}' already exists.");
-            }
+            var user = await _userRepository.GetOrFailAsync(notification.Email);
 
             var hash = _passwordService.HashPassword(notification.Password);
             user = new User(notification.UserId, notification.Email, notification.Username , "user", hash);

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.Password;
+using EngineeringWork.Infrastructure.Extensions.RepositoryExtensions;
 using MediatR;
 
 namespace EngineeringWork.Web.Application.Users.ChangeUserPassword
@@ -19,9 +20,7 @@ namespace EngineeringWork.Web.Application.Users.ChangeUserPassword
 
         public async Task<Unit> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetAsync(request.UserId);
-            if (user is null)
-                throw new ArgumentException($"User with Id: {request.UserId} not exist");
+            var user = await _userRepository.GetOrFailAsync(request.UserId);
 
             var hash = _passwordService.HashPassword(request.CurrentPassword);
             user.SetPassword(hash);

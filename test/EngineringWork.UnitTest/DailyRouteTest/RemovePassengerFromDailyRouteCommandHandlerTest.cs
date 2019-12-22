@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
 using EngineeringWork.Core.Interface.Repositories;
 using EngineeringWork.Core.Interface.Services.NodeService;
-using EngineeringWork.Web.Application.DailyRoute.RemovePassengerFromRoute;
+using EngineeringWork.Web.Application.DailyRoute.RemoveDailyRoute;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -14,11 +14,10 @@ namespace EngineringWork.UnitTest.DailyRouteTest
     public class RemovePassengerFromDailyRouteCommandHandlerTest
     {
         [Fact]
-        public async Task when_invoke_remove_passenger_from_daily_route_handler_should_not_be_null()
+        public async Task when_remove_daily_route_command_handler_should_not_be_null()
         {
             var dailyRouteRepositoryMock = new Mock<IDailyRouteRepository>();
-            var passengerRepositoryMock = new Mock<IPassengerRepository>();
-
+            
             var startNode = Node.Create("asdas", 21, 22);
             var endNode = Node.Create("asdas", 21, 22);
 
@@ -26,21 +25,30 @@ namespace EngineringWork.UnitTest.DailyRouteTest
             var moneyValue = new MoneyValue(13, "Pln");
             
             var dailyRoute =  DailyRoute.CreateDailyRoute(DateTime.UtcNow, DateTime.UtcNow, route, Guid.NewGuid(), 5, moneyValue);
-            dailyRouteRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>())).ReturnsAsync(dailyRoute);
             
-            var passenger = new Passenger(Guid.Empty, new Adress("", "", ""));
-            passengerRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>())).ReturnsAsync(passenger);
+            dailyRouteRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(dailyRoute);
+
+            var command = new RemoveDailyRouteCommand() { RouteId = Guid.NewGuid(), UserId = Guid.NewGuid()};
+
+            var handler = new RemoveDailyRouteCommandHandler(dailyRouteRepositoryMock.Object);
             
-            var nodeManagerMock = new Mock<INodeManager>();
-
-            var removePassengerFromRouteHandler =
-                new RemovePassengerFromRouteCommandHandler(passengerRepositoryMock.Object,
-                    dailyRouteRepositoryMock.Object, nodeManagerMock.Object);
-
-            var command = new RemovePassengerFromRouteCommand() { RouteId = Guid.NewGuid(), UserId = Guid.NewGuid() };
-            var result = await removePassengerFromRouteHandler.Handle(command, CancellationToken.None);
-
+            var result = await handler.Handle(command, CancellationToken.None);
+            
             result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task when_remove_daily_route_and_daily_route_not_exist_should_throw_exception()
+        {
+            var dailyRouteRepository = new Mock<IDailyRouteRepository>();
+            var command = new RemoveDailyRouteCommand() { RouteId = Guid.NewGuid(), UserId = Guid.NewGuid()};
+            
+            var handler = new RemoveDailyRouteCommandHandler(dailyRouteRepository.Object);
+            
+            Func<Task> act = async () => await handler.Handle(command, CancellationToken.None);
+
+            act.Should().Throw<Exception>();            
         }
     }
 }

@@ -20,7 +20,7 @@ namespace EngineringWork.UnitTest.PassengerTest
             var passengerHandler = new CreatePassengerCommandHandler(routeRepositoryMock.Object);
             
             routeRepositoryMock.Setup(x => x.GetAsync(It.IsAny<Guid>()))
-                .ReturnsAsync( new Passenger(Guid.NewGuid(), new Adress("", "", "")));
+                .ReturnsAsync( new Passenger(Guid.NewGuid(), new Address("", "", "")));
             
             var result = await passengerHandler.Handle(new CreatePassengerCommand() { UserId = Guid.NewGuid(), Adress = new CreatePassengerCommand.PassengerAdres()}, CancellationToken.None);
             result.Should().NotBeNull();

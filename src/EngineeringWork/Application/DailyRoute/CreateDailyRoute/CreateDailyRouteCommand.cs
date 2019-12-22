@@ -14,13 +14,13 @@ namespace EngineeringWork.Web.Application.DailyRoute.CreateDailyRoute
         
         public double EndLongitude { get; set; }
         
-        public DateTime StartTime { get; set; }
+        public DateTime StartDateTime { get; set; }
         
-        public DateTime BeginingTime { get; set; }
+        public DateTime CreateDateTime { get; set; }
 
         public int FreeSeats { get; set; }
 
-        public MoneyValue moneyValue { get; set;}
+        public MoneyValue MoneyValue { get; set;}
 
         public Guid RouteId { get; set; }
     }
