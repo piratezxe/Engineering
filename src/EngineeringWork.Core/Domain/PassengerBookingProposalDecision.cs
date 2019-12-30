@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using EngineeringWork.Core.DTO;
 
 namespace EngineeringWork.Core.Domain
 {

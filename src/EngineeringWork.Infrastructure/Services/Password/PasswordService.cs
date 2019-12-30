@@ -1,4 +1,3 @@
-using EngineeringWork.Core.Interface.Services.Password;
 using Microsoft.AspNetCore.Identity;
 
 namespace EngineeringWork.Infrastructure.Services.Password

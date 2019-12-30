@@ -1,11 +1,11 @@
-﻿using EngineeringWork.Core.Database;
-using EngineeringWork.Infrastructure.Settings;
+﻿using EngineeringWork.Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using EngineeringWork.Repository.Database;
 
 namespace EngineeringWork.Infrastructure.Extensions
 {
@@ -20,7 +20,7 @@ namespace EngineeringWork.Infrastructure.Extensions
             services.AddJwtConfiguration(key, issuer);
             services.AddDbContext<PassengerContext>(options =>
             {
-                options.UseSqlServer(database, x => x.MigrationsAssembly("EngineeringWork.Api"));
+                options.UseSqlServer(database, x => x.MigrationsAssembly("EngineeringWork.Repository"));
             });
         }
     }

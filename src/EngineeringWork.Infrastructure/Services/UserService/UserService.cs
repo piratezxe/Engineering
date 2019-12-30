@@ -1,9 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Core.Interface.Services.Password;
-using EngineeringWork.Core.Interface.Services.UserService;
 using EngineeringWork.Infrastructure.Services.Password;
+using EngineeringWork.Repository.Repositories.Interface;
 
 namespace EngineeringWork.Infrastructure.Services.UserService
 {

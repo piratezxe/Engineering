@@ -1,11 +1,9 @@
 using System.Reflection;
 using Autofac;
-using EngineeringWork.Core.Interface.Services;
-using EngineeringWork.Core.Interface.Services.JwtTokenService;
-using EngineeringWork.Core.Interface.Services.NodeService;
-using EngineeringWork.Core.Interface.Services.Password;
+using EngineeringWork.Infrastructure.Services;
 using EngineeringWork.Infrastructure.Services.JwtTokenService;
 using EngineeringWork.Infrastructure.Services.NodeService;
+using EngineeringWork.Infrastructure.Services.Password;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 

@@ -4,14 +4,14 @@ using MediatR;
 
 namespace EngineeringWork.Infrastructure.IoC.Modules
 {
-    public class  MediatRModule : Autofac.Module
+    public class MediatRModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             var assembly = typeof(MediatRModule)
                 .GetTypeInfo()
                 .Assembly;
-
+            
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly).AsImplementedInterfaces();
 
             var openHandlersTypes = new[] { typeof(IRequestHandler<,>), typeof(INotificationHandler<>) };

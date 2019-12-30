@@ -53,5 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineeringWork.Core\EngineeringWork.Core.csproj" />
+    <ProjectReference Include="..\EngineeringWork.Repository\EngineeringWork.Repository.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories" />
   </ItemGroup>
 </Project>

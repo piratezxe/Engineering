@@ -2,13 +2,12 @@ using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EngineeringWork.Core;
-using EngineeringWork.Core.Database;
-using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Infrastructure.ExceptionsModels;
+using EngineeringWork.Infrastructure.Application;
+using EngineeringWork.Infrastructure.Exceptions;
 using EngineeringWork.Infrastructure.Extensions;
 using EngineeringWork.Infrastructure.IoC;
+using EngineeringWork.Infrastructure.Services.SeedData;
 using EngineeringWork.Infrastructure.Settings;
-using EngineeringWork.Web.Application;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,7 +48,6 @@ namespace EngineeringWork.Web
             services.AddOdataExtensions();
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddDatabaseService(Configuration);
-            services.AddTransient<ISeedData, SeedData>();
             services.AddMvc();
 
             return services.RegisterAutofacServices(Configuration);

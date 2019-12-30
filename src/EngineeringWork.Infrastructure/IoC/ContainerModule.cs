@@ -1,6 +1,7 @@
 using Autofac;
 using EngineeringWork.Infrastructure.IoC.Modules;
 using EngineeringWork.Infrastructure.Mappers;
+using EngineeringWork.Repository.IoC.Modules;
 using Microsoft.Extensions.Configuration;
 
 namespace EngineeringWork.Infrastructure.IoC

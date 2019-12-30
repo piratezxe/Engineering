@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EngineeringWork.Core\EngineeringWork.Core.csproj" />
     <ProjectReference Include="..\EngineeringWork.Infrastructure\EngineeringWork.Infrastructure.csproj" />
+    <ProjectReference Include="..\EngineeringWork.Repository\EngineeringWork.Repository.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="netstandard" />
@@ -71,8 +72,5 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="EngineeringWork.UnitTest\packages.config" />
     <_ContentIncludedByDefault Remove="EngineeringWork.FunctionalTest\packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

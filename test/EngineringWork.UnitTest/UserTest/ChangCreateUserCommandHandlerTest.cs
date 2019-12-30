@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Core.Interface.Services.Password;
-using EngineeringWork.Web.Application.Users.ChangeUserPassword;
+using EngineeringWork.Infrastructure.Application.Users.ChangeUserPassword;
+using EngineeringWork.Infrastructure.Services.Password;
+using EngineeringWork.Repository.Repositories.Interface;
 using FluentAssertions;
 using Moq;
 using Xunit;

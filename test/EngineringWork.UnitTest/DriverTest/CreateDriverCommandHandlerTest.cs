@@ -2,13 +2,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EngineeringWork.Core.Domain;
-using EngineeringWork.Core.Interface.Repositories;
-using EngineeringWork.Core.Interface.Services.NodeService;
-using EngineeringWork.Web.Application;
-using EngineeringWork.Web.Application.DailyRoute.GetDailyRoute;
-using EngineeringWork.Web.Application.Drivers.CreateDriver;
+using EngineeringWork.Infrastructure.Application.Drivers.CreateDriver;
+using EngineeringWork.Infrastructure.Services.NodeService;
+using EngineeringWork.Repository.Repositories.Interface;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore.Storage;
 using Moq;
 using Xunit;
 
